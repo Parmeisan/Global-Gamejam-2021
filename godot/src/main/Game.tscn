@@ -95,4 +95,3 @@ layer = 100
 visible = false
 
 [node name="MonsterCollection" parent="." instance=ExtResource( 11 )]
-[connection signal="monster_collection_menu_summoned" from="MonsterCollection" to="." method="_on_MonsterCollection_monster_collection_menu_summoned"]
