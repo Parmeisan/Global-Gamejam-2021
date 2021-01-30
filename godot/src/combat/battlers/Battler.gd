@@ -31,6 +31,13 @@ func _ready() -> void:
 	var direction: Vector2 = Vector2(-1.0, 0.0) if party_member else Vector2(1.0, 0.0)
 	target_global_position = $TargetAnchor.global_position + direction * TARGET_OFFSET_DISTANCE
 	selectable = true
+	
+	
+	#DELETE ALL THIS CRAP LATER
+	if(ai):
+		print("There's an ai")
+	else:
+		print("There's no ai")
 
 
 func initialize():

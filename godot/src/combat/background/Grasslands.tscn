@@ -5,7 +5,6 @@
 [ext_resource path="res://assets/sprites/background/grasslands/reek_1.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/background/grasslands/reek_2.png" type="Texture" id=4]
 
-
 [node name="Grasslands" instance=ExtResource( 1 )]
 
 [node name="Background" parent="." index="0"]
@@ -22,4 +21,3 @@ texture = ExtResource( 3 )
 [node name="Reek2" type="Sprite" parent="ForegroundElements" index="2"]
 position = Vector2( 1860, 940 )
 texture = ExtResource( 4 )
-

@@ -4,8 +4,6 @@
 [ext_resource path="res://assets/sprites/battlers/shadow.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/battlers/godette.png" type="Texture" id=3]
 
-
-
 [node name="GodetteAnim" instance=ExtResource( 1 )]
 
 [node name="shadow" type="Sprite" parent="." index="0"]
@@ -21,4 +19,3 @@ texture = ExtResource( 3 )
 [node name="RectExtents" parent="." index="3"]
 position = Vector2( 3.11111, -108.444 )
 size = Vector2( 165.333, 223.556 )
-

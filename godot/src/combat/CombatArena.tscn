@@ -26,6 +26,11 @@ position = Vector2( 1312, 586 )
 [node name="2" type="Position2D" parent="SpawnPositions/Party"]
 position = Vector2( 1536, 768 )
 
+[node name="3" type="Position2D" parent="SpawnPositions/Party"]
+position = Vector2( 1100, 850 )
+
+[node name="4" type="Position2D" parent="SpawnPositions/Party"]
+
 [node name="TurnQueue" parent="." instance=ExtResource( 2 )]
 z_index = 10
 
@@ -37,6 +42,10 @@ script = ExtResource( 3 )
 [node name="PopUpHandler" parent="CombatInterface" instance=ExtResource( 4 )]
 
 [node name="SelectArrow" parent="CombatInterface" instance=ExtResource( 5 )]
+margin_left = 2.0
+margin_top = 4.0
+margin_right = 2.0
+margin_bottom = 4.0
 MOVE_DURATION = 0.1
 
 [node name="BattlersBarsBuilder" parent="CombatInterface" instance=ExtResource( 6 )]
@@ -51,6 +60,9 @@ anchor_right = 1.0
 margin_bottom = 160.0
 rect_min_size = Vector2( 0, 160 )
 theme = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="Rewards/Panel"]
 anchor_right = 1.0
@@ -60,3 +72,4 @@ align = 1
 valign = 1
 
 [node name="Grasslands" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1.5874, -1.5874 )

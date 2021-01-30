@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/party/PartySlime.gd" type="Script" id=1]
 [ext_resource path="res://src/combat/battlers/Battler.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://src/combat/battlers/actions/Attack.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/combat/battlers/skills/Skills.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/map/pawns/PawnAnim.gd" type="Script" id=8]
+[ext_resource path="res://src/combat/battlers/ai/BattlerAI.gd" type="Script" id=9]
 
 [node name="PartySlime" type="Node2D"]
 script = ExtResource( 1 )
@@ -38,6 +39,16 @@ __meta__ = {
 }
 
 [node name="Skills" parent="Battler" instance=ExtResource( 7 )]
+
+[node name="AI" type="Node" parent="Battler"]
+script = ExtResource( 9 )
+
+[node name="Bars" type="VBoxContainer" parent="Battler"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PawnAnim" type="Position2D" parent="."]
 script = ExtResource( 8 )

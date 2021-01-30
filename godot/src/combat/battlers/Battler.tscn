@@ -71,6 +71,9 @@ margin_right = 100.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 200, 20 )
 rect_pivot_offset = Vector2( 100, 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Skills" parent="." instance=ExtResource( 7 )]
 

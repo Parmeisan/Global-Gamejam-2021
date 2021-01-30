@@ -45,12 +45,14 @@ func add_to_party(target:int ) -> void:
 		return
 	var partySlime: PartySlime = load("res://src/party/PartySlime.tscn").instance()
 	var skin = partySlime.get_node("Battler/Skin")
-	#var skin = partySlime.get_child(0)
-	print(skin.name)
-	var sprite = load("res://src/combat/animation/OrangeSlimeAnim.tscn").instance()
-	skin.add_child(sprite)
+	var anim = load("res://src/combat/animation/OrangeSlimeAnim.tscn").instance()
+	skin.add_child(anim)
+	
+	var temp: BattlerAnim = anim
+	
+	skin.battler_anim = anim
 	var pawn = partySlime.get_node("PawnAnim/Root")
-	pawn.add_child(sprite)
+	pawn.add_child(anim)
 	
 	partySlime.pawn_anim_path = "PawnAnim"
 	partySlime.growth = load("res://src/combat/battlers/jobs/Redjob.tres")
