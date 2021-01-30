@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/party/PartySlime.gd" type="Script" id=1]
 [ext_resource path="res://src/combat/battlers/Battler.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://src/combat/battlers/actions/Attack.gd" type="Script" id=5]
 [ext_resource path="res://src/combat/battlers/actions/Attack.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/combat/battlers/skills/Skills.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/map/pawns/PawnAnim.gd" type="Script" id=8]
 
 [node name="PartySlime" type="Node2D"]
 script = ExtResource( 1 )
@@ -21,19 +22,26 @@ script = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Battler/Skin"]
 
-[node name="Actions" type="Node" parent="."]
+[node name="Actions" type="Node" parent="Battler"]
 script = ExtResource( 3 )
 
-[node name="BattleAction" parent="Actions" instance=ExtResource( 6 )]
+[node name="BattleAction" parent="Battler/Actions" instance=ExtResource( 6 )]
 script = ExtResource( 5 )
 
-[node name="TargetAnchor" type="Position2D" parent="."]
+[node name="TargetAnchor" type="Position2D" parent="Battler"]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="Battler"]
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Skills" parent="." instance=ExtResource( 7 )]
+[node name="Skills" parent="Battler" instance=ExtResource( 7 )]
+
+[node name="PawnAnim" type="Position2D" parent="."]
+script = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PawnAnim"]
+
+[node name="Root" type="Position2D" parent="PawnAnim"]

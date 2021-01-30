@@ -25,11 +25,37 @@ func get_slime(target_pos: int) -> Slime:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_party(0)
+
 	pass # Replace with function body.
 
 func _process(_delta):
 	if(Input.is_action_just_released("ui_select")):
 		emit_signal("monster_collection_menu_summoned")
+
+	return
+
+func add_to_party(target:int ) -> void:
+	print("code 1")
+	var party = get_node("../Party")
+	var active = party.get_active_members()
+	var active_count = active.size()
+	#Don't go over max party size
+	if(active_count >= party.PARTY_SIZE):
+		return
+	var partySlime: PartySlime = load("res://src/party/PartySlime.tscn").instance()
+	var skin = partySlime.get_node("Battler/Skin")
+	#var skin = partySlime.get_child(0)
+	print(skin.name)
+	var sprite = load("res://src/combat/animation/OrangeSlimeAnim.tscn").instance()
+	skin.add_child(sprite)
+	var pawn = partySlime.get_node("PawnAnim/Root")
+	pawn.add_child(sprite)
+	
+	partySlime.pawn_anim_path = "PawnAnim"
+	partySlime.growth = load("res://src/combat/battlers/jobs/Redjob.tres")
+	party.add_child(partySlime)
+	print("code 2")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

@@ -1,6 +1,5 @@
 extends CombatAction
 
-
 func execute(targets):
 	assert(initialized)
 	if actor.party_member and not targets:

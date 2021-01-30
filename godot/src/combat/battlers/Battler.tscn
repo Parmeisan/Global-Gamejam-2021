@@ -10,10 +10,7 @@
 [ext_resource path="res://src/combat/battlers/Drops.gd" type="Script" id=8]
 [ext_resource path="res://src/combat/battlers/ai/BattlerAI.gd" type="Script" id=9]
 
-
-
 [sub_resource type="Animation" id=1]
-
 resource_name = "blink"
 loop = true
 tracks/0/type = "value"
@@ -30,7 +27,6 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=2]
-
 resource_name = "idle"
 length = 0.001
 tracks/0/type = "value"
@@ -83,4 +79,3 @@ script = ExtResource( 8 )
 
 [node name="AI" type="Node" parent="."]
 script = ExtResource( 9 )
-

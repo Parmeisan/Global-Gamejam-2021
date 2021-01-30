@@ -21,3 +21,4 @@ func play_bump():
 
 func get_current_animation_length():
 	return anim.current_animation_length
+".""."

@@ -174,6 +174,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/party/PartyMember.gd"
 }, {
+"base": "PartyMember",
+"class": "PartySlime",
+"language": "GDScript",
+"path": "res://src/party/PartySlime.gd"
+}, {
 "base": "Reference",
 "class": "Pathfinder",
 "language": "GDScript",
@@ -313,6 +318,7 @@ _global_script_class_icons={
 "MonsterCollection": "",
 "Party": "",
 "PartyMember": "",
+"PartySlime": "",
 "Pathfinder": "",
 "Pawn": "",
 "PawnActor": "",
