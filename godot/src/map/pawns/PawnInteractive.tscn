@@ -56,5 +56,3 @@ collision_mask = 2
 [node name="Actions" type="Node" parent="."]
 
 [node name="Tween" type="Tween" parent="."]
-
-[node name="Sprites" type="Node" parent="."]
