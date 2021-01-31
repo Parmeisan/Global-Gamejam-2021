@@ -7,6 +7,7 @@ signal finished
 var title : String = ""
 var text : String = ""
 var expression : String
+var GVars = Data.flags 
 
 var _conversation : Array
 var _index_current : int = 0
@@ -43,18 +44,22 @@ func next():
 			arg_3 = ''
 		if type == 'jump':
 			_index_current = int(arg_1) - 1
-		#if type == 'itemcheck':
-		#	var item = arg_1
-		#	var then = arg_2
-		#	var el = arg_3
-		#	if Gvars[item] == true: 
-		#		_index_current = int(then) - 1
-		#	else:
-		#		_index_current = int(el) - 1
-		#if type == 'raise':
-		#	var item = arg_1
-		#	Gvars[item] = true
-		#	_index_current
+		if type == 'itemcheck':
+			var item = arg_1
+			var then = arg_2
+			var el = arg_3
+			if Gvars[item] == true: 
+				_index_current = int(then) - 1
+			else:
+				_index_current = int(el) - 1
+		if type == 'raise':
+			var item = arg_1
+			Gvars[item] = true
+			_index_current
+		if type == 'lower':
+			var item = arg_1
+			Gvars[item] = false
+			_index_current
 			
 	assert(_index_current <= _conversation.size())
 	_update()
