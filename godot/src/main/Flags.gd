@@ -1,3 +1,3 @@
-var slimes = [false,false,false]
-var artifacts = [false,false,false]
-var monsters = [false,false,false]
+var SLIMES = [false,false,false]
+var ARTIFACTS = [false,false,false]
+var MONSTERS = [false,false,false]
