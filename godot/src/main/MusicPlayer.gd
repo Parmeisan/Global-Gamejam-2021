@@ -7,17 +7,20 @@ const victory_fanfare = preload("res://assets/audio/bgm/victory_fanfare.ogg")
 func play_battle_theme():
 	volume_db = -20
 	stream = battle_theme
+	stop()
 	play()
 
 func play_field_theme():
 	volume_db = -20
 	stream = field_theme
+	stop()
 	play()
-
+	
 var victoryTimer
 func play_victory_fanfare():
 	volume_db = -8
 	stream = victory_fanfare
+	stop()
 	play()
 	# Timer to switch to field theme
 	victoryTimer = Timer.new()
