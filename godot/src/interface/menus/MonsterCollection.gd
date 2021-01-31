@@ -48,7 +48,7 @@ func reload():
 		party.remove_child(party.get_child(3))
 	var game = Util.getParent(self, "Game")
 	for i in range(0, game.party.get_size() - 1):
-		if true:#Data.SLIMES[i] or Data.MONSTERS[i]:
+		if Data.hasSlime(i):#Data.SLIMES[i] or Data.MONSTERS[i]:
 			var t = party.get_node("PartyMember/PartyContainer").duplicate()
 			var member = game.party.get_party_member(i)
 			var img_file = FLAVOURS[i] + "_Slime_128"

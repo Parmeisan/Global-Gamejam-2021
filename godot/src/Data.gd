@@ -143,3 +143,10 @@ const combat_types = [ "LoneRedSlime", "LoneBlueSlime", "LoneGreenSlime", "Three
 var SLIMES = [false,false,false]
 var ARTIFACTS = [false,false,false]
 var MONSTERS = [false,false,false]
+
+func hasFlag(flname, i):
+	var fl = flname + i
+	return flags.fl
+
+func hasSlime(i):
+	return hasFlag("SLIME", i)
