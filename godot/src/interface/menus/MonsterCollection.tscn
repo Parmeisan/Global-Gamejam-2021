@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/interface/menus/MonsterCollection.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/source_code_pro_explanations.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/sprites/battlers/main_portrait_128.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/source_code_pro_explanations_bold.tres" type="DynamicFont" id=4]
 [ext_resource path="res://assets/sprites/icons/ascend_icon.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/icons/merge_icon.png" type="Texture" id=6]
 
 [sub_resource type="Theme" id=1]
 default_font = ExtResource( 4 )
@@ -227,9 +228,36 @@ margin_top = 69.0
 margin_right = 300.0
 margin_bottom = 73.0
 
-[node name="MergeButton" type="TextureButton" parent="Background/Columns/Actions"]
+[node name="AscendButton" type="TextureButton" parent="Background/Columns/Actions"]
 margin_top = 77.0
 margin_right = 300.0
 margin_bottom = 205.0
 texture_normal = ExtResource( 5 )
+
+[node name="AscendLabel" type="Label" parent="Background/Columns/Actions"]
+margin_right = 300.0
+margin_bottom = 65.0
+theme = SubResource( 1 )
+text = " Ascend
+"
+
+[node name="HSeparator2" type="HSeparator" parent="Background/Columns/Actions"]
+margin_top = 69.0
+margin_right = 300.0
+margin_bottom = 73.0
+
+[node name="MergeButton" type="TextureButton" parent="Background/Columns/Actions"]
+visible = false
+margin_top = 77.0
+margin_right = 300.0
+margin_bottom = 205.0
+texture_normal = ExtResource( 6 )
+
+[node name="MergeLabel" type="Label" parent="Background/Columns/Actions"]
+margin_right = 300.0
+margin_bottom = 65.0
+theme = SubResource( 1 )
+text = "  Merge
+"
+[connection signal="button_down" from="Background/Columns/Actions/AscendButton" to="." method="_on_AscendButton_button_down"]
 [connection signal="button_down" from="Background/Columns/Actions/MergeButton" to="." method="_on_MergeButton_button_down"]

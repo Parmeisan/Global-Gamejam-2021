@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 func random_encounter():
 	#print("Chance of encounter: %s%%" % curr_combat_chance)
 	var rnd = rand_range(0.0, 100.0)
-	if rnd < Data.curr_combat_chance:
+	if true:#rnd < Data.curr_combat_chance:
 		var enc_rnd = rand_range(0.0, weight_total)
 		var enc_check = 0.0
 		var enc_type = 0
@@ -55,7 +55,7 @@ func random_encounter():
 		print("Encountered a %s!" % Data.combat_types[enc_type])
 		Data.curr_combat_chance = 0.0
 		var enc = map.get_node("GameBoard/Pawns/" + Data.combat_types[enc_type])
-		#enc.start_interaction()
+		enc.start_interaction()
 	else:
 		if Data.curr_combat_chance < Data.max_combat_chance:
 			Data.curr_combat_chance += Data.combat_chance_inc
