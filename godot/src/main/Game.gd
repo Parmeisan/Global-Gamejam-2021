@@ -30,6 +30,18 @@ func _ready():
 	music_player.play_field_theme()
 	debug.debugMessage(CAT.FILE, "Game load complete")
 
+	# introTimer to clear intro screen
+	introTimer = Timer.new()
+	introTimer.set_wait_time(4)
+	introTimer.connect("timeout", self, "enter_game") 
+	add_child(introTimer)
+	introTimer.start()
+
+var introTimer
+func enter_game():
+	get_node("IntroScreen/TextureRect").visible = false
+	introTimer.stop()
+
 
 func enter_battle(formation: Formation):
 	# Plays the combat transition animation and initializes the combat scene
@@ -103,6 +115,9 @@ func _on_MonsterCollection_monster_collection_menu_summoned():
 	var bg = monster_collection_interface.get_node("Background")
 	monster_collection_interface.reload()
 	bg.visible = !bg.visible
+
+func _on_toggle_encounters():
+	Data.encounters_on = !Data.encounters_on
 
 func _process(_delta):
 	if(Input.is_action_just_released("ui_quicksave")):
