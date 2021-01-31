@@ -54,12 +54,12 @@ func random_encounter():
 	var third_monster = game_node.get_node("Party/Robi6")
 	
 	#for testing puroses, definitely delete these flag sets if you see them:
-	Data.setSlime(0, true)
-	Data.setSlime(1, true)
-	Data.setSlime(2, true)
-	Data.setMonster(0, true)
-	Data.setMonster(1, true)
-	Data.setMonster(2, true)
+	#Data.setSlime(0, true)
+	#Data.setSlime(1, true)
+	#Data.setSlime(2, true)
+	#Data.setMonster(0, true)
+	#Data.setMonster(1, true)
+	#Data.setMonster(2, true)
 	
 	first_slime.visible = Data.hasSlime(0) && !Data.hasMonster(0)
 	second_slime.visible = Data.hasSlime(1) && !Data.hasMonster(1)
