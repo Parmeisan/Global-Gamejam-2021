@@ -48,7 +48,7 @@ func reload():
 		party.remove_child(party.get_child(3))
 	var game = Util.getParent(self, "Game")
 	for i in range(0, game.party.get_size() - 1):
-		if Data.hasSlime(i):#Data.SLIMES[i] or Data.MONSTERS[i]:
+		if Data.hasSlime(i) or Data.hasMonster(i):
 			var t = party.get_node("PartyMember/PartyContainer").duplicate()
 			var member = game.party.get_party_member(i)
 			var img_file = FLAVOURS[i] + "_Slime_128"
@@ -76,8 +76,8 @@ func reload():
 		collection.add_child(t)
 	while artifacts.get_child_count() > 3:
 		artifacts.remove_child(artifacts.get_child(3))
-	for i in range(0, Data.ARTIFACTS.size()):
-		if Data.ARTIFACTS[i]:
+	for i in range(0, 3):
+		if Data.hasArtifact(i):
 			var t = artifacts.get_node("ArtifactMember/ArtifactContainer").duplicate()
 			t.get_child(TEMPLATE.IMG).texture = Data.getTexture(artifact_path, ARTIFACTS[i], artifact_ext)
 			labelCell(t, TEMPLATE.NAME, ARTIFACTS[i])
@@ -91,12 +91,12 @@ func labelCell(t, posn, data):
 	lbl.text = str(data)
 
 func ascend(i):
-	Data.SLIMES[i] = false
-	Data.ARTIFACTS[i] = false
-	Data.MONSTERS[i] = true
+	Data.setSlime(i, false)
+	Data.setArtifact(i, false)
+	Data.setMonster(i, true)
 
 func _on_MergeButton_button_down():
-	for i in range(0, Data.ARTIFACTS.size()):
+	for i in range(0, 3):
 		if Data.hasSlime(i) and Data.hasArtifact(i) and not Data.hasMonster(i):
 			ascend(i)
 			reload()
