@@ -355,6 +355,7 @@ DialogueDatabase="*res://src/dialogue/DialogueDatabase.gd"
 QuestSystem="*res://src/quest/QuestSystem.tscn"
 Util="*res://src/Util.gd"
 Data="*res://src/Data.gd"
+Flags="*res://src/main/Flags.gd"
 
 [debug]
 
