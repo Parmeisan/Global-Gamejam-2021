@@ -132,9 +132,14 @@ func getFileAccessTime(fname):
 	file.open(fname, file.READ)
 	return file.get_modified_time(fname)
 
+var flags = {}
 
 var curr_combat_chance = 0.0
 const max_combat_chance = 15.0
 const combat_chance_inc = 0.75
 const combat_weights = [ 30.0, 25.0, 20.0 ]#, 10.0, 7.5, 5.0 ]
 const combat_types = [ "LoneRedSlime", "LoneBlueSlime", "LoneGreenSlime", "ThreeReds", "OneRedTwoBlues", "OneOfEach" ]
+
+var SLIMES = [false,false,false]
+var ARTIFACTS = [false,false,false]
+var MONSTERS = [false,false,false]
