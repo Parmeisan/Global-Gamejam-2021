@@ -39,6 +39,7 @@ __meta__ = {
 [node name="Party" type="VBoxContainer" parent="Background/Columns"]
 margin_right = 500.0
 margin_bottom = 171.0
+rect_min_size = Vector2( 500, 0 )
 
 [node name="Label" type="Label" parent="Background/Columns/Party"]
 margin_right = 500.0
@@ -86,11 +87,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Level" type="Label" parent="Background/Columns/Party/PartyMember/PartyContainer"]
+margin_right = 40.0
+margin_bottom = 14.0
+
+[node name="XP" type="Label" parent="Background/Columns/Party/PartyMember/PartyContainer"]
+margin_right = 40.0
+margin_bottom = 14.0
+
 [node name="Collection" type="VBoxContainer" parent="Background/Columns"]
-visible = false
 margin_left = 504.0
 margin_right = 644.0
 margin_bottom = 171.0
+rect_min_size = Vector2( 500, 0 )
 
 [node name="Label" type="Label" parent="Background/Columns/Collection"]
 margin_right = 140.0
@@ -143,6 +152,7 @@ __meta__ = {
 margin_left = 504.0
 margin_right = 630.0
 margin_bottom = 171.0
+rect_min_size = Vector2( 500, 0 )
 
 [node name="Label" type="Label" parent="Background/Columns/Artifacts"]
 margin_right = 126.0
@@ -195,10 +205,18 @@ __meta__ = {
 margin_left = 634.0
 margin_right = 762.0
 margin_bottom = 171.0
+rect_min_size = Vector2( 300, 0 )
+
+[node name="Label" type="Label" parent="Background/Columns/Actions"]
+theme = SubResource( 1 )
+text = "Actions
+"
+
+[node name="HSeparator" type="HSeparator" parent="Background/Columns/Actions"]
 
 [node name="MergeButton" type="TextureButton" parent="Background/Columns/Actions"]
-margin_left = 50.0
-margin_top = 50.0
+margin_left = 10.0
+margin_top = 10.0
 margin_right = 178.0
 margin_bottom = 178.0
 texture_normal = ExtResource( 5 )

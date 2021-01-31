@@ -26,3 +26,8 @@ func get_unlocked_characters() -> Array:
 		if member.visible:
 			has_unlocked.append(member)
 	return has_unlocked
+
+
+func get_party_member(i):
+	return get_unlocked_characters()[i]
+
