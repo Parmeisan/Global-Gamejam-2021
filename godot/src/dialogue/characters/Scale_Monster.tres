@@ -5,9 +5,10 @@
 
 [resource]
 script = ExtResource( 2 )
-display_name = "Godette"
-backstory = "Godette is an adventurous, if not a reckless young girl. She's curious about anything and everything.
+display_name = "Scale Monster"
+backstory = "
 "
 expressions = {
-"neutral": ExtResource( 1 )
+"neutral": ExtResource( 1 ),
+"normal": ExtResource( 1 )
 }
