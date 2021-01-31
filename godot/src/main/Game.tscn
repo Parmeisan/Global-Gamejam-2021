@@ -107,3 +107,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="monster_collection_menu_summoned" from="MonsterCollection" to="." method="_on_MonsterCollection_monster_collection_menu_summoned"]
+[connection signal="toggle_encounters" from="MonsterCollection" to="." method="_on_toggle_encounters"]
