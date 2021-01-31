@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/map/LocalMap.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/battlers/Green_Slime_128.png" type="Texture" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://src/combat/battlers/formations/LoneBlueSlime.tscn" type="PackedScene" id=21]
 [ext_resource path="res://src/combat/battlers/formations/LoneGreenSlime.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/sprites/icons/point-of-interest.png" type="Texture" id=23]
+[ext_resource path="res://src/map/Disappear.gd" type="Script" id=24]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 32 )
@@ -109,6 +110,9 @@ shape = SubResource( 1 )
 [node name="Dialogue" parent="GameBoard/Pawns/FriendlyRed/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/slime_0.json"
 
+[node name="Disappear" type="Node" parent="GameBoard/Pawns/FriendlyRed/Actions" index="1"]
+script = ExtResource( 24 )
+
 [node name="Sprite" type="Sprite" parent="GameBoard/Pawns/FriendlyRed"]
 position = Vector2( 0, -16 )
 z_index = 51
@@ -129,6 +133,9 @@ shape = SubResource( 2 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/POI-Artifact1/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/artifact_0.json"
+
+[node name="Disappear" type="Node" parent="GameBoard/Pawns/POI-Artifact1/Actions" index="1"]
+script = ExtResource( 24 )
 
 [node name="Sprite" type="Sprite" parent="GameBoard/Pawns/POI-Artifact1"]
 z_index = 53
