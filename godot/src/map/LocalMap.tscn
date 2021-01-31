@@ -95,10 +95,7 @@ position = Vector2( 0, 16 )
 shape = SubResource( 1 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/assholePurple/Actions" index="0" instance=ExtResource( 11 )]
-dialogue_file_path = "res://src/dialogue/data/slime_0.json"
-
-[node name="Disappear" type="Node" parent="GameBoard/Pawns/assholePurple/Actions" index="1"]
-script = ExtResource( 24 )
+dialogue_file_path = "res://src/dialogue/data/Usir-beta.json"
 
 [node name="Sprite2" type="Sprite" parent="GameBoard/Pawns/assholePurple"]
 position = Vector2( -5.07617, 4.09045 )
@@ -106,6 +103,7 @@ z_index = 51
 texture = ExtResource( 18 )
 
 [node name="Usir" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
+visible = false
 position = Vector2( 287.002, 480.125 )
 facing = {
 "down": false,
@@ -115,7 +113,6 @@ facing = {
 }
 
 [node name="FriendlyRed" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
-visible = false
 position = Vector2( 1665.18, 660.173 )
 z_index = 51
 facing = {
@@ -130,7 +127,7 @@ position = Vector2( 0, 16 )
 shape = SubResource( 1 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/FriendlyRed/Actions" index="0" instance=ExtResource( 11 )]
-dialogue_file_path = "res://src/dialogue/data/slime_0.json"
+dialogue_file_path = "res://src/dialogue/data/gud_boi_red.json"
 
 [node name="Disappear" type="Node" parent="GameBoard/Pawns/FriendlyRed/Actions" index="1"]
 script = ExtResource( 24 )
@@ -259,6 +256,9 @@ position = Vector2( 1692.03, 1055.37 )
 target_map = "res://src/map/LocalMap2.tscn"
 spawn_x = 350
 spawn_y = 75
+
+[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/TransitionTo2"]
+texture = ExtResource( 23 )
 
 [node name="Unused" type="YSort" parent="GameBoard"]
 visible = false
