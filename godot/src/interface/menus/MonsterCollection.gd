@@ -52,7 +52,7 @@ func reload():
 			var t = party.get_node("PartyMember/PartyContainer").duplicate()
 			var member = game.party.get_party_member(i)
 			var img_file = FLAVOURS[i] + "_Slime_128"
-			if Data.MONSTERS[i]:
+			if Data.hasMonster(i):
 				img_file = NAME_EVOLVED[i] + "_Monster"
 			t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
 			labelCell(t.get_child(1), TEMPLATE.NAME - 1, NAME_BASIC[i])
@@ -67,7 +67,7 @@ func reload():
 		var t = collection.get_node("CollMember/CollContainer").duplicate()
 		var name = NAME_BASIC[i]
 		var img_file = FLAVOURS[i] + "_Slime_128"
-		if Data.MONSTERS[i]:
+		if Data.hasMonster(i):
 			name = NAME_EVOLVED[i]
 			img_file = NAME_EVOLVED[i] + "_Monster"
 		t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
@@ -97,7 +97,7 @@ func ascend(i):
 
 func _on_MergeButton_button_down():
 	for i in range(0, Data.ARTIFACTS.size()):
-		if not Data.MONSTERS[i]:# and Data.SLIMES[i] and Data.ARTIFACTS[i]:
+		if Data.hasSlime(i) and Data.hasArtifact(i) and not Data.hasMonster(i):
 			ascend(i)
 			reload()
 			break
