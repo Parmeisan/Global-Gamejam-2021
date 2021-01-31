@@ -132,6 +132,7 @@ func getFileAccessTime(fname):
 	file.open(fname, file.READ)
 	return file.get_modified_time(fname)
 
+var flags = {}
 
 var curr_combat_chance = 0.0
 const max_combat_chance = 15.0
