@@ -53,6 +53,13 @@ static func clickSolid(sprite, posn):
 		return (d.get_pixelv(posn - rect.position).a > 0.2)
 	return false
 
+static func getParent(me, pname):
+	var limitter = 0
+	var parent = me
+	while pname != parent.get_name() and limitter < 15:
+		parent = parent.get_parent()
+	return parent
+
 # ===== File R/W ========================================================
 
 static func parseGenericCSV(file):
