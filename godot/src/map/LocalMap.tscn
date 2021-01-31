@@ -106,6 +106,9 @@ facing = {
 position = Vector2( 0, 16 )
 shape = SubResource( 1 )
 
+[node name="Dialogue" parent="GameBoard/Pawns/FriendlyRed/Actions" index="0" instance=ExtResource( 11 )]
+dialogue_file_path = "res://src/dialogue/data/slime_0.json"
+
 [node name="Sprite" type="Sprite" parent="GameBoard/Pawns/FriendlyRed"]
 position = Vector2( 0, -16 )
 z_index = 51
@@ -125,7 +128,7 @@ facing = {
 shape = SubResource( 2 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/POI-Artifact1/Actions" index="0" instance=ExtResource( 11 )]
-dialogue_file_path = "res://src/dialogue/data/test_conversation.json"
+dialogue_file_path = "res://src/dialogue/data/artifact_0.json"
 
 [node name="Sprite" type="Sprite" parent="GameBoard/Pawns/POI-Artifact1"]
 z_index = 53

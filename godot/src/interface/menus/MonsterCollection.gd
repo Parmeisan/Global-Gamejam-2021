@@ -91,8 +91,6 @@ func labelCell(t, posn, data):
 	lbl.text = str(data)
 
 func ascend(i):
-	#if Flags.SLIMES[i] and not Flags.MONSTERS[i]:
-	#	num_evolved += 1
 	Data.SLIMES[i] = false
 	Data.ARTIFACTS[i] = false
 	Data.MONSTERS[i] = true
