@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/combat/battlers/Formation.gd" type="Script" id=1]
 [ext_resource path="res://src/combat/background/StonePlatform.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/combat/battlers/enemies/slimes/BlueSlimeBattler.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/sprites/battlers/Blue_Slime.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/battlers/Angery_Blue.png" type="Texture" id=5]
 
 [node name="Formation" type="Node"]
 script = ExtResource( 1 )
@@ -12,3 +13,10 @@ platform_template = ExtResource( 2 )
 [node name="Slimecupine" parent="." instance=ExtResource( 3 )]
 position = Vector2( 487.005, 767.519 )
 turn_order_icon = ExtResource( 4 )
+
+[node name="body" parent="Slimecupine/Skin/SlimecupineAnim" index="1"]
+texture = ExtResource( 5 )
+
+[editable path="Slimecupine"]
+
+[editable path="Slimecupine/Skin/SlimecupineAnim"]
