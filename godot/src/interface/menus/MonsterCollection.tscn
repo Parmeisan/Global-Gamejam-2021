@@ -38,7 +38,7 @@ __meta__ = {
 
 [node name="Party" type="VBoxContainer" parent="Background/Columns"]
 margin_right = 500.0
-margin_bottom = 171.0
+margin_bottom = 205.0
 rect_min_size = Vector2( 500, 0 )
 
 [node name="Label" type="Label" parent="Background/Columns/Party"]
@@ -76,7 +76,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Background/Columns/Party/PartyMember/PartyContainer"]
+[node name="Stats" type="VBoxContainer" parent="Background/Columns/Party/PartyMember/PartyContainer"]
+margin_right = 40.0
+margin_bottom = 59.0
+
+[node name="Name" type="Label" parent="Background/Columns/Party/PartyMember/PartyContainer/Stats"]
 margin_left = 132.0
 margin_top = 52.0
 margin_right = 165.0
@@ -87,29 +91,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Level" type="Label" parent="Background/Columns/Party/PartyMember/PartyContainer"]
-margin_right = 40.0
-margin_bottom = 14.0
+[node name="Level" type="Label" parent="Background/Columns/Party/PartyMember/PartyContainer/Stats"]
+margin_left = 169.0
+margin_top = 57.0
+margin_right = 169.0
+margin_bottom = 71.0
 
-[node name="XP" type="Label" parent="Background/Columns/Party/PartyMember/PartyContainer"]
-margin_right = 40.0
-margin_bottom = 14.0
+[node name="XP" type="Label" parent="Background/Columns/Party/PartyMember/PartyContainer/Stats"]
+margin_left = 173.0
+margin_top = 57.0
+margin_right = 173.0
+margin_bottom = 71.0
 
 [node name="Collection" type="VBoxContainer" parent="Background/Columns"]
 margin_left = 504.0
-margin_right = 644.0
-margin_bottom = 171.0
+margin_right = 1004.0
+margin_bottom = 205.0
 rect_min_size = Vector2( 500, 0 )
 
 [node name="Label" type="Label" parent="Background/Columns/Collection"]
-margin_right = 140.0
+margin_right = 500.0
 margin_bottom = 31.0
 theme = SubResource( 3 )
 text = "Collection	"
 
 [node name="HSeparator" type="HSeparator" parent="Background/Columns/Collection"]
 margin_top = 35.0
-margin_right = 140.0
+margin_right = 500.0
 margin_bottom = 39.0
 
 [node name="CollMember" type="ColorRect" parent="Background/Columns/Collection"]
@@ -149,20 +157,20 @@ __meta__ = {
 }
 
 [node name="Artifacts" type="VBoxContainer" parent="Background/Columns"]
-margin_left = 504.0
-margin_right = 630.0
-margin_bottom = 171.0
+margin_left = 1008.0
+margin_right = 1508.0
+margin_bottom = 205.0
 rect_min_size = Vector2( 500, 0 )
 
 [node name="Label" type="Label" parent="Background/Columns/Artifacts"]
-margin_right = 126.0
+margin_right = 500.0
 margin_bottom = 31.0
 theme = SubResource( 1 )
 text = "Artifacts"
 
 [node name="HSeparator" type="HSeparator" parent="Background/Columns/Artifacts"]
 margin_top = 35.0
-margin_right = 126.0
+margin_right = 500.0
 margin_bottom = 39.0
 
 [node name="ArtifactMember" type="ColorRect" parent="Background/Columns/Artifacts"]
@@ -202,22 +210,26 @@ __meta__ = {
 }
 
 [node name="Actions" type="VBoxContainer" parent="Background/Columns"]
-margin_left = 634.0
-margin_right = 762.0
-margin_bottom = 171.0
+margin_left = 1512.0
+margin_right = 1812.0
+margin_bottom = 205.0
 rect_min_size = Vector2( 300, 0 )
 
 [node name="Label" type="Label" parent="Background/Columns/Actions"]
+margin_right = 300.0
+margin_bottom = 65.0
 theme = SubResource( 1 )
 text = "Actions
 "
 
 [node name="HSeparator" type="HSeparator" parent="Background/Columns/Actions"]
+margin_top = 69.0
+margin_right = 300.0
+margin_bottom = 73.0
 
 [node name="MergeButton" type="TextureButton" parent="Background/Columns/Actions"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 178.0
-margin_bottom = 178.0
+margin_top = 77.0
+margin_right = 300.0
+margin_bottom = 205.0
 texture_normal = ExtResource( 5 )
 [connection signal="button_down" from="Background/Columns/Actions/MergeButton" to="." method="_on_MergeButton_button_down"]
