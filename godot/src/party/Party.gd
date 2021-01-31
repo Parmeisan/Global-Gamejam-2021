@@ -31,3 +31,5 @@ func get_unlocked_characters() -> Array:
 func get_party_member(i):
 	return get_unlocked_characters()[i]
 
+func get_size():
+	return get_unlocked_characters().size()
