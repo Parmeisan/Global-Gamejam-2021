@@ -27,9 +27,8 @@ func _ready():
 	local_map.spawn_party(party)
 	local_map.visible = true
 	local_map.connect("enemies_encountered", self, "enter_battle")
+	music_player.play_field_theme()
 	debug.debugMessage(CAT.FILE, "Game load complete")
-	
-
 
 
 func enter_battle(formation: Formation):
