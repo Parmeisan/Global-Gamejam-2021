@@ -80,6 +80,31 @@ facing = {
 z_index = 51
 texture = ExtResource( 17 )
 
+[node name="assholePurple" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
+position = Vector2( 292.078, 476.035 )
+z_index = 51
+facing = {
+"down": false,
+"left": false,
+"right": false,
+"up": false
+}
+
+[node name="CollisionShape2D" parent="GameBoard/Pawns/assholePurple" index="3"]
+position = Vector2( 0, 16 )
+shape = SubResource( 1 )
+
+[node name="Dialogue" parent="GameBoard/Pawns/assholePurple/Actions" index="0" instance=ExtResource( 11 )]
+dialogue_file_path = "res://src/dialogue/data/slime_0.json"
+
+[node name="Disappear" type="Node" parent="GameBoard/Pawns/assholePurple/Actions" index="1"]
+script = ExtResource( 24 )
+
+[node name="Sprite2" type="Sprite" parent="GameBoard/Pawns/assholePurple"]
+position = Vector2( -5.07617, 4.09045 )
+z_index = 51
+texture = ExtResource( 18 )
+
 [node name="Usir" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 position = Vector2( 287.002, 480.125 )
 facing = {
@@ -89,11 +114,8 @@ facing = {
 "up": false
 }
 
-[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/Usir"]
-z_index = 51
-texture = ExtResource( 18 )
-
 [node name="FriendlyRed" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
+visible = false
 position = Vector2( 1665.18, 660.173 )
 z_index = 51
 facing = {
@@ -281,6 +303,8 @@ layer = 100
 
 [node name="DialogueBox" parent="MapInterface" instance=ExtResource( 14 )]
 visible = false
+
+[editable path="GameBoard/Pawns/assholePurple"]
 
 [editable path="GameBoard/Pawns/FriendlyRed"]
 
