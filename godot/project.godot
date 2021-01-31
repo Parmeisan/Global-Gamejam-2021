@@ -355,6 +355,7 @@ DialogueDatabase="*res://src/dialogue/DialogueDatabase.gd"
 QuestSystem="*res://src/quest/QuestSystem.tscn"
 Util="*res://src/Util.gd"
 Data="*res://src/Data.gd"
+Flags="*res://src/main/Flags.gd"
 
 [debug]
 
@@ -387,8 +388,7 @@ ui_accept={
 }
 ui_select={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
-, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":3,"pressure":0.0,"pressed":false,"script":null)
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":3,"pressure":0.0,"pressed":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"unicode":0,"echo":false,"script":null)
  ]
 }
