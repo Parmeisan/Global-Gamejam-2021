@@ -44,7 +44,7 @@ func reload():
 	while party.get_child_count() > 3:
 		party.remove_child(party.get_child(3))
 	var game = Util.getParent(self, "Game")
-	for i in range(0, game.party.get_size() - 1):
+	for i in range(0, game.party.get_size()):
 		if Data.hasSlime(i) or Data.hasMonster(i):
 			var t = party.get_node("PartyMember/PartyContainer").duplicate()
 			var member = game.party.get_party_member(i)
@@ -61,11 +61,8 @@ func reload():
 		collection.remove_child(collection.get_child(3))
 	for i in range(0, slimes.size()):
 		var t = collection.get_node("CollMember/CollContainer").duplicate()
-		var name = NAME_BASIC[i]
-		var img_file = FLAVOURS[i] + "_Slime_128"
-		if Data.hasMonster(i):
-			name = NAME_EVOLVED[i]
-			img_file = NAME_EVOLVED[i] + "_Monster"
+		var name = "Red"#NAME_BASIC[i]
+		var img_file = "Red" + "_Slime_128"#FLAVOURS[i]
 		t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
 		labelCell(t, TEMPLATE.NAME, name)
 		t.visible = true
