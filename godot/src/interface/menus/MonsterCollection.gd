@@ -8,11 +8,12 @@ var slimes = []
 onready var party = $Background/Columns/Party
 onready var collection = $Background/Columns/Collection
 onready var artifacts = $Background/Columns/Artifacts
+onready var actions = $Background/Columns/Actions
 
 func add_slime(new_slime: Slime) -> void:
 	slimes.resize(slimes.size() + 1)
 	slimes[slimes.size() - 1] = new_slime
-	
+
 func remove_slime(target_pos: int) -> Slime:
 	var rv = slimes[target_pos]
 	slimes.remove(target_pos)
@@ -40,6 +41,8 @@ var artifact_path = "assets/sprites/artifacts/"
 var artifact_ext = ".png"
 
 func reload():
+	actions.get_node("AscendButton").visible = checkAscendPossible()
+	actions.get_node("AscendLabel").visible = checkAscendPossible()
 	# First few children are labels etc and the main character; clear everything else and then start copying it
 	while party.get_child_count() > 3:
 		party.remove_child(party.get_child(3))
@@ -85,6 +88,13 @@ func ascend(i):
 	Data.setSlime(i, false)
 	Data.setArtifact(i, false)
 	Data.setMonster(i, true)
+
+func checkAscendPossible():
+	var poss = false
+	for i in range(0, 3):
+		if Data.hasSlime(i) and Data.hasArtifact(i) and not Data.hasMonster(i):
+			poss = true
+	return poss
 
 func _on_AscendButton_button_down():
 	for i in range(0, 3):

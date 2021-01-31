@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Ravi.png-dea4a8e0c99b593ca9c79ce875145f5b.stex"
+path="res://.import/xgrasslands.png-c99cdc2cd71beb4007d1038db2d565cb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/npcs/Ravi.png"
-dest_files=[ "res://.import/Ravi.png-dea4a8e0c99b593ca9c79ce875145f5b.stex" ]
+source_file="res://assets/sprites/background/grasslands/xgrasslands.png"
+dest_files=[ "res://.import/xgrasslands.png-c99cdc2cd71beb4007d1038db2d565cb.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Ravi.png-dea4a8e0c99b593ca9c79ce875145f5b.stex"
+path="res://.import/obstacle - Copy.png-4b6201c04b2bb84999b28c5a7307253a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/npcs/Ravi.png"
-dest_files=[ "res://.import/Ravi.png-dea4a8e0c99b593ca9c79ce875145f5b.stex" ]
+source_file="res://assets/tilesets/grid/obstacle - Copy.png"
+dest_files=[ "res://.import/obstacle - Copy.png-4b6201c04b2bb84999b28c5a7307253a.stex" ]
 
 [params]
 

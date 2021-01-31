@@ -139,6 +139,7 @@ const max_combat_chance = 15.0
 const combat_chance_inc = 0.75
 const combat_weights = [ 30.0, 25.0, 20.0 ]#, 10.0, 7.5, 5.0 ]
 const combat_types = [ "LoneRedSlime", "LoneBlueSlime", "LoneGreenSlime", "ThreeReds", "OneRedTwoBlues", "OneOfEach" ]
+var num_random_encs = 3
 
 func hasFlag(flname, i):
 	var fl = flname + str(i)

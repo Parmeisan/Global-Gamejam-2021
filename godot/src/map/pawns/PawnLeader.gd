@@ -40,7 +40,6 @@ func _process(delta: float) -> void:
 		destination_point.hide()
 		_direction = Vector2()
 
-
 func random_encounter():
 	#print("Chance of encounter: %s%%" % curr_combat_chance)
 	
@@ -82,7 +81,9 @@ func random_encounter():
 		print("Encountered a %s!" % Data.combat_types[enc_type])
 		Data.curr_combat_chance = 0.0
 		var enc = map.get_node("GameBoard/Pawns/" + Data.combat_types[enc_type])
-		enc.start_interaction()
+		if Data.num_random_encs > 0:
+			enc.start_interaction()
+			Data.num_random_encs -= 1
 	else:
 		if Data.curr_combat_chance < Data.max_combat_chance:
 			Data.curr_combat_chance += Data.combat_chance_inc

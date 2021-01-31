@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Ravi.png-dea4a8e0c99b593ca9c79ce875145f5b.stex"
+path="res://.import/actor - Copy.png-ffc7bb082cefb9d0035ff3516b2ea8b8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/npcs/Ravi.png"
-dest_files=[ "res://.import/Ravi.png-dea4a8e0c99b593ca9c79ce875145f5b.stex" ]
+source_file="res://assets/tilesets/grid/actor - Copy.png"
+dest_files=[ "res://.import/actor - Copy.png-ffc7bb082cefb9d0035ff3516b2ea8b8.stex" ]
 
 [params]
 

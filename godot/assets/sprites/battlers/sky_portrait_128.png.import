@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Ravi.png-dea4a8e0c99b593ca9c79ce875145f5b.stex"
+path="res://.import/sky_portrait_128.png-b6bcae92641f92ff9b84a05d92f08d20.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/npcs/Ravi.png"
-dest_files=[ "res://.import/Ravi.png-dea4a8e0c99b593ca9c79ce875145f5b.stex" ]
+source_file="res://assets/sprites/battlers/sky_portrait_128.png"
+dest_files=[ "res://.import/sky_portrait_128.png-b6bcae92641f92ff9b84a05d92f08d20.stex" ]
 
 [params]
 
