@@ -241,20 +241,17 @@ text = "        Ascend
 "
 
 [node name="HSeparator2" type="HSeparator" parent="Background/Columns/Actions"]
-visible = false
 margin_top = 69.0
 margin_right = 300.0
 margin_bottom = 73.0
 
 [node name="MergeButton" type="TextureButton" parent="Background/Columns/Actions"]
-visible = false
 margin_top = 77.0
 margin_right = 300.0
 margin_bottom = 205.0
 texture_normal = ExtResource( 6 )
 
 [node name="MergeLabel" type="Label" parent="Background/Columns/Actions"]
-visible = false
 margin_right = 300.0
 margin_bottom = 65.0
 theme = SubResource( 1 )

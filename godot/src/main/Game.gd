@@ -103,7 +103,6 @@ func _on_CombatArena_game_over() -> void:
 	transitioning = false
 
 
-
 func _on_GameOverInterface_restart_requested():
 	game_over_interface.hide()
 	var formation = combat_arena.initial_formation

@@ -110,11 +110,11 @@ func merge():
 	if slimes.size() > 0:
 		# first collection item
 		var m : Slime = slimes.pop_front()
-		# determines type
-		print("name? %s" % m.get_name())
 		# merges into appropriate party member
-		#var member = game.party.get_party_member(i)
-	pass
+		var game = Util.getParent(self, "Game")
+		var member = game.party.get_party_member(0)
+		member.stats.level += 1
+		reload()
 
 func _on_MergeButton_button_down():
 	merge()
