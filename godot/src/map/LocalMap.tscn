@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://src/map/LocalMap.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/battlers/Green_Slime_128.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://src/map/pawns/TestQuestGiver.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/map/pawns/TestQuestReceiver.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/interface/gui/DialogueBox.tscn" type="PackedScene" id=14]
+[ext_resource path="res://src/map/pawns/actions/MapTransition.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/backgrounds/FactoryRoom01.png" type="Texture" id=16]
 [ext_resource path="res://assets/sprites/npcs/ravi.png" type="Texture" id=17]
 [ext_resource path="res://assets/sprites/npcs/usir.png" type="Texture" id=18]
@@ -120,15 +121,15 @@ facing = {
 "up": false
 }
 
-[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/POI-Artifact1"]
-z_index = 53
-texture = ExtResource( 23 )
-
-[node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Artifact1" index="4"]
+[node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Artifact1" index="3"]
 shape = SubResource( 2 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/POI-Artifact1/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/test_conversation.json"
+
+[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/POI-Artifact1"]
+z_index = 53
+texture = ExtResource( 23 )
 
 [node name="LoneRedSlime" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 visible = false
@@ -141,17 +142,17 @@ facing = {
 "up": false
 }
 
-[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/LoneRedSlime"]
-position = Vector2( 0, -16 )
-z_index = 51
-texture = ExtResource( 19 )
-
-[node name="CollisionShape2D" parent="GameBoard/Pawns/LoneRedSlime" index="4"]
+[node name="CollisionShape2D" parent="GameBoard/Pawns/LoneRedSlime" index="3"]
 position = Vector2( 0, 16 )
 shape = SubResource( 1 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneRedSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 20 )
+
+[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/LoneRedSlime"]
+position = Vector2( 0, -16 )
+z_index = 51
+texture = ExtResource( 19 )
 
 [node name="LoneBlueSlime" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 visible = false
@@ -164,17 +165,17 @@ facing = {
 "up": false
 }
 
-[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/LoneBlueSlime"]
-position = Vector2( 0, -16 )
-z_index = 51
-texture = ExtResource( 10 )
-
-[node name="CollisionShape2D" parent="GameBoard/Pawns/LoneBlueSlime" index="4"]
+[node name="CollisionShape2D" parent="GameBoard/Pawns/LoneBlueSlime" index="3"]
 position = Vector2( 0, 16 )
 shape = SubResource( 1 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneBlueSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 21 )
+
+[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/LoneBlueSlime"]
+position = Vector2( 0, -16 )
+z_index = 51
+texture = ExtResource( 10 )
 
 [node name="LoneGreenSlime" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 visible = false
@@ -187,17 +188,25 @@ facing = {
 "up": false
 }
 
-[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/LoneGreenSlime"]
-position = Vector2( 0, -16 )
-z_index = 51
-texture = ExtResource( 2 )
-
-[node name="CollisionShape2D" parent="GameBoard/Pawns/LoneGreenSlime" index="4"]
+[node name="CollisionShape2D" parent="GameBoard/Pawns/LoneGreenSlime" index="3"]
 position = Vector2( 0, 16 )
 shape = SubResource( 1 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneGreenSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 22 )
+
+[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/LoneGreenSlime"]
+position = Vector2( 0, -16 )
+z_index = 51
+texture = ExtResource( 2 )
+
+[node name="TransitionTo2" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
+position = Vector2( 440, 712 )
+
+[node name="TransitionTo2" parent="GameBoard/Pawns/TransitionTo2/Actions" index="0" instance=ExtResource( 15 )]
+target_map = "res://src/map/LocalMap2.tscn"
+spawn_x = 350
+spawn_y = 75
 
 [node name="Unused" type="YSort" parent="GameBoard"]
 visible = false
@@ -252,3 +261,5 @@ visible = false
 [editable path="GameBoard/Pawns/LoneBlueSlime"]
 
 [editable path="GameBoard/Pawns/LoneGreenSlime"]
+
+[editable path="GameBoard/Pawns/TransitionTo2"]
