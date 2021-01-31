@@ -8,11 +8,18 @@ onready var destination_point := $DestinationPoint
 var _path_current := PoolVector3Array()
 var _direction := Vector2()
 
+var map
+var weight_total
 
 func _ready() -> void:
 	destination_point.set_as_toplevel(true)
 	destination_point.hide()
-
+	# Random encounters
+	map = get_parent().get_parent().get_parent()
+	weight_total = 0.0
+	for w in range(0, Data.combat_weights.size()):
+		weight_total += Data.combat_weights[w]
+	randomize()
 
 func _process(delta: float) -> void:
 	if _path_current.size() > 0:
@@ -25,6 +32,7 @@ func _process(delta: float) -> void:
 		var target_position: Vector2 = game_board.request_move(self, _direction)
 		if target_position:
 			move_to(target_position)
+			random_encounter()
 		else:
 			bump()
 
@@ -32,6 +40,25 @@ func _process(delta: float) -> void:
 		destination_point.hide()
 		_direction = Vector2()
 
+
+func random_encounter():
+	#print("Chance of encounter: %s%%" % curr_combat_chance)
+	var rnd = rand_range(0.0, 100.0)
+	if rnd < Data.curr_combat_chance:
+		var enc_rnd = rand_range(0.0, weight_total)
+		var enc_check = 0.0
+		var enc_type = 0
+		for w in range(0, Data.combat_weights.size()):
+			enc_check += Data.combat_weights[w]
+			if enc_rnd > enc_check:
+				enc_type += 1
+		print("Encountered a %s!" % Data.combat_types[enc_type])
+		Data.curr_combat_chance = 0.0
+		var enc = map.get_node("GameBoard/Pawns/RedSlime")
+		enc.start_interaction()
+	else:
+		if Data.curr_combat_chance < Data.max_combat_chance:
+			Data.curr_combat_chance += Data.combat_chance_inc
 
 func get_key_input_direction(event: InputEventKey) -> Vector2:
 	return Vector2(
