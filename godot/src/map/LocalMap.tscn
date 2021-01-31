@@ -115,7 +115,7 @@ z_index = 51
 texture = ExtResource( 19 )
 
 [node name="POI-Artifact1" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
-position = Vector2( 1438.03, 736.956 )
+position = Vector2( 1439.81, 735.174 )
 z_index = 53
 facing = {
 "down": false,
