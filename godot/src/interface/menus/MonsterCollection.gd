@@ -3,6 +3,7 @@ extends CanvasLayer
 class_name MonsterCollection
 
 signal monster_collection_menu_summoned()
+signal toggle_encounters()
 
 var slimes = []
 onready var party = $Background/Columns/Party
@@ -29,6 +30,8 @@ func _ready():
 func _process(_delta):
 	if(Input.is_action_just_released("ui_select")):
 		emit_signal("monster_collection_menu_summoned")
+	if(Input.is_action_just_released("ui_toggle_encs")):
+		emit_signal("toggle_encounters")
 
 enum TEMPLATE { IMG = 0, NAME, LEVEL, XP }
 const FLAVOURS = [ "Red", "Blue", "Green" ]

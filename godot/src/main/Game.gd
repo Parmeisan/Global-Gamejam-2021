@@ -116,6 +116,9 @@ func _on_MonsterCollection_monster_collection_menu_summoned():
 	monster_collection_interface.reload()
 	bg.visible = !bg.visible
 
+func _on_toggle_encounters():
+	Data.encounters_on = !Data.encounters_on
+
 func _process(_delta):
 	if(Input.is_action_just_released("ui_quicksave")):
 		Data.saveCSV("saves/", "slimes", ".csv", monster_collection_interface.slimes)
