@@ -43,6 +43,33 @@ func _process(delta: float) -> void:
 
 func random_encounter():
 	#print("Chance of encounter: %s%%" % curr_combat_chance)
+	
+	var game_node = Util.getParent(self, "Game")
+	var first_slime = game_node.get_node("Party/Robi")
+	var second_slime = game_node.get_node("Party/Robi2")
+	var third_slime = game_node.get_node("Party/Robi3")
+	
+	var first_monster = game_node.get_node("Party/Robi4")
+	var second_monster = game_node.get_node("Party/Robi5")
+	var third_monster = game_node.get_node("Party/Robi6")
+	
+	#for testing puroses, definitely delete these flag sets if you see them:
+	#Data.setSlime(0, true)
+	#Data.setSlime(1, true)
+	#Data.setSlime(2, true)
+	#Data.setMonster(0, true)
+	#Data.setMonster(1, true)
+	#Data.setMonster(2, true)
+	
+	first_slime.visible = Data.hasSlime(0) && !Data.hasMonster(0)
+	second_slime.visible = Data.hasSlime(1) && !Data.hasMonster(1)
+	third_slime.visible = Data.hasSlime(2) && !Data.hasMonster(2)
+	
+	first_monster.visible = Data.hasMonster(0)
+	second_monster.visible = Data.hasMonster(1)
+	third_monster.visible = Data.hasMonster(2)
+	
+	
 	var rnd = rand_range(0.0, 100.0)
 	if rnd < Data.curr_combat_chance:
 		var enc_rnd = rand_range(0.0, weight_total)
@@ -55,7 +82,7 @@ func random_encounter():
 		print("Encountered a %s!" % Data.combat_types[enc_type])
 		Data.curr_combat_chance = 0.0
 		var enc = map.get_node("GameBoard/Pawns/" + Data.combat_types[enc_type])
-		#enc.start_interaction()
+		enc.start_interaction()
 	else:
 		if Data.curr_combat_chance < Data.max_combat_chance:
 			Data.curr_combat_chance += Data.combat_chance_inc

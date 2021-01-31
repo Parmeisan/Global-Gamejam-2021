@@ -140,6 +140,25 @@ const combat_chance_inc = 0.75
 const combat_weights = [ 30.0, 25.0, 20.0 ]#, 10.0, 7.5, 5.0 ]
 const combat_types = [ "LoneRedSlime", "LoneBlueSlime", "LoneGreenSlime", "ThreeReds", "OneRedTwoBlues", "OneOfEach" ]
 
-var SLIMES = [false,false,false]
-var ARTIFACTS = [false,false,false]
-var MONSTERS = [false,false,false]
+func hasFlag(flname, i):
+	var fl = flname + str(i)
+	if !flags.has(fl):
+		return false
+	else:
+		return flags[fl]
+func hasSlime(i):
+	return hasFlag("SLIME", i)
+func hasArtifact(i):
+	return hasFlag("ARTIFACT", i)
+func hasMonster(i):
+	return hasFlag("MONSTER", i)
+
+func setFlag(flname, i, val):
+	var fl = flname + str(i)
+	flags[fl] = val
+func setSlime(i, val):
+	setFlag("SLIME", i, val)
+func setArtifact(i, val):
+	setFlag("ARTIFACT", i, val)
+func setMonster(i, val):
+	setFlag("MONSTER", i, val)

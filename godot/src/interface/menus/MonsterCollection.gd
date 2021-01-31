@@ -38,37 +38,32 @@ var battler_path = "assets/sprites/battlers/"
 var battler_ext = ".png"
 var artifact_path = "assets/sprites/artifacts/"
 var artifact_ext = ".png"
-var num_in_party = 3
-var num_artifacts = 3
-var num_evolved = 0
 
 func reload():
 	# First few children are labels etc and the main character; clear everything else and then start copying it
-	print("party size %s" % [party.get_child_count()])
 	while party.get_child_count() > 3:
 		party.remove_child(party.get_child(3))
 	var game = Util.getParent(self, "Game")
-	for i in range(0, party.size()):
-		if Data.SLIMES[i] or Data.MONSTERS[i]:
+	for i in range(0, game.party.get_size() - 1):
+		if Data.hasSlime(i) or Data.hasMonster(i):
 			var t = party.get_node("PartyMember/PartyContainer").duplicate()
 			var member = game.party.get_party_member(i)
 			var img_file = FLAVOURS[i] + "_Slime_128"
-			if Data.MONSTERS[i]:
+			if Data.hasMonster(i):
 				img_file = NAME_EVOLVED[i] + "_Monster"
 			t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
-			labelCell(t, TEMPLATE.NAME, NAME_BASIC[i])
-			labelCell(t, TEMPLATE.LEVEL, "Level: " + member.stats.level)
-			labelCell(t, TEMPLATE.XP, "Strength: " + member.stats.strength)
+			labelCell(t.get_child(1), TEMPLATE.NAME - 1, NAME_BASIC[i])
+			labelCell(t.get_child(1), TEMPLATE.LEVEL - 1, "Level: " + str(member.stats.level))
+			labelCell(t.get_child(1), TEMPLATE.XP - 1, "Strength: " + str(member.stats.strength))
 			t.visible = true
 			party.add_child(t)
 	while collection.get_child_count() > 3:
 		collection.remove_child(collection.get_child(3))
 	for i in range(0, slimes.size()):
-		#var l = slimes[i]
 		var t = collection.get_node("CollMember/CollContainer").duplicate()
 		var name = NAME_BASIC[i]
 		var img_file = FLAVOURS[i] + "_Slime_128"
-		if Data.MONSTERS[i]:
+		if Data.hasMonster(i):
 			name = NAME_EVOLVED[i]
 			img_file = NAME_EVOLVED[i] + "_Monster"
 		t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
@@ -77,30 +72,39 @@ func reload():
 		collection.add_child(t)
 	while artifacts.get_child_count() > 3:
 		artifacts.remove_child(artifacts.get_child(3))
-	for i in range(0, Data.ARTIFACTS.size()):
-		if Data.ARTIFACTS[i]:
+	for i in range(0, 3):
+		if Data.hasArtifact(i):
 			var t = artifacts.get_node("ArtifactMember/ArtifactContainer").duplicate()
 			t.get_child(TEMPLATE.IMG).texture = Data.getTexture(artifact_path, ARTIFACTS[i], artifact_ext)
 			labelCell(t, TEMPLATE.NAME, ARTIFACTS[i])
 			t.visible = true
 			artifacts.add_child(t)
-	#get_parent().emit_signal("draw")
-	pass
 
 func labelCell(t, posn, data):
 	var lbl : Label = t.get_child(posn)
 	lbl.text = str(data)
 
 func ascend(i):
-	#if Flags.SLIMES[i] and not Flags.MONSTERS[i]:
-	#	num_evolved += 1
-	Data.SLIMES[i] = false
-	Data.ARTIFACTS[i] = false
-	Data.MONSTERS[i] = true
+	Data.setSlime(i, false)
+	Data.setArtifact(i, false)
+	Data.setMonster(i, true)
 
-func _on_MergeButton_button_down():
-	for i in range(0, Data.ARTIFACTS.size()):
-		if Data.SLIMES[i] and Data.ARTIFACTS[i] and not Data.MONSTERS[i]:
+func _on_AscendButton_button_down():
+	for i in range(0, 3):
+		if Data.hasSlime(i) and Data.hasArtifact(i) and not Data.hasMonster(i):
 			ascend(i)
 			reload()
 			break
+
+func merge():
+	if slimes.size() > 0:
+		# first collection item
+		var m : Slime = slimes.pop_front()
+		# determines type
+		print("name? %s" % m.get_name())
+		# merges into appropriate party member
+		#var member = game.party.get_party_member(i)
+	pass
+
+func _on_MergeButton_button_down():
+	merge()
