@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 func random_encounter():
 	#print("Chance of encounter: %s%%" % curr_combat_chance)
 	var rnd = rand_range(0.0, 100.0)
-	if true:#rnd < Data.curr_combat_chance:
+	if rnd < Data.curr_combat_chance:
 		var enc_rnd = rand_range(0.0, weight_total)
 		var enc_check = 0.0
 		var enc_type = 0
