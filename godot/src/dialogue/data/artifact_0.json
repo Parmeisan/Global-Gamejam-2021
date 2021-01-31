@@ -1,4 +1,4 @@
 {
-    "001" : {"name":"Godette", "expression": "neutral", "text":"You found something." },
+    "001" : {"name":"Sky", "expression": "neutral", "text":"You found something." },
     "002" : {"type":"raise", "name":"ARTIFACT0" }
 }

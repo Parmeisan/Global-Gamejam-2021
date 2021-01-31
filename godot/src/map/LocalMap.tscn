@@ -28,11 +28,11 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 32 )
 
-[sub_resource type="StreamTexture" id=3]
+[sub_resource type="StreamTexture" id=2]
 flags = 4
 load_path = "res://.import/usir.png-107562906ac013cfd593628697eab8fd.stex"
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 80, 80 )
 
 [node name="LocalMap" type="Node2D"]
@@ -91,7 +91,7 @@ dialogue_file_path = "res://src/dialogue/data/Usir-beta.json"
 [node name="Sprite2" type="Sprite" parent="GameBoard/Pawns/assholePurple"]
 position = Vector2( -5.07617, 4.09045 )
 z_index = 51
-texture = SubResource( 3 )
+texture = SubResource( 2 )
 
 [node name="spookedgreen" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 position = Vector2( 1468.04, 957.196 )
@@ -161,7 +161,7 @@ facing = {
 }
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Artifact1" index="3"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/POI-Artifact1/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/artifact_0.json"
@@ -184,7 +184,7 @@ facing = {
 }
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Artifact2" index="3"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/POI-Artifact2/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/eyeballs.json"
