@@ -1,7 +1,7 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://src/map/LocalMap.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/battlers/Green_Slime_128.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/battlers/Angery_Green.png" type="Texture" id=2]
 [ext_resource path="res://assets/tilesets/grid/grid_tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://src/map/grid/GameBoard.gd" type="Script" id=4]
 [ext_resource path="res://src/map/grid/SpawningPoint.tscn" type="PackedScene" id=5]
@@ -9,7 +9,7 @@
 [ext_resource path="res://src/party/Party.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/map/pawns/PawnInteractive.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/map/pawns/actions/StartCombatAction.tscn" type="PackedScene" id=9]
-[ext_resource path="res://assets/sprites/battlers/Blue_Slime_128.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/battlers/Angery_Blue.png" type="Texture" id=10]
 [ext_resource path="res://src/map/pawns/actions/DialogueAction.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/map/pawns/TestQuestGiver.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/map/pawns/TestQuestReceiver.tscn" type="PackedScene" id=13]
@@ -24,6 +24,7 @@
 [ext_resource path="res://src/combat/battlers/formations/LoneGreenSlime.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/sprites/icons/point-of-interest.png" type="Texture" id=23]
 [ext_resource path="res://src/map/Disappear.gd" type="Script" id=24]
+[ext_resource path="res://assets/sprites/battlers/Angery_Red.png" type="Texture" id=25]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 32 )
@@ -182,7 +183,7 @@ formation = ExtResource( 20 )
 [node name="Sprite" type="Sprite" parent="GameBoard/Pawns/LoneRedSlime"]
 position = Vector2( 0, -16 )
 z_index = 51
-texture = ExtResource( 19 )
+texture = ExtResource( 25 )
 
 [node name="LoneBlueSlime" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 visible = false
@@ -232,7 +233,6 @@ texture = ExtResource( 2 )
 
 [node name="TransitionTo2" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 position = Vector2( 1696, 1056 )
-
 
 [node name="TransitionTo2" parent="GameBoard/Pawns/TransitionTo2/Actions" index="0" instance=ExtResource( 15 )]
 target_map = "res://src/map/LocalMap2.tscn"
