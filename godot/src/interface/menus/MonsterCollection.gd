@@ -29,7 +29,7 @@ func _process(_delta):
 	if(Input.is_action_just_released("ui_select")):
 		emit_signal("monster_collection_menu_summoned")
 
-enum TEMPLATE { IMG = 0, NAME }
+enum TEMPLATE { IMG = 0, NAME, LEVEL, XP }
 const FLAVOURS = [ "Red", "Blue", "Green" ]
 const NAME_BASIC = [ "Red", "Blue", "Green" ]
 const NAME_EVOLVED = [ "Fang", "Eye", "Scale" ]
@@ -47,14 +47,18 @@ func reload():
 	print("party size %s" % [party.get_child_count()])
 	while party.get_child_count() > 3:
 		party.remove_child(party.get_child(3))
-	for i in range(0, Data.SLIMES.size()):
+	var game = Util.getParent(self, "Game")
+	for i in range(0, party.size()):
 		if Data.SLIMES[i] or Data.MONSTERS[i]:
 			var t = party.get_node("PartyMember/PartyContainer").duplicate()
+			var member = game.party.get_party_member(i)
 			var img_file = FLAVOURS[i] + "_Slime_128"
 			if Data.MONSTERS[i]:
 				img_file = NAME_EVOLVED[i] + "_Monster"
 			t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
 			labelCell(t, TEMPLATE.NAME, NAME_BASIC[i])
+			labelCell(t, TEMPLATE.LEVEL, "Level: " + member.stats.level)
+			labelCell(t, TEMPLATE.XP, "Strength: " + member.stats.strength)
 			t.visible = true
 			party.add_child(t)
 	while collection.get_child_count() > 3:
