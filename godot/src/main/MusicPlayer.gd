@@ -28,3 +28,4 @@ func play_victory_fanfare():
 
 func _on_victory_complete():
 	play_field_theme()
+	victoryTimer.stop()
