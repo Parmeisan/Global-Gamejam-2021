@@ -1,0 +1,9 @@
+{"001":{"_comment":"#[Overworld dialogue when you approach Ravi after you get the first artifact and the Fang Monster]",
+"name":"Ravi","expression":"normal","text":" So let me get this straight. You found this creepy artifact underneath some broken machinery."},
+"002":{"name":"Sky","expression":"normal","text":"And I gave it to my slime buddy!"},
+"003":{"name":"Ravi","expression":"normal","text":" You put it in the slime, it absorbed it, and it turned into that thing."},
+"004":{"name":"Sky","expression":"normal","text":"Yeah! I call it Fang Monster. Looks cool, huh?"},
+"005":{"name":"Fang Monster","expression":"normal","text":"{Happy monster noises}"},
+"006":{"name":"Ravi","expression":"normal","text":"I… guess…"},
+"007":{"name":"Sky","expression":"normal","text":"You worry too much, Ravi. Fang Monster and I are going to go check out the rest of the area. Maybe we’ll find more cool stuff!"},
+"008":{"name":"Ravi","expression":"normal","text":" Please don’t die."}}
