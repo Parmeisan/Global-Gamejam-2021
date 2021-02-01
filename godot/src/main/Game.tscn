@@ -28,7 +28,6 @@ visible = false
 [node name="TransitionColor" parent="Overlays" instance=ExtResource( 5 )]
 pause_mode = 2
 mouse_filter = 2
-transition = 0.0
 
 [node name="GameOverInterface" parent="." instance=ExtResource( 6 )]
 layer = 0
@@ -36,6 +35,8 @@ layer = 0
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 script = ExtResource( 8 )
+
+[node name="SoundEffectPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="DebugMode" type="CanvasLayer" parent="."]
 

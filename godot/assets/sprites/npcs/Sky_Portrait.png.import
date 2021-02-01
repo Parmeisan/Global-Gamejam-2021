@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Usir.png-1e18fc3525c0abe62e0b612ec26763a1.stex"
+path="res://.import/Sky_Portrait.png-aaf4569ea597c82c4ee923a4f3bb125a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/npcs/Usir.png"
-dest_files=[ "res://.import/Usir.png-1e18fc3525c0abe62e0b612ec26763a1.stex" ]
+source_file="res://assets/sprites/npcs/Sky_Portrait.png"
+dest_files=[ "res://.import/Sky_Portrait.png-aaf4569ea597c82c4ee923a4f3bb125a.stex" ]
 
 [params]
 

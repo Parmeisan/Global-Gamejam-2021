@@ -18,17 +18,17 @@ func play_field_theme():
 
 var victoryTimer
 func play_victory_fanfare():
-	play_field_theme()
-	#volume_db = -8
-	#stream = victory_fanfare
-	#stop()
-	#play()
-	## Timer to switch to field theme
-	#victoryTimer = Timer.new()
-	#victoryTimer.set_wait_time(1.5)
-	#victoryTimer.connect("timeout", self, "_on_victory_complete") 
-	#add_child(victoryTimer)
-	#victoryTimer.start()
+	#play_field_theme()
+	volume_db = -8
+	stream = victory_fanfare
+	stop()
+	play()
+	# Timer to switch to field theme
+	victoryTimer = Timer.new()
+	victoryTimer.set_wait_time(4)
+	victoryTimer.connect("timeout", self, "_on_victory_complete") 
+	add_child(victoryTimer)
+	victoryTimer.start()
 
 func _on_victory_complete():
 	play_field_theme()

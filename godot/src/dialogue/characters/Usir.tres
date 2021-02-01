@@ -1,10 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
+[ext_resource path="res://assets/sprites/npcs/Usir_Portrait.png" type="Texture" id=1]
 [ext_resource path="res://src/dialogue/characters/Character.gd" type="Script" id=2]
-
-[sub_resource type="StreamTexture" id=3]
-flags = 4
-load_path = "res://.import/Usir.png-1e18fc3525c0abe62e0b612ec26763a1.stex"
 
 [resource]
 script = ExtResource( 2 )
@@ -12,6 +9,6 @@ display_name = "Usir"
 backstory = "
 "
 expressions = {
-"neutral": SubResource( 3 ),
-"normal": SubResource( 3 )
+"neutral": ExtResource( 1 ),
+"normal": ExtResource( 1 )
 }

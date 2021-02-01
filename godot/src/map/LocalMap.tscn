@@ -25,17 +25,17 @@
 [ext_resource path="res://src/map/Disappear.gd" type="Script" id=24]
 [ext_resource path="res://assets/sprites/battlers/Angery_Red.png" type="Texture" id=25]
 
-[sub_resource type="StreamTexture" id=3]
+[sub_resource type="StreamTexture" id=1]
 flags = 4
 load_path = "res://.import/Usir.png-1e18fc3525c0abe62e0b612ec26763a1.stex"
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 91.6993, 90.4361 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 64, 32 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 80, 80 )
 
 [node name="LocalMap" type="Node2D"]
@@ -87,7 +87,7 @@ facing = {
 [node name="Sprite2" type="Sprite" parent="GameBoard/Pawns/Usir-purple"]
 position = Vector2( -5.07617, 4.09045 )
 z_index = 51
-texture = SubResource( 3 )
+texture = SubResource( 1 )
 offset = Vector2( 0, -64 )
 
 [node name="Ravi-green" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
@@ -101,13 +101,14 @@ facing = {
 }
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/Ravi-green" index="3"]
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/Ravi-green/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/ravi-dia1.json"
 
 [node name="Sprite2" type="Sprite" parent="GameBoard/Pawns/Ravi-green"]
 position = Vector2( -5.07617, 4.09045 )
+scale = Vector2( 0.5, 0.5 )
 z_index = 51
 texture = ExtResource( 17 )
 offset = Vector2( 0, -64 )
@@ -124,7 +125,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/FriendlyRed" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/FriendlyRed/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/gud_boi_red.json"
@@ -148,7 +149,7 @@ facing = {
 }
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Artifact1" index="3"]
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/POI-Artifact1/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/artifact_0.json"
@@ -171,7 +172,7 @@ facing = {
 }
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Eyeballs" index="3"]
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/POI-Eyeballs/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/eyeballs.json"
@@ -193,7 +194,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/LoneRedSlime" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneRedSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 20 )
@@ -216,7 +217,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/LoneBlueSlime" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneBlueSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 21 )
@@ -239,7 +240,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/LoneGreenSlime" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneGreenSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 22 )
