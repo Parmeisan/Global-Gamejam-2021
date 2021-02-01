@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/party/Party.gd" type="Script" id=1]
 [ext_resource path="res://src/party/PartyMember.tscn" type="PackedScene" id=2]
@@ -10,7 +10,7 @@
 [ext_resource path="res://src/combat/battlers/ai/PlayerInput.gd" type="Script" id=8]
 [ext_resource path="res://src/map/pawns/GodettePawnAnim.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/combat/battlers/jobs/RobiJob.tres" type="Resource" id=10]
-[ext_resource path="res://assets/sprites/battlers/robi_portrait_256.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/battlers/Scale_Monster.png" type="Texture" id=11]
 [ext_resource path="res://src/combat/animation/GreenSlimeAnim.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/combat/battlers/skills/Slash.tres" type="Resource" id=13]
 [ext_resource path="res://src/map/pawns/RobiPawnAnim.tscn" type="PackedScene" id=14]
@@ -21,6 +21,11 @@
 [ext_resource path="res://src/combat/animation/GreenMonsterAnim.tscn" type="PackedScene" id=19]
 [ext_resource path="res://src/combat/animation/RedMonsterAnim.tscn" type="PackedScene" id=20]
 [ext_resource path="res://src/combat/animation/BlueMonsterAnim.tscn" type="PackedScene" id=21]
+[ext_resource path="res://assets/sprites/battlers/Blue_Slime_128.png" type="Texture" id=22]
+[ext_resource path="res://assets/sprites/battlers/Red_Slime_128.png" type="Texture" id=23]
+[ext_resource path="res://assets/sprites/battlers/Fang_Monster.png" type="Texture" id=24]
+[ext_resource path="res://assets/sprites/battlers/Green_Slime_128.png" type="Texture" id=25]
+[ext_resource path="res://assets/sprites/battlers/Eye_Monster.png" type="Texture" id=26]
 
 [node name="Party" type="Node2D"]
 script = ExtResource( 1 )
@@ -48,12 +53,12 @@ script = ExtResource( 8 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Robi" parent="." instance=ExtResource( 2 )]
-pawn_anim_path = NodePath("RobiPawnAnim")
+pawn_anim_path = NodePath("RedSlimeAnim2")
 growth = ExtResource( 10 )
 
 [node name="Battler" parent="Robi" index="0"]
 party_member = true
-turn_order_icon = ExtResource( 11 )
+turn_order_icon = ExtResource( 23 )
 
 [node name="RedSlimeAnim" parent="Robi/Battler/Skin" index="2" instance=ExtResource( 17 )]
 
@@ -64,7 +69,7 @@ level = 0
 [node name="AI" parent="Robi/Battler" index="6"]
 script = ExtResource( 8 )
 
-[node name="RobiPawnAnim" parent="Robi" instance=ExtResource( 14 )]
+[node name="RedSlimeAnim2" parent="Robi" instance=ExtResource( 14 )]
 
 [node name="Robi2" parent="." instance=ExtResource( 2 )]
 pawn_anim_path = NodePath("RobiPawnAnim")
@@ -72,7 +77,7 @@ growth = ExtResource( 10 )
 
 [node name="Battler" parent="Robi2" index="0"]
 party_member = true
-turn_order_icon = ExtResource( 11 )
+turn_order_icon = ExtResource( 22 )
 
 [node name="BlueSlimeAnim" parent="Robi2/Battler/Skin" index="2" instance=ExtResource( 18 )]
 
@@ -91,7 +96,7 @@ growth = ExtResource( 10 )
 
 [node name="Battler" parent="Robi3" index="0"]
 party_member = true
-turn_order_icon = ExtResource( 11 )
+turn_order_icon = ExtResource( 25 )
 
 [node name="GreenSlimeAnim" parent="Robi3/Battler/Skin" index="2" instance=ExtResource( 12 )]
 
@@ -111,7 +116,7 @@ growth = ExtResource( 10 )
 
 [node name="Battler" parent="Robi4" index="0"]
 party_member = true
-turn_order_icon = ExtResource( 11 )
+turn_order_icon = ExtResource( 24 )
 
 [node name="RedMonsterAnim" parent="Robi4/Battler/Skin" index="2" instance=ExtResource( 20 )]
 
@@ -127,7 +132,7 @@ growth = ExtResource( 10 )
 
 [node name="Battler" parent="Robi5" index="0"]
 party_member = true
-turn_order_icon = ExtResource( 11 )
+turn_order_icon = ExtResource( 26 )
 
 [node name="BlueMonsterAnim" parent="Robi5/Battler/Skin" index="2" instance=ExtResource( 21 )]
 

@@ -91,7 +91,7 @@ texture = SubResource( 3 )
 offset = Vector2( 0, -64 )
 
 [node name="Ravi-green" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
-position = Vector2( 1175.07, 913.022 )
+position = Vector2( 1176.33, 935.701 )
 z_index = 51
 facing = {
 "down": false,

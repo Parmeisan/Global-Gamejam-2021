@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/map/pawns/PawnAnim.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/sprites/local_map/characters/robi_pawn.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/battlers/Angery_Red_128.png" type="Texture" id=2]
 
 [node name="RobiPawnAnim" instance=ExtResource( 1 )]
 visible = false

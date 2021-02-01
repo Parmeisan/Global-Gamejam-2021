@@ -12,10 +12,10 @@ onready var music_player = $MusicPlayer
 onready var game_over_interface := $GameOverInterface
 onready var gui := $GUI
 onready var monster_collection_interface := $MonsterCollection
-onready var script_manager := $DialogueAction
 
 var transitioning = false
 var combat_arena: CombatArena
+var script_manager
 
 # Debugging
 var debug : Debugger
