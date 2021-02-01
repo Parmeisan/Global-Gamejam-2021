@@ -29,8 +29,8 @@ func _ready():
 	local_map.visible = true
 	local_map.connect("enemies_encountered", self, "enter_battle")
 	music_player.play_field_theme()
-	#script_manager = DialogueAction.new()
-	#script_manager.initialize(local_map)
+	script_manager = DialogueAction.new()
+	script_manager.initialize(local_map)
 	debug.debugMessage(CAT.FILE, "Game load complete")
 
 	# introTimer to clear splash screen and then load introduction scripts
@@ -44,10 +44,10 @@ var introTimer
 func enter_game():
 	get_node("IntroScreen/TextureRect").visible = false
 	introTimer.stop()
-	#script_manager.load_and_run("res://src/dialogue/data/game_intro_01.json")
+	script_manager.load_and_run("res://src/dialogue/data/game_intro_01.json")
 	## TODO Not actually yielding, but I guess it's all right for this scene
-	#local_map.get_node("GameBoard/Pawns/Usir-purple").visible = false
-	print("done")
+	local_map.get_node("GameBoard/Pawns/Usir-purple").visible = false
+	print("Done intro")
 
 
 func enter_battle(formation: Formation):
@@ -108,7 +108,6 @@ func _on_CombatArena_game_over() -> void:
 	game_over_interface.display(GameOverInterface.Reason.PARTY_DEFEATED)
 	yield(transition.fade_from_color(), "completed")
 	transitioning = false
-
 
 
 func _on_GameOverInterface_restart_requested():

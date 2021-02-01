@@ -46,6 +46,8 @@ var artifact_ext = ".png"
 func reload():
 	actions.get_node("AscendButton").visible = checkAscendPossible()
 	actions.get_node("AscendLabel").visible = checkAscendPossible()
+	actions.get_node("MergeButton").visible = checkMergePossible()
+	actions.get_node("MergeLabel").visible = checkMergePossible()
 	# First few children are labels etc and the main character; clear everything else and then start copying it
 	while party.get_child_count() > 3:
 		party.remove_child(party.get_child(3))
@@ -98,6 +100,8 @@ func checkAscendPossible():
 		if Data.hasSlime(i) and Data.hasArtifact(i) and not Data.hasMonster(i):
 			poss = true
 	return poss
+func checkMergePossible():
+	return (Data.hasSlime(0) or Data.hasMonster(0)) and slimes.size() > 0
 
 func _on_AscendButton_button_down():
 	for i in range(0, 3):
@@ -107,14 +111,14 @@ func _on_AscendButton_button_down():
 			break
 
 func merge():
-	if slimes.size() > 0:
+	if checkMergePossible():
 		# first collection item
 		var m : Slime = slimes.pop_front()
-		# determines type
-		print("name? %s" % m.get_name())
 		# merges into appropriate party member
-		#var member = game.party.get_party_member(i)
-	pass
+		var game = Util.getParent(self, "Game")
+		var member = game.party.get_party_member(0)
+		member.stats.level += 1
+		reload()
 
 func _on_MergeButton_button_down():
 	merge()

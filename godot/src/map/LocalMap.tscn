@@ -149,7 +149,7 @@ script = ExtResource( 24 )
 z_index = 53
 texture = ExtResource( 23 )
 
-[node name="POI-Eyeballs" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
+[node name="POI-Artifact2" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 position = Vector2( 1112.33, 603.562 )
 z_index = 53
 facing = {
@@ -158,10 +158,6 @@ facing = {
 "right": false,
 "up": false
 }
-
-[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/POI-Eyeballs"]
-z_index = 53
-texture = ExtResource( 23 )
 
 [node name="LoneRedSlime" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 visible = false
