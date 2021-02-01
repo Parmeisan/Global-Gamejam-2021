@@ -350,7 +350,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="GGJ2021"
+config/name="Oodles of Oozes"
 run/main_scene="res://src/main/Game.tscn"
 config/icon="res://icon.png"
 config/version="0.3.0"

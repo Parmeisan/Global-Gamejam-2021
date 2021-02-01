@@ -45,6 +45,7 @@ skill = ExtResource( 7 )
 script = ExtResource( 8 )
 
 [node name="GodettePawnAnim" parent="Godette" instance=ExtResource( 9 )]
+scale = Vector2( 0.5, 0.5 )
 
 [node name="Robi" parent="." instance=ExtResource( 2 )]
 pawn_anim_path = NodePath("RobiPawnAnim")

@@ -16,7 +16,7 @@
 [ext_resource path="res://src/interface/gui/DialogueBox.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/map/pawns/actions/MapTransition.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/backgrounds/FactoryRoom01.png" type="Texture" id=16]
-[ext_resource path="res://assets/sprites/npcs/ravi.png" type="Texture" id=17]
+[ext_resource path="res://assets/sprites/npcs/Ravi.png" type="Texture" id=17]
 [ext_resource path="res://assets/sprites/battlers/Red_Slime_128.png" type="Texture" id=19]
 [ext_resource path="res://src/combat/battlers/formations/LoneRedSlime.tscn" type="PackedScene" id=20]
 [ext_resource path="res://src/combat/battlers/formations/LoneBlueSlime.tscn" type="PackedScene" id=21]
@@ -25,14 +25,14 @@
 [ext_resource path="res://src/map/Disappear.gd" type="Script" id=24]
 [ext_resource path="res://assets/sprites/battlers/Angery_Red.png" type="Texture" id=25]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 64, 32 )
-
-[sub_resource type="StreamTexture" id=3]
+[sub_resource type="StreamTexture" id=1]
 flags = 4
 load_path = "res://.import/usir.png-107562906ac013cfd593628697eab8fd.stex"
 
 [sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 64, 32 )
+
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 80, 80 )
 
 [node name="LocalMap" type="Node2D"]
@@ -71,7 +71,7 @@ position = Vector2( 226.322, 610.822 )
 script = ExtResource( 6 )
 party_scene = ExtResource( 7 )
 
-[node name="assholePurple" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
+[node name="Usir-purple" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 position = Vector2( 292.078, 476.035 )
 z_index = 51
 facing = {
@@ -81,20 +81,13 @@ facing = {
 "up": false
 }
 
-[node name="CollisionShape2D" parent="GameBoard/Pawns/assholePurple" index="3"]
-position = Vector2( 0, 16 )
-shape = SubResource( 1 )
-
-[node name="Dialogue" parent="GameBoard/Pawns/assholePurple/Actions" index="0" instance=ExtResource( 11 )]
-dialogue_file_path = "res://src/dialogue/data/Usir-beta.json"
-
-[node name="Sprite2" type="Sprite" parent="GameBoard/Pawns/assholePurple"]
+[node name="Sprite2" type="Sprite" parent="GameBoard/Pawns/Usir-purple"]
 position = Vector2( -5.07617, 4.09045 )
 z_index = 51
-texture = SubResource( 3 )
+texture = SubResource( 1 )
 
-[node name="spookedgreen" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
-position = Vector2( 1468.04, 957.196 )
+[node name="Ravi-green" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
+position = Vector2( 1424.14, 841.252 )
 z_index = 51
 facing = {
 "down": false,
@@ -103,27 +96,10 @@ facing = {
 "up": false
 }
 
-[node name="CollisionShape2D" parent="GameBoard/Pawns/spookedgreen" index="3"]
-position = Vector2( 0, 16 )
-shape = SubResource( 1 )
-
-[node name="Dialogue" parent="GameBoard/Pawns/spookedgreen/Actions" index="0" instance=ExtResource( 11 )]
-dialogue_file_path = "res://src/dialogue/data/ravi-dia1.json"
-
-[node name="Sprite2" type="Sprite" parent="GameBoard/Pawns/spookedgreen"]
+[node name="Sprite2" type="Sprite" parent="GameBoard/Pawns/Ravi-green"]
 position = Vector2( -5.07617, 4.09045 )
 z_index = 51
 texture = ExtResource( 17 )
-
-[node name="Usir" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
-visible = false
-position = Vector2( 287.002, 480.125 )
-facing = {
-"down": false,
-"left": false,
-"right": false,
-"up": false
-}
 
 [node name="FriendlyRed" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 position = Vector2( 1665.18, 660.173 )
@@ -137,7 +113,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/FriendlyRed" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/FriendlyRed/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/gud_boi_red.json"
@@ -161,7 +137,7 @@ facing = {
 }
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Artifact1" index="3"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/POI-Artifact1/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/artifact_0.json"
@@ -173,7 +149,7 @@ script = ExtResource( 24 )
 z_index = 53
 texture = ExtResource( 23 )
 
-[node name="POI-Artifact2" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
+[node name="POI-Eyeballs" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 position = Vector2( 1112.33, 603.562 )
 z_index = 53
 facing = {
@@ -183,13 +159,7 @@ facing = {
 "up": false
 }
 
-[node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Artifact2" index="3"]
-shape = SubResource( 2 )
-
-[node name="Dialogue" parent="GameBoard/Pawns/POI-Artifact2/Actions" index="0" instance=ExtResource( 11 )]
-dialogue_file_path = "res://src/dialogue/data/eyeballs.json"
-
-[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/POI-Artifact2"]
+[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/POI-Eyeballs"]
 z_index = 53
 texture = ExtResource( 23 )
 
@@ -206,7 +176,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/LoneRedSlime" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneRedSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 20 )
@@ -229,7 +199,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/LoneBlueSlime" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneBlueSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 21 )
@@ -252,7 +222,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/LoneGreenSlime" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneGreenSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 22 )
@@ -317,15 +287,9 @@ layer = 100
 [node name="DialogueBox" parent="MapInterface" instance=ExtResource( 14 )]
 visible = false
 
-[editable path="GameBoard/Pawns/assholePurple"]
-
-[editable path="GameBoard/Pawns/spookedgreen"]
-
 [editable path="GameBoard/Pawns/FriendlyRed"]
 
 [editable path="GameBoard/Pawns/POI-Artifact1"]
-
-[editable path="GameBoard/Pawns/POI-Artifact2"]
 
 [editable path="GameBoard/Pawns/LoneRedSlime"]
 

@@ -12,6 +12,7 @@ onready var music_player = $MusicPlayer
 onready var game_over_interface := $GameOverInterface
 onready var gui := $GUI
 onready var monster_collection_interface := $MonsterCollection
+onready var script_manager := $DialogueAction
 
 var transitioning = false
 var combat_arena: CombatArena
@@ -28,9 +29,11 @@ func _ready():
 	local_map.visible = true
 	local_map.connect("enemies_encountered", self, "enter_battle")
 	music_player.play_field_theme()
+	#script_manager = DialogueAction.new()
+	#script_manager.initialize(local_map)
 	debug.debugMessage(CAT.FILE, "Game load complete")
 
-	# introTimer to clear intro screen
+	# introTimer to clear splash screen and then load introduction scripts
 	introTimer = Timer.new()
 	introTimer.set_wait_time(4)
 	introTimer.connect("timeout", self, "enter_game") 
@@ -41,6 +44,10 @@ var introTimer
 func enter_game():
 	get_node("IntroScreen/TextureRect").visible = false
 	introTimer.stop()
+	#script_manager.load_and_run("res://src/dialogue/data/game_intro_01.json")
+	## TODO Not actually yielding, but I guess it's all right for this scene
+	#local_map.get_node("GameBoard/Pawns/Usir-purple").visible = false
+	print("done")
 
 
 func enter_battle(formation: Formation):
@@ -122,4 +129,3 @@ func _on_toggle_encounters():
 func _process(_delta):
 	if(Input.is_action_just_released("ui_quicksave")):
 		Data.saveCSV("saves/", "slimes", ".csv", monster_collection_interface.slimes)
-

@@ -65,7 +65,7 @@ func next():
 	_update()
 
 func _update():
-	print(_index_current)
+	#print(_index_current)
 	if _conversation[_index_current].has("sfx") == true:
 		var sfxID = _conversation[_index_current].sfx
 		#sfxPlayer.diaMCspeech()

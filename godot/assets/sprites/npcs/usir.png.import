@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/usir.png-107562906ac013cfd593628697eab8fd.stex"
+path="res://.import/Usir.png-1e18fc3525c0abe62e0b612ec26763a1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/npcs/usir.png"
-dest_files=[ "res://.import/usir.png-107562906ac013cfd593628697eab8fd.stex" ]
+source_file="res://assets/sprites/npcs/Usir.png"
+dest_files=[ "res://.import/Usir.png-1e18fc3525c0abe62e0b612ec26763a1.stex" ]
 
 [params]
 

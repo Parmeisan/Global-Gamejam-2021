@@ -20,3 +20,9 @@ func load_dialogue(file_path) -> Dictionary:
 	var dialogue = parse_json(file.get_as_text())
 	assert(dialogue.size() > 0)
 	return dialogue
+
+# For programmatic interaction
+func load_and_run(file_path):
+	dialogue_file_path = file_path
+	interact()
+	yield(self, "finished")
