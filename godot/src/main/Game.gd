@@ -46,8 +46,8 @@ func enter_game():
 	introTimer.stop()
 	script_manager.load_and_run("res://src/dialogue/data/game_intro_01.json")
 	## TODO Not actually yielding, but I guess it's all right for this scene
+	yield(script_manager, "finished")
 	local_map.get_node("GameBoard/Pawns/Usir-purple").visible = false
-	print("Done intro")
 
 
 func enter_battle(formation: Formation):
