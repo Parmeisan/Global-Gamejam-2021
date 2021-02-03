@@ -1,0 +1,121 @@
+MC - Sky) - 	
+R - Ravi -
+D - Diana -
+U - Usir -
+S0 - Basic Slime -
+S1 - Fang Monster - 
+S2 - Eye Monster - 
+S3 - Scale Monster - 
+
+POI-Console
+[Interacting with the machine console behind Ravi]
+(A machine that doesn't work. Wonder what it used to make?)
+
+POI-Bricks
+[Interacting with the pile of bricks near the left]
+(Some papers under these bricks that are still a little legible.)
+("Company bulletin: Anyone found complaining about the rumbling under the floor and/or hearing voices of ancient spirits warning of doom will be subject to disciplinary action.")
+("Remember, we want a happy and friendly workplace environment!")
+
+POI-Eyeballs
+[Interacting with the eyeballs, both the ones up top and the ones at the bottom of the area]
+(Eyeballs growing out of moss and mould...)
+(I'm not complaining about how gross the school washroom is ever again.)
+
+============ Area 2 ============
+
+Diana-blue
+[Overworld dialogue when you talk to Diana]
+(Oh, hey, Diana's already here! Of course she would be, she loves adventuring.)
+MC: Hey, Diana! Check out my new buddy.
+D: Is that a monster following you? That's so cool!
+MC: Yeah, I guess I can make the slimes follow me. And they can use some of the artifacts in here to turn into monsters!
+D: I saw Usir hanging around with some slimes earlier. Then he went off to go find more artifacts.
+D: I think he thinks if he can find the coolest artifact, he can lord it over the rest of us.
+D: So we need to get something better! Right now!
+MC: Are you trying to drag that entire assembly machine out by yourself?
+D: ...
+D: ...yes.
+MC: Okay. Sure.
+D: I think there's some other stuff over on the other side of the room if you need more stuff, though.
+MC: I'll check there.
+
+FriendlyBlue
+[After you capture a slime here and add it to your inventory]
+MC: Good job, buddy!
+S1: {satisfied monster noises}
+(So not only can my monster fight the other slimes, there are more special ones I can befriend. That's pretty cool!)
+
+POI-Artifact2
+[Interacting with the pile of eyes where the Eye artifact is hidden]
+(More eyes. It's kind of creepy, but really cool!)
+(Wait, this one just looks like an eye... or maybe it used to be one?)
+(It's another one of those fossils. Maybe I can combine it with another slime!)
++ARTIFACT2
+
+???????
+[When you combine the Eye with a slime and get the Eye Monster]
+S2: {Monster noises}
+MC: Cool, another monster! I think I'll call you Eye Monster.
+
+POI-Machine
+[Interacting with the machine in shadows at the level entrance]
+(Some machines with drawers that look flooded.)
+(Oh, hey, inside are some piles of... I think these are clothes? This looks like it used to be a clothing factory.)
+(I'd take these shorts, except they're decomposing.)
+
+POI-TeethPlants
+[Interacting with the edge of the water on the top left, where the teeth plants are]
+(Whoa, are those underwater plants? And further out is some kind of sunken machine.)
+(I wonder how this room got so flooded anyway? Looks like the floor broke up at some point.)
+
+POI-LizardMonster
+[Interacting with the green monster in the lower right]
+MC: Hey, do you wanna be my friend? ...No? Okay.
+
+============ Area 3 ============
+
+POI-Artifact3
+[Interacting with the eyeball cluster where you find the Scale artifact]
+(Hey, there's something under the rocks by this eye guy.)
+(I think it's another petrified artifact!)
+[You get the Scale.]
++ARTIFACT3
+
+??????????
+[When you combine the Scale with a slime and get the Scale Monster]
+S3: {Monster noises}
+MC: Whoa, that one looks cool! Nice to meet you, buddy! How about Scale Monster for a name?
+
+POI-JaggedCliff
+[Interacting with the jagged cliff edge]
+(The floor's broken off, and there are more monsters down in the pit.)
+(Looks like there used to be a staircase down here... sure can't use it now, though.)
+
+POI-SlimeDrip
+[Interacting with the slime drip]
+(Slime's dripping. There's something under the broken... what's left of the floor in here.)
+(Almost looks like a modern phone? It's all busted, though.)
+(What kinds of things did the lost civilization use?)
+
+Usir-FinalBoss
+[Approaching Usir]
+U: Hey, you actually got this far.
+U: And you figured out how to combine and get monsters? No way!
+U: Who cares. Mine are stronger!
+U: Let's prove that right here!
+[Fight]
+
+Usir-If-Won
+[After Usir fight]
+U: No way! How'd I lose? You guys are worthless!
+MC: I think it's because you're kind of a jerk, Usir.
+MC: You treat your monsters the same way you treat us. No wonder they don't like you.
+U: How do you know? Ugh... Screw you guys, I'm going home.
+[Usir leaves. Ravi and Diana come in.]
+R: What's his problem?
+D: Looks like you scared him off. Oh, cool, more monsters!
+MC: Yeah! Cool, huh?
+(I didn't know that day what was going on.)
+(Where the slimes and the artifacts came from, or how they could become monsters when combined.)
+(But what the lost civilization left behind... That day, we started to uncover it again.

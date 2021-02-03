@@ -165,3 +165,6 @@ func setArtifact(i, val):
 	setFlag("ARTIFACT", i, val)
 func setMonster(i, val):
 	setFlag("MONSTER", i, val)
+
+# A bit hacky, but will contain MapName.ObjName e.g. LocalMap2.FriendlyBlue
+var disappeared = []
