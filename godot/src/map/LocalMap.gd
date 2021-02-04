@@ -10,7 +10,6 @@ signal dialogue_finished
 onready var dialogue_box = $MapInterface/DialogueBox
 onready var grid = $GameBoard
 
-
 func _ready() -> void:
 	assert(dialogue_box)
 	for action in get_tree().get_nodes_in_group("map_action"):
@@ -18,9 +17,8 @@ func _ready() -> void:
 	# Disappeared things should stay that way
 	for i in range(0, Data.disappeared.size()):
 		var obj = Data.disappeared[i]
-		if obj.begins_with(self.name + "."):
-			var objname = obj.substr(obj.find(".") + 1)
-			grid.get_node("Pawns/" + objname).visible = false
+		if grid.has_node(obj):
+			grid.get_node(obj).visible = false
 
 
 func spawn_party(party) -> void:

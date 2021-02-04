@@ -15,8 +15,8 @@ static func nvl(s, def):
 	else:
 		return s
 
-static func padNum(num : int, c : String, n : int):
-	return Util.pad(str(num), c, n, true)
+static func padNum(num : int, n : int):
+	return Util.pad(str(num), '0', n, true)
 static func pad(inString : String, c : String, n : int, before = false):
 	var s = inString
 	while len(s) < n:
@@ -31,10 +31,10 @@ static func getStringDateUnix(dateUnix : int):
 	var date = OS.get_datetime_from_unix_time(dateUnix)
 	return getStringDate(date)
 static func getStringDate(date : Dictionary):
-	return str(date.year) + "-" + Util.MONTHS[date.month-1] + "-" + padNum(date.day, '0', 2)
+	return str(date.year) + "-" + Util.MONTHS[date.month-1] + "-" + padNum(date.day, 2)
 
 static func getStringTime(date : Dictionary):
-	return str(date.hour) + ":" + str(date.minute) + ":" + padNum(date.second, '0', 2)
+	return str(date.hour) + ":" + str(date.minute) + ":" + padNum(date.second, 2)
 	#year, month, day, weekday, dst (Daylight Savings Time), hour, minute, second.
 
 # ===== Display =========================================================

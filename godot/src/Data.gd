@@ -168,3 +168,4 @@ func setMonster(i, val):
 
 # A bit hacky, but will contain MapName.ObjName e.g. LocalMap2.FriendlyBlue
 var disappeared = []
+var loaded_maps = {}
