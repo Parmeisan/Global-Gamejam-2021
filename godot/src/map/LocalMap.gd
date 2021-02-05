@@ -7,6 +7,8 @@ class_name LocalMap
 signal enemies_encountered(formation)
 signal dialogue_finished
 
+export (int) var map_difficulty
+
 onready var dialogue_box = $MapInterface/DialogueBox
 onready var grid = $GameBoard
 
@@ -26,7 +28,7 @@ func spawn_party(party) -> void:
 
 
 func start_encounter(formation) -> void:
-	emit_signal("enemies_encountered", formation.instance())
+	emit_signal("enemies_encountered", formation)#formation.instance())
 
 
 func play_dialogue(data):

@@ -20,6 +20,8 @@ func interact():
 	new_map = load(target_map).instance()
 	#	Data.loaded_maps[target_map] = new_map
 	game_node.add_child(new_map)
+	game_node.switch_maps(new_map)
+	Data.map_difficulty = new_map.map_difficulty
 	
 	var spawn_point = new_map.get_node("GameBoard/SpawningPoint")
 	spawn_point.set_global_position(Vector2(spawn_x, spawn_y))

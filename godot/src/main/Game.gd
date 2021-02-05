@@ -27,10 +27,12 @@ func _ready():
 	QuestSystem.initialize(self, party)
 	local_map.spawn_party(party)
 	local_map.visible = true
+	Data.map_difficulty = $LocalMap.map_difficulty
 	local_map.connect("enemies_encountered", self, "enter_battle")
 	music_player.play_field_theme()
 	script_manager = DialogueAction.new()
 	script_manager.initialize(local_map)
+	prep_random()
 	debug.debugMessage(CAT.FILE, "Game load complete")
 
 	# introTimer to clear splash screen and then load introduction scripts
@@ -39,6 +41,11 @@ func _ready():
 	introTimer.connect("timeout", self, "enter_game") 
 	add_child(introTimer)
 	introTimer.start()
+
+func switch_maps(new_map):
+	local_map = new_map
+	local_map.connect("enemies_encountered", self, "enter_battle")
+	
 
 var introTimer
 func enter_game():
@@ -50,11 +57,34 @@ func enter_game():
 	local_map.get_node("GameBoard/Pawns/Usir-purple").visible = false
 
 
-func enter_battle(formation: Formation):
+func set_party():
+	var first_slime = get_node("Party/Robi")
+	var second_slime = get_node("Party/Robi2")
+	var third_slime = get_node("Party/Robi3")
+	var first_monster = get_node("Party/Robi4")
+	var second_monster = get_node("Party/Robi5")
+	var third_monster = get_node("Party/Robi6")	
+	#for testing puroses, definitely delete these flag sets if you see them:
+	#Data.setSlime(0, true)
+	#Data.setSlime(1, true)
+	#Data.setSlime(2, true)
+	#Data.setMonster(0, true)
+	#Data.setMonster(1, true)
+	#Data.setMonster(2, true)	
+	first_slime.visible = Data.hasSlime(0) && !Data.hasMonster(0)
+	second_slime.visible = Data.hasSlime(1) && !Data.hasMonster(1)
+	third_slime.visible = Data.hasSlime(2) && !Data.hasMonster(2)	
+	first_monster.visible = Data.hasMonster(0)
+	second_monster.visible = Data.hasMonster(1)
+	third_monster.visible = Data.hasMonster(2)
+
+#func enter_battle(formation: Formation):
+func enter_battle(formation: Array):
 	# Plays the combat transition animation and initializes the combat scene
 	if transitioning:
 		return
 
+	set_party()
 	gui.hide()
 	music_player.play_battle_theme()
 
@@ -80,6 +110,63 @@ func enter_battle(formation: Formation):
 	combat_arena.battle_start()
 	emit_signal("combat_started")
 
+
+# Random encounters
+var RNG = RandomNumberGenerator.new()
+var weight_total
+func prep_random():
+	weight_total = 0.0
+	for w in range(0, Data.combat_weights.size()):
+		weight_total += Data.combat_weights[w]
+	RNG.randomize()
+
+func random_encounter():
+	#print("Chance of encounter: %s%%" % curr_combat_chance)
+	var rnd = RNG.randf_range(0.0, 100.0)
+	if rnd < Data.curr_combat_chance:
+		var enc_rnd = RNG.randf_range(0.0, weight_total)
+		var enc_check = 0.0
+		Data.curr_combat_chance = 0.0
+		#var enc = map.get_node("GameBoard/Pawns/" + Data.combat_types[enc_type])
+		var enc = get_random_enemy_group()
+		if Data.encounters_on and enc:
+			local_map.start_encounter(enc)
+	else:
+		if Data.curr_combat_chance < Data.max_combat_chance:
+			Data.curr_combat_chance += Data.combat_chance_inc
+
+#func create_encounter(i):
+#	var formation = Formation.new()
+#	var enemy : Battler = $Enemies/RedSlime
+#	formation.add_child(enemy)
+#	enemy.owner = formation
+#	var ps = PackedScene.new()
+#	var result = ps.pack(formation)
+#	if result == OK:
+#		#var enc = MapAction.new()
+#		#enc.formation = ps
+#		return ps
+#	else:
+#		return null
+
+#		var enc_type = 0
+#		for w in range(0, Data.combat_weights.size()):
+#			enc_check += Data.combat_weights[w]
+#			if enc_rnd > enc_check:
+#				enc_type += 1
+func get_random_enemy_group():
+	var enemy_array = []
+	var diff = RNG.randi_range(1, Data.map_difficulty)
+	print("Random encounter of difficulty %s!" % diff)
+	while diff > 0:
+		var e = RNG.randi_range(1, 3)
+		if e > diff:
+			e = diff
+		#print("Enemy ", e)
+		enemy_array.append($Enemies.get_child(e - 1))
+		diff -= e
+	#var node_arr = [$Enemies/RedSlime, $Enemies/RedSlime, $Enemies/RedSlime, $Enemies/RedSlime]
+	return enemy_array
 
 func _on_CombatArena_battle_completed(arena):
 	# At the end of an encounter, fade the screen, remove the combat arena

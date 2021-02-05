@@ -17,6 +17,7 @@
 
 [node name="LocalMap" type="Node2D"]
 script = ExtResource( 1 )
+map_difficulty = 10
 
 [node name="Black" type="ColorRect" parent="."]
 margin_left = -2084.05
