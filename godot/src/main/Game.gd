@@ -156,7 +156,8 @@ func random_encounter():
 #				enc_type += 1
 func get_random_enemy_group():
 	var enemy_array = []
-	var diff = RNG.randi_range(1, Data.map_difficulty)
+	var min_diff = floor(Data.map_difficulty * 2 / 3)
+	var diff = RNG.randi_range(min_diff, Data.map_difficulty)
 	print("Random encounter of difficulty %s!" % diff)
 	while diff > 0:
 		var e = RNG.randi_range(1, 3)

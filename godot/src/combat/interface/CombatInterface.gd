@@ -36,3 +36,7 @@ func select_targets(selectable_battlers: Array) -> void:
 	var targets: Array = yield(select_arrow.select_targets(selectable_battlers), "completed")
 	emit_signal("targets_selected", targets)
 	remove_child(select_arrow)
+	
+func null_selection(selectable_battlers: Array) -> void:
+	var targets: Array = [selectable_battlers[0]]
+	emit_signal("targets_selected", targets)

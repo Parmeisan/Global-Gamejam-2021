@@ -11,7 +11,7 @@ onready var actor: Battler = get_parent().get_owner()
 
 export (Texture) var icon = load("res://assets/sprites/icons/slash.png")
 export (String) var description: String = "Base combat action"
-
+export (bool) var needs_target = true
 
 func initialize(battler: Battler) -> void:
 	actor = battler
