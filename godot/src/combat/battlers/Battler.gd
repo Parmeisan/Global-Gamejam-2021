@@ -4,6 +4,13 @@
 extends Position2D
 
 class_name Battler
+#-HELP:
+# How to add an enemy:
+# Duplicate any node from Enemies
+# Make editable, make local
+# Change icon, turn order, stats, etc
+# Save as scene
+# Update combat weights, difficulties in Data
 
 signal died(battler)
 

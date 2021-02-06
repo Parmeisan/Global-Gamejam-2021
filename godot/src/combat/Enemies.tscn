@@ -1,11 +1,29 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/combat/animation/AngeryRedSlime.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/combat/animation/AngeryBlueSlime.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/combat/animation/AngeryGreenSlime.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/sprites/battlers/Angery_Green_128.png" type="Texture" id=4]
+[ext_resource path="res://src/combat/battlers/enemies/greys/GreyStance02.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/combat/battlers/enemies/greys/GreyStance03.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/combat/battlers/enemies/greys/GreyStance01.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/combat/battlers/enemies/greys/GreyDuo02.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/combat/battlers/enemies/greys/GreyDuo01.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/combat/battlers/enemies/greys/GreyTrio01.tscn" type="PackedScene" id=10]
 
 [node name="Enemies" type="Node2D"]
+
+[node name="GreyStance01" parent="." instance=ExtResource( 7 )]
+
+[node name="GreyStance02" parent="." instance=ExtResource( 5 )]
+
+[node name="GreyStance03" parent="." instance=ExtResource( 6 )]
+
+[node name="GreyDuo01" parent="." instance=ExtResource( 9 )]
+
+[node name="GreyDuo02" parent="." instance=ExtResource( 8 )]
+
+[node name="GreyTrio01" parent="." instance=ExtResource( 10 )]
 
 [node name="AngryRedSlime" parent="." instance=ExtResource( 1 )]
 
@@ -13,5 +31,17 @@
 
 [node name="AngryGreenSlime" parent="." instance=ExtResource( 3 )]
 turn_order_icon = ExtResource( 4 )
+
+[editable path="GreyStance01"]
+
+[editable path="GreyStance02"]
+
+[editable path="GreyStance03"]
+
+[editable path="GreyDuo01"]
+
+[editable path="GreyDuo02"]
+
+[editable path="GreyTrio01"]
 
 [editable path="AngryBlueSlime"]
