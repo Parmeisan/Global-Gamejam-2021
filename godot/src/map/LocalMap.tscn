@@ -17,6 +17,7 @@
 [ext_resource path="res://src/map/pawns/actions/MapTransition.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/backgrounds/FactoryRoom01.png" type="Texture" id=16]
 [ext_resource path="res://assets/sprites/npcs/Ravi.png" type="Texture" id=17]
+[ext_resource path="res://assets/sprites/npcs/Usir.png" type="Texture" id=18]
 [ext_resource path="res://assets/sprites/battlers/Red_Slime_128.png" type="Texture" id=19]
 [ext_resource path="res://src/combat/battlers/formations/LoneRedSlime.tscn" type="PackedScene" id=20]
 [ext_resource path="res://src/combat/battlers/formations/LoneBlueSlime.tscn" type="PackedScene" id=21]
@@ -25,21 +26,18 @@
 [ext_resource path="res://src/map/Disappear.gd" type="Script" id=24]
 [ext_resource path="res://assets/sprites/battlers/Angery_Red.png" type="Texture" id=25]
 
-[sub_resource type="StreamTexture" id=1]
-flags = 4
-load_path = "res://.import/Usir.png-1e18fc3525c0abe62e0b612ec26763a1.stex"
-
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 91.6993, 90.4361 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 64, 32 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 80, 80 )
 
 [node name="LocalMap" type="Node2D"]
 script = ExtResource( 1 )
+map_difficulty = 3
 
 [node name="Black" type="ColorRect" parent="."]
 margin_left = -1920.0
@@ -64,7 +62,7 @@ __meta__ = {
 [node name="GameBoard" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
 format = 1
-tile_data = PoolIntArray( 393219, 1, 0, 393220, 1, 0, 393221, 1, 0, 393222, 1, 0, 393223, 1, 0, 393229, 1, 0, 393230, 1, 0, 393231, 1, 0, 458754, 1, 0, 458755, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 0, 458762, 1, 0, 458763, 1, 0, 458764, 1, 0, 458765, 1, 0, 458766, 1, 0, 458767, 1, 0, 458768, 1, 0, 458769, 1, 0, 458770, 1, 0, 458771, 1, 0, 458772, 1, 0, 524290, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 0, 524311, 1, 0, 589826, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589840, 1, 0, 589847, 1, 0, 589848, 1, 0, 589849, 1, 0, 589850, 1, 0, 589851, 1, 0, 589852, 1, 0, 655362, 1, 0, 655369, 1, 0, 655370, 1, 0, 655375, 1, 0, 655376, 1, 0, 655377, 1, 0, 655378, 1, 0, 655379, 1, 0, 655380, 1, 0, 655388, 1, 0, 720898, 1, 0, 720899, 1, 0, 720904, 1, 0, 720905, 1, 0, 720906, 1, 0, 720908, 1, 0, 720909, 1, 0, 720910, 1, 0, 720911, 1, 0, 720912, 1, 0, 720913, 1, 0, 720914, 1, 0, 720915, 1, 0, 720916, 1, 0, 720917, 1, 0, 720924, 1, 0, 786435, 1, 0, 786436, 1, 0, 786437, 1, 0, 786438, 1, 0, 786444, 1, 0, 786445, 1, 0, 786446, 1, 0, 786447, 1, 0, 786448, 1, 0, 786449, 1, 0, 786450, 1, 0, 786451, 1, 0, 786452, 1, 0, 786453, 1, 0, 786454, 1, 0, 786459, 1, 0, 786460, 1, 0, 851974, 1, 0, 851975, 1, 0, 851976, 1, 0, 851977, 1, 0, 851978, 1, 0, 851981, 1, 0, 851982, 1, 0, 851983, 1, 0, 851984, 1, 0, 851985, 1, 0, 851986, 1, 0, 851987, 1, 0, 851988, 1, 0, 851989, 1, 0, 851990, 1, 0, 851991, 1, 0, 851995, 1, 0, 917514, 1, 0, 917515, 1, 0, 917518, 1, 0, 917519, 1, 0, 917520, 1, 0, 917521, 1, 0, 917523, 1, 0, 917524, 1, 0, 917525, 1, 0, 917531, 1, 0, 917532, 1, 0, 917533, 1, 0, 983051, 1, 0, 983052, 1, 0, 983056, 1, 0, 983057, 1, 0, 983064, 1, 0, 983067, 1, 0, 983068, 1, 0, 983069, 1, 0, 1048588, 1, 0, 1048589, 1, 0, 1048590, 1, 0, 1048595, 1, 0, 1048596, 1, 0, 1048597, 1, 0, 1048598, 1, 0, 1048599, 1, 0, 1048600, 1, 0, 1048603, 1, 0, 1114126, 1, 0, 1114127, 1, 0, 1114128, 1, 0, 1114129, 1, 0, 1114130, 1, 0, 1114131, 1, 0, 1114136, 1, 0, 1114137, 1, 0, 1114138, 1, 0, 1114139, 1, 0 )
+tile_data = PoolIntArray( 393219, 1, 0, 393220, 1, 0, 393221, 1, 0, 393222, 1, 0, 393223, 1, 0, 393229, 1, 0, 393230, 1, 0, 393231, 1, 0, 458754, 1, 0, 458755, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 0, 458762, 1, 0, 458763, 1, 0, 458764, 1, 0, 458765, 1, 0, 458766, 1, 0, 458767, 1, 0, 458768, 1, 0, 458769, 1, 0, 458770, 1, 0, 458771, 1, 0, 458772, 1, 0, 524290, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524302, 1, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 0, 524311, 1, 0, 589826, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589840, 1, 0, 589847, 1, 0, 589848, 1, 0, 589849, 1, 0, 589850, 1, 0, 589851, 1, 0, 589852, 1, 0, 655362, 1, 0, 655369, 1, 0, 655370, 1, 0, 655375, 1, 0, 655376, 1, 0, 655377, 1, 0, 655378, 1, 0, 655379, 1, 0, 655380, 1, 0, 655388, 1, 0, 720898, 1, 0, 720899, 1, 0, 720904, 1, 0, 720905, 1, 0, 720906, 1, 0, 720908, 1, 0, 720909, 1, 0, 720910, 1, 0, 720911, 1, 0, 720912, 1, 0, 720913, 1, 0, 720914, 1, 0, 720915, 1, 0, 720916, 1, 0, 720917, 1, 0, 720924, 1, 0, 786435, 1, 0, 786436, 1, 0, 786437, 1, 0, 786438, 1, 0, 786444, 1, 0, 786445, 1, 0, 786446, 1, 0, 786447, 1, 0, 786448, 1, 0, 786449, 1, 0, 786450, 1, 0, 786451, 1, 0, 786452, 1, 0, 786453, 1, 0, 786454, 1, 0, 786459, 1, 0, 786460, 1, 0, 851974, 1, 0, 851975, 1, 0, 851976, 1, 0, 851977, 1, 0, 851978, 1, 0, 851981, 1, 0, 851982, 1, 0, 851983, 1, 0, 851984, 1, 0, 851985, 1, 0, 851986, 1, 0, 851987, 1, 0, 851988, 1, 0, 851989, 1, 0, 851990, 1, 0, 851995, 1, 0, 917514, 1, 0, 917515, 1, 0, 917518, 1, 0, 917519, 1, 0, 917520, 1, 0, 917521, 1, 0, 917523, 1, 0, 917525, 1, 0, 917531, 1, 0, 917532, 1, 0, 917533, 1, 0, 983051, 1, 0, 983052, 1, 0, 983056, 1, 0, 983057, 1, 0, 983064, 1, 0, 983067, 1, 0, 983068, 1, 0, 983069, 1, 0, 1048588, 1, 0, 1048589, 1, 0, 1048590, 1, 0, 1048595, 1, 0, 1048596, 1, 0, 1048597, 1, 0, 1048598, 1, 0, 1048599, 1, 0, 1048600, 1, 0, 1048603, 1, 0, 1114126, 1, 0, 1114127, 1, 0, 1114128, 1, 0, 1114129, 1, 0, 1114130, 1, 0, 1114131, 1, 0, 1114136, 1, 0, 1114137, 1, 0, 1114138, 1, 0, 1114139, 1, 0 )
 script = ExtResource( 4 )
 
 [node name="SpawningPoint" parent="GameBoard" instance=ExtResource( 5 )]
@@ -75,7 +73,7 @@ script = ExtResource( 6 )
 party_scene = ExtResource( 7 )
 
 [node name="Usir-purple" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
-position = Vector2( 291.131, 490.378 )
+position = Vector2( 289.871, 497.938 )
 z_index = 51
 facing = {
 "down": false,
@@ -85,9 +83,10 @@ facing = {
 }
 
 [node name="Sprite2" type="Sprite" parent="GameBoard/Pawns/Usir-purple"]
-position = Vector2( -5.07617, 4.09045 )
+position = Vector2( 0, -64 )
+scale = Vector2( 0.5, 0.5 )
 z_index = 51
-texture = SubResource( 1 )
+texture = ExtResource( 18 )
 offset = Vector2( 0, -64 )
 
 [node name="Ravi-green" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
@@ -101,7 +100,7 @@ facing = {
 }
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/Ravi-green" index="3"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/Ravi-green/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/ravi-dia1.json"
@@ -125,7 +124,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/FriendlyRed" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/FriendlyRed/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/gud_boi_red.json"
@@ -148,16 +147,62 @@ facing = {
 "up": false
 }
 
+[node name="QuestBubble" parent="GameBoard/Pawns/POI-Artifact1" index="1"]
+visible = false
+
 [node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Artifact1" index="3"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/POI-Artifact1/Actions" index="0" instance=ExtResource( 11 )]
-dialogue_file_path = "res://src/dialogue/data/artifact_0.json"
 
 [node name="Disappear" type="Node" parent="GameBoard/Pawns/POI-Artifact1/Actions" index="1"]
 script = ExtResource( 24 )
 
 [node name="Sprite" type="Sprite" parent="GameBoard/Pawns/POI-Artifact1"]
+z_index = 53
+texture = ExtResource( 23 )
+
+[node name="POI-Bricks" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
+position = Vector2( 846.478, 538.626 )
+z_index = 53
+facing = {
+"down": false,
+"left": false,
+"right": false,
+"up": false
+}
+
+[node name="QuestBubble" parent="GameBoard/Pawns/POI-Bricks" index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Bricks" index="3"]
+shape = SubResource( 3 )
+
+[node name="Dialogue" parent="GameBoard/Pawns/POI-Bricks/Actions" index="0" instance=ExtResource( 11 )]
+
+[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/POI-Bricks"]
+z_index = 53
+texture = ExtResource( 23 )
+
+[node name="POI-Console" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
+position = Vector2( 1311.39, 921.642 )
+z_index = 53
+facing = {
+"down": false,
+"left": false,
+"right": false,
+"up": false
+}
+
+[node name="QuestBubble" parent="GameBoard/Pawns/POI-Console" index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Console" index="3"]
+shape = SubResource( 3 )
+
+[node name="Dialogue" parent="GameBoard/Pawns/POI-Console/Actions" index="0" instance=ExtResource( 11 )]
+
+[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/POI-Console"]
 z_index = 53
 texture = ExtResource( 23 )
 
@@ -171,8 +216,11 @@ facing = {
 "up": false
 }
 
+[node name="QuestBubble" parent="GameBoard/Pawns/POI-Eyeballs" index="1"]
+visible = false
+
 [node name="CollisionShape2D" parent="GameBoard/Pawns/POI-Eyeballs" index="3"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/POI-Eyeballs/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/eyeballs.json"
@@ -194,7 +242,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/LoneRedSlime" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneRedSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 20 )
@@ -217,7 +265,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/LoneBlueSlime" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneBlueSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 21 )
@@ -240,7 +288,7 @@ facing = {
 
 [node name="CollisionShape2D" parent="GameBoard/Pawns/LoneGreenSlime" index="3"]
 position = Vector2( 0, 16 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="StartCombat" parent="GameBoard/Pawns/LoneGreenSlime/Actions" index="0" instance=ExtResource( 9 )]
 formation = ExtResource( 22 )
@@ -310,6 +358,10 @@ visible = false
 [editable path="GameBoard/Pawns/FriendlyRed"]
 
 [editable path="GameBoard/Pawns/POI-Artifact1"]
+
+[editable path="GameBoard/Pawns/POI-Bricks"]
+
+[editable path="GameBoard/Pawns/POI-Console"]
 
 [editable path="GameBoard/Pawns/POI-Eyeballs"]
 

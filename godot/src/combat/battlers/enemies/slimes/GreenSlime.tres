@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 max_health = 60
 max_mana = 0
-strength = 7
-defense = 2
-speed = 2
+strength = 12
+defense = 3
+speed = 4
 flavour = "Green"

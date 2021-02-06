@@ -23,8 +23,9 @@ signal victory
 signal game_over
 
 
-func initialize(formation: Formation, party: Array):
-	initial_formation = formation
+#func initialize(formation: Formation, party: Array):
+func initialize(formation: Array, party: Array):
+	#FIXME initial_formation = formation
 	ready_field(formation, party)
 
 	# reparent the enemy battlers into the turn queue
@@ -51,15 +52,32 @@ func play_intro():
 		battler.appear()
 	yield(get_tree().create_timer(0.5), "timeout")
 
+var enemy_begin = Vector2(250, 200)
+var grid_size = Vector2(50, 50)
+var enemy_positions = [
+	[Vector2(6, 7)],
+	[Vector2(4, 5), Vector2(8, 11)],
+	[Vector2(4, 4), Vector2(9, 8), Vector2(4, 12)],
+	[Vector2(3, 3), Vector2(8, 7), Vector2(2, 9), Vector2(7, 13)],
+	[Vector2(7, 7), Vector2(4, 5), Vector2(4, 10), Vector2(8, 3),
+	 Vector2(9, 12), Vector2(0, 7), Vector2(11, 6), Vector2(12, 10),
+	 Vector2(-2, 4), Vector2(-1, 11), Vector2(4, 1), Vector2(5, 14),
+	 Vector2(15, 8), Vector2(12, 2), Vector2(13, 15)]
+]
 
-func ready_field(formation: Formation, party_members: Array):
+#func ready_field(formation: Formation, party_members: Array):
+func ready_field(formation: Array, party_members: Array):
 	# use a formation as a factory for the scene's content
 	# @param formation - the combat template of what the player will be fighting
 	# @param party_members - list of active party battlers that will go to combat
-	for enemy_template in formation.get_children():
-		var enemy: Battler = enemy_template.duplicate()
+	var count = 0
+	for e in formation:#.get_children():
+		var enemy: Battler = e.duplicate()
+		var posn_arr = min(formation.size()-1, enemy_positions.size()-1)
+		enemy.position = enemy_begin + enemy_positions[posn_arr][count] * grid_size
 		turn_queue.add_child(enemy)
 		enemy.stats.reset()  # ensure the enemy starts with full health and mana
+		count += 1
 
 	var party_spawn_positions = $SpawnPositions/Party
 	for i in len(party_members):
@@ -107,7 +125,10 @@ func play_turn():
 		return
 
 	action = yield(battler.ai.choose_action(battler, opponents), "completed")
-	targets = yield(battler.ai.choose_target(battler, action, opponents), "completed")
+	if action.needs_target:
+		targets = yield(battler.ai.choose_target(battler, action, opponents), "completed")
+	else:
+		targets = opponents
 	battler.selected = false
 
 	if targets != []:

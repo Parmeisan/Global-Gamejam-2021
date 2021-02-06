@@ -1,4 +1,4 @@
-MC - Sky) - 	
+MC - Sky - 	
 R - Ravi -
 D - Diana -
 U - Usir -
@@ -7,6 +7,20 @@ S1 - Fang Monster -
 S2 - Eye Monster - 
 S3 - Scale Monster - 
 
+POI-Artifact1
+[Interacting with the sticking-out fang where the Fang artifact is hidden]
+(Hey, this machine's busted. Maybe there's something I can get...)
+(There's this weird thing under here!)
++ARTIFACT0
+(Wonder what I can do with this... Hey, the slime is looking at it like it wants it!)
+
+??????????
+MC: Whoa!
+S1: {monster noises}
+MC: Is that you, buddy? Wow...
+(Combining with the artifact turned the slime into some kind of Fang Monster.)
+(It looks pretty strong! Maybe with its help, I can go further into the factory and see what else there is.)
+
 POI-Console
 [Interacting with the machine console behind Ravi]
 (A machine that doesn't work. Wonder what it used to make?)
@@ -14,7 +28,8 @@ POI-Console
 POI-Bricks
 [Interacting with the pile of bricks near the left]
 (Some papers under these bricks that are still a little legible.)
-("Company bulletin: Anyone found complaining about the rumbling under the floor and/or hearing voices of ancient spirits warning of doom will be subject to disciplinary action.")
+("Company bulletin: Anyone found complaining about the rumbling under the floor and/or
+hearing voices of ancient spirits warning of doom will be subject to disciplinary action.")
 ("Remember, we want a happy and friendly workplace environment!")
 
 POI-Eyeballs
@@ -51,7 +66,7 @@ POI-Artifact2
 (More eyes. It's kind of creepy, but really cool!)
 (Wait, this one just looks like an eye... or maybe it used to be one?)
 (It's another one of those fossils. Maybe I can combine it with another slime!)
-+ARTIFACT2
++ARTIFACT1
 
 ???????
 [When you combine the Eye with a slime and get the Eye Monster]
@@ -80,7 +95,7 @@ POI-Artifact3
 (Hey, there's something under the rocks by this eye guy.)
 (I think it's another petrified artifact!)
 [You get the Scale.]
-+ARTIFACT3
++ARTIFACT2
 
 ??????????
 [When you combine the Scale with a slime and get the Scale Monster]
