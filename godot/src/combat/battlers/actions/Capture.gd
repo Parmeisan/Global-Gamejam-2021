@@ -7,7 +7,7 @@ func execute(targets):
 
 	for target in targets:
 		yield(actor.skin.move_to(target), "completed")
-		if target.stats.health < 100:
+		if target.stats.health < 10:
 			var hit = Hit.new(1000)
 			#var combat_arena = target.get_parent().get_parent()
 			#combat_arena.capture_reward()

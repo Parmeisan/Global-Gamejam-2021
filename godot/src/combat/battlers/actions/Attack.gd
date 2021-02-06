@@ -8,6 +8,7 @@ func execute(targets):
 
 	for target in targets:
 		yield(actor.skin.move_to(target), "completed")
+		#Util.getParent(self, "Game").music_player.play_slime_hit()
 		var hit = Hit.new(actor.stats.strength)
 		target.take_damage(hit)
 		yield(actor.get_tree().create_timer(1.0), "timeout")
