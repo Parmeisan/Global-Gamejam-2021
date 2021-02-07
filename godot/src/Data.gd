@@ -188,7 +188,7 @@ func setStartingWeights():
 
 
 # Flags & flag interface functions
-var flags = {}
+var flags = {} # DO NOT TOUCH EXCEPT THROUGH setFlagVal
 
 func hasFlag(flname, i):
 	var fl = flname + str(i)
@@ -205,7 +205,7 @@ func hasMonster(i):
 
 func setFlag(flname, i, val):
 	var fl = flname + str(i)
-	flags[fl] = val
+	setFlagValue(fl, val)
 func setSlime(i, val):
 	setFlag("SLIME", i, val)
 	combat_weights[locked_start + i] = locked_weights[i] if val else 0
@@ -214,7 +214,15 @@ func setArtifact(i, val):
 func setMonster(i, val):
 	setFlag("MONSTER", i, val)
 
+func setFlagValue(fl, val):
+	flags[fl] = val
+	# Some flags also update arrays etc
+	get_node("/root/Game").flag_changed(fl, val)
+
+
 # A bit hacky, but will contain MapName.ObjName e.g. LocalMap2.FriendlyBlue
 var disappeared = []
 var loaded_maps = {}
 var map_difficulty
+
+const COLOURS = [ "Red", "Blue", "Yellow" ]

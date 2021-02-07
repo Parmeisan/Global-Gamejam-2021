@@ -24,9 +24,7 @@ func execute(targets):
 				else:
 					monster_collection.add_grey(0)
 			else:
-				#This is not the most sensible place to be constructing the slime
-				#Its stats should instead get figured/copied from the target that was captured
-				var slime: Slime = target#Slime.new()
+				var slime: Slime = target
 				#slime.stats = load("res://src/slimes/CherrySlime.tres")
 				#slime.stats = target.stats
 				slime.hp = slime.stats.max_health

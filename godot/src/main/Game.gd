@@ -11,7 +11,7 @@ onready var party = $Party as Party
 onready var music_player = $MusicPlayer
 onready var game_over_interface := $GameOverInterface
 onready var gui := $GUI
-onready var monster_collection_interface := $MonsterCollection
+onready var monster_list := $MonsterCollection
 
 var transitioning = false
 var combat_arena: CombatArena
@@ -56,6 +56,12 @@ func enter_game():
 	yield(script_manager, "finished")
 	local_map.get_node("GameBoard/Pawns/Usir-purple").visible = false
 
+func flag_changed(fl, val):
+	match fl:
+		"SLIME0":
+			var s : Slime = party.get_node("RedSlime")
+			s.favourite = true
+			if (val): monster_list.add_slime(s)
 
 func set_party():
 	var first_slime = get_node("Party/Slot1")
@@ -155,7 +161,7 @@ func get_random_enemy_group():
 				enc_type += 1
 		if enc_type > diff: # I could use min() earlier, but I prefer this weighting
 			enc_type = diff
-		print("Enemy type %s name %s" % [enc_type, Data.generate_slime_name()])
+		#print("Enemy type %s name %s" % [enc_type, Data.generate_slime_name()])
 		enemy_array.append($Enemies.get_child(enc_type))
 		diff -= Data.combat_diffs[enc_type]
 	#var node_arr = [$Enemies/RedSlime, $Enemies/RedSlime, $Enemies/RedSlime, $Enemies/RedSlime]
@@ -198,13 +204,14 @@ func _on_GameOverInterface_restart_requested():
 
 
 func _on_MonsterCollection_monster_collection_menu_summoned():
-	var bg = monster_collection_interface.get_node("Background")
-	monster_collection_interface.reload()
+	var bg = monster_list.get_node("Background")
 	bg.visible = !bg.visible
+	if bg.visible:
+		monster_list.reload()
 
 func _on_toggle_encounters():
 	Data.encounters_on = !Data.encounters_on
 
 func _process(_delta):
 	if(Input.is_action_just_released("ui_quicksave")):
-		Data.saveCSV("saves/", "slimes", ".csv", monster_collection_interface.slimes)
+		Data.saveCSV("saves/", "slimes", ".csv", monster_list.slimes)

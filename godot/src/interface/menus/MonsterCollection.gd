@@ -13,20 +13,21 @@ onready var grpCollection = $Background/Columns/Col2/Collection
 onready var grpArtifacts = $Background/Columns/Col1/Artifacts
 onready var grpActions = $Background/Columns/Actions
 onready var grpGreys = $Background/Columns/Col3/Greys
+onready var grpReds = $Background/Columns/Col3/Primaries/PrimCols/RedBack
+onready var grpBlues = $Background/Columns/Col3/Primaries/PrimCols/BlueBack
+onready var grpYellows = $Background/Columns/Col3/Primaries/PrimCols/YellowBack
 
+# Array interface functions
 func add_slime(new_slime: Slime) -> void:
 	slimes.resize(slimes.size() + 1)
 	slimes[slimes.size() - 1] = new_slime
-
 func remove_slime(target_pos: int) -> Slime:
 	var rv = slimes[target_pos]
 	slimes.remove(target_pos)
 	return rv
-
 func get_slime(target_pos: int) -> Slime:
 	var rv = slimes[target_pos]
 	return rv
-
 func add_grey(g: int) -> void:
 	assert(g in allowed_greys)
 	greys[g] += 1
@@ -34,9 +35,20 @@ func remove_grey(g: int) -> void:
 	assert(g in allowed_greys)
 	assert(greys[g] >= 1)
 	greys[g] -= 1
+func get_primary_list(colour : int):
+	return get_slimes_filtered(false, colour)
+func get_enhanced_list():
+	return get_slimes_filtered(true, -1)
+func get_slimes_filtered(wants_enhanced : bool, wants_colour : int):
+	var arr = []
+	for s in slimes:
+		if (wants_enhanced != s.is_primary()):
+			arr.append(s)
+	return arr
 
+# Main functions
 func _ready():
-	pass # Replace with function body.
+	pass
 
 func _process(_delta):
 	if(Input.is_action_just_released("ui_select")):
@@ -45,12 +57,9 @@ func _process(_delta):
 		emit_signal("toggle_encounters")
 
 enum TEMPLATE { IMG = 0, NAME, LEVEL, XP }
-const FLAVOURS = [ "Red", "Blue", "Yellow" ]
 const NAME_BASIC = [ "Red", "Blue", "Yellow" ]
 const NAME_EVOLVED = [ "Fang", "Eye", "Scale" ]
 const ARTIFACTS = [ "Fang", "Eye", "Scale" ]
-var battler_path = "assets/sprites/battlers/"
-var battler_ext = ".png"
 var artifact_path = "assets/sprites/artifacts/"
 var artifact_ext = ".png"
 
@@ -60,26 +69,26 @@ func reload():
 	grpActions.get_node("MergeButton").visible = checkMergePossible()
 	grpActions.get_node("MergeLabel").visible = checkMergePossible()
 	# First few children are labels etc and the main character; clear everything else and then start copying it
-	while grpParty.get_child_count() > 3:
-		grpParty.remove_child(grpParty.get_child(3))
 	var game = Util.getParent(self, "Game")
 	# Party
-	for i in range(0, game.party.get_size()):
-		if Data.hasSlime(i) or Data.hasMonster(i):
-			var t = grpParty.get_node("PartyMember/PartyContainer").duplicate()
-			var member = game.party.get_party_member(i)
-			var img_file = FLAVOURS[i] + "_Slime_128"
-			if Data.hasMonster(i):
-				img_file = NAME_EVOLVED[i] + "_Monster"
-			t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
-			labelCell(t.get_child(1), TEMPLATE.NAME - 1, NAME_BASIC[i])
-			labelCell(t.get_child(1), TEMPLATE.LEVEL - 1, "Level: " + str(member.stats.level))
-			labelCell(t.get_child(1), TEMPLATE.XP - 1, "Strength: " + str(member.stats.strength))
-			t.visible = true
-			grpParty.add_child(t)
+	deleteExtraChildren(grpParty, 3)
+#	for i in range(0, min(game.party.get_size(), game.party.PARTY_SIZE)):
+#		if Data.hasSlime(i) or Data.hasMonster(i):
+#			var t = grpParty.get_node("PartyMember/PartyContainer").duplicate()
+#			var member = game.party.get_party_member(i)
+#			var img_file = Data.COLOURS[i] + "_Slime_128"
+#			if Data.hasMonster(i):
+#				img_file = NAME_EVOLVED[i] + "_Monster"
+#			t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
+#			labelCell(t.get_child(1), TEMPLATE.NAME - 1, NAME_BASIC[i])
+#			labelCell(t.get_child(1), TEMPLATE.LEVEL - 1, "Level: " + str(member.stats.level))
+#			labelCell(t.get_child(1), TEMPLATE.XP - 1, "Strength: " + str(member.stats.strength))
+#			t.visible = true
+#			grpParty.add_child(t)
+	#FIXME Why doesn't this work?
+	#grpParty.get_node("AddPartyMember").visible = game.party.get_size() < game.party.PARTY_SIZE
 	# Artifacts
-	while grpArtifacts.get_child_count() > 3:
-		grpArtifacts.remove_child(grpArtifacts.get_child(3))
+	deleteExtraChildren(grpArtifacts, 3)
 	for i in range(0, 3):
 		if Data.hasArtifact(i):
 			var t = grpArtifacts.get_node("ArtifactMember/ArtifactContainer").duplicate()
@@ -88,17 +97,33 @@ func reload():
 			t.visible = true
 			grpArtifacts.add_child(t)
 	# Collection (enhanced)
-	while grpCollection.get_child_count() > 3:
-		grpCollection.remove_child(grpCollection.get_child(3))
-	for i in range(0, slimes.size()):
-		var t = grpCollection.get_node("CollMember/CollContainer").duplicate()
-		var name = "Red"#NAME_BASIC[i]
-		var img_file = "Red" + "_Slime_128"#FLAVOURS[i]
-		t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
-		labelCell(t, TEMPLATE.NAME, name)
-		t.visible = true
-		grpCollection.add_child(t)
+	deleteExtraChildren(grpCollection, 3)
+#	var coll = get_enhanced_list()
+#	for s in range(0, coll.size()):
+#		var t = grpCollection.get_node("CollMember/CollContainer").duplicate()
+#		var name = s.display_name
+#		var img_file = s.sprite#"Red" + "_Slime_128"#FLAVOURS[i]
+#		t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
+#		labelCell(t, TEMPLATE.NAME, name)
+#		t.visible = true
+#		grpCollection.add_child(t)
 	# Primaries
+	var grps = [ grpReds, grpBlues, grpYellows ]
+	for g in range(0, grps.size()):
+		if Data.hasSlime(g):
+			grps[g].modulate = Color(1,1,1,1)
+			var list = grps[g].get_node("List")
+			deleteExtraChildren(list, 2)
+			for s in get_primary_list(g):
+				var t = list.get_node("Member").duplicate()
+				labelCell(t, 0, s.get_name().substr(0, 8))
+				labelCell(t, 1, s.current_xp)
+				t.get_node("FavFavourite").visible = s.favourite
+				t.get_node("FavNormal").visible = !s.favourite
+				t.visible = true
+				list.add_child(t)
+		else:
+			grps[g].modulate = Color(1,1,1,0.125)
 	# Greys
 	var greyCont = grpGreys.get_node("GreyMember/GreyContainer")
 	greyCont.get_node("ValGreySolo").text = str(greys[0])
@@ -108,6 +133,10 @@ func reload():
 func labelCell(t, posn, data):
 	var lbl : Label = t.get_child(posn)
 	lbl.text = str(data)
+
+func deleteExtraChildren(grp, numToKeep : int):
+	while grp.get_child_count() > numToKeep:
+		grp.remove_child(grp.get_child(numToKeep))
 
 func ascend(i):
 	Data.setSlime(i, false)

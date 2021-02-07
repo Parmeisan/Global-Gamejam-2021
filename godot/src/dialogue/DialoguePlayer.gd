@@ -7,7 +7,6 @@ signal finished
 var title : String = ""
 var text : String = ""
 var expression : String
-var GVars = Data.flags
 
 var _conversation : Array
 var _index_current : int = 0
@@ -54,11 +53,11 @@ func next():
 				_index_current = int(el) - 1
 		if type == 'raise':
 			var item = arg_1
-			Data.flags[item] = true
+			Data.setFlagValue(item, true)
 			_index_current
 		if type == 'lower':
 			var item = arg_1
-			Data.flags[item] = false
+			Data.setFlagValue(item, false)
 			_index_current
 			
 	assert(_index_current <= _conversation.size())

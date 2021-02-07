@@ -1,16 +1,15 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/combat/animation/AngeryRedSlime.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/combat/animation/AngeryBlueSlime.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/combat/animation/AngeryGreenSlime.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/sprites/battlers/Angery_Green_128.png" type="Texture" id=4]
+[ext_resource path="res://src/combat/animation/AngryYellowSlime.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/combat/battlers/Battler.gd" type="Script" id=4]
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyStance02.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyStance03.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyStance01.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyDuo02.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyDuo01.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyTrio01.tscn" type="PackedScene" id=10]
-[ext_resource path="res://src/slimes/Slime.gd" type="Script" id=11]
 
 [node name="Enemies" type="Node2D"]
 
@@ -27,14 +26,15 @@
 [node name="GreyTrio01" parent="." instance=ExtResource( 10 )]
 
 [node name="AngryRedSlime" parent="." instance=ExtResource( 1 )]
-script = ExtResource( 11 )
 stats = null
 turn_order_icon = null
 
 [node name="AngryBlueSlime" parent="." instance=ExtResource( 2 )]
+stats = null
+turn_order_icon = null
 
-[node name="AngryGreenSlime" parent="." instance=ExtResource( 3 )]
-turn_order_icon = ExtResource( 4 )
+[node name="AngryYellowSlime" parent="." instance=ExtResource( 3 )]
+script = ExtResource( 4 )
 
 [editable path="GreyStance01"]
 
@@ -48,4 +48,8 @@ turn_order_icon = ExtResource( 4 )
 
 [editable path="GreyTrio01"]
 
+[editable path="AngryRedSlime"]
+
 [editable path="AngryBlueSlime"]
+
+[editable path="AngryYellowSlime"]

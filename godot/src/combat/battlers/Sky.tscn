@@ -1,0 +1,98 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://src/combat/animation/SkyBattleAnim.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/party/PartyMember.gd" type="Script" id=3]
+[ext_resource path="res://src/combat/battlers/stats/DefaultStats.tres" type="Resource" id=4]
+[ext_resource path="res://src/combat/battlers/Battler.gd" type="Script" id=5]
+[ext_resource path="res://assets/animations/appear.anim" type="Animation" id=6]
+[ext_resource path="res://src/combat/battlers/jobs/GodetteJob.tres" type="Resource" id=7]
+[ext_resource path="res://assets/sprites/battlers/sky_portrait_128.png" type="Texture" id=8]
+[ext_resource path="res://src/combat/battlers/ai/BattlerAI.gd" type="Script" id=10]
+[ext_resource path="res://src/combat/battlers/actions/BattlerActions.gd" type="Script" id=11]
+[ext_resource path="res://src/combat/battlers/actions/Attack.gd" type="Script" id=12]
+[ext_resource path="res://src/combat/battlers/Drops.gd" type="Script" id=13]
+[ext_resource path="res://src/combat/battlers/actions/Attack.tscn" type="PackedScene" id=14]
+[ext_resource path="res://src/combat/battlers/skills/Skills.tscn" type="PackedScene" id=15]
+[ext_resource path="res://src/combat/battlers/BattlerSkin.gd" type="Script" id=16]
+
+[sub_resource type="Animation" id=3]
+resource_name = "blink"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 0.435275, 2.46229 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1.2, 1.2, 1.2, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "idle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Sky" type="Node2D" groups=[
+"save",
+]]
+script = ExtResource( 3 )
+pawn_anim_path = NodePath("Battler/Skin/SkyAnim2")
+growth = ExtResource( 7 )
+
+[node name="Battler" type="Position2D" parent="."]
+script = ExtResource( 5 )
+stats = ExtResource( 4 )
+party_member = true
+turn_order_icon = ExtResource( 8 )
+
+[node name="Skin" type="Position2D" parent="Battler"]
+modulate = Color( 1, 1, 1, 0 )
+script = ExtResource( 16 )
+
+[node name="Tween" type="Tween" parent="Battler/Skin"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Battler/Skin"]
+anims/appear = ExtResource( 6 )
+anims/blink = SubResource( 3 )
+anims/idle = SubResource( 4 )
+
+[node name="SkyAnim2" parent="Battler/Skin" instance=ExtResource( 2 )]
+
+[node name="Actions" type="Node" parent="Battler"]
+script = ExtResource( 11 )
+
+[node name="Attack" parent="Battler/Actions" instance=ExtResource( 14 )]
+script = ExtResource( 12 )
+
+[node name="TargetAnchor" type="Position2D" parent="Battler"]
+
+[node name="Bars" type="VBoxContainer" parent="Battler"]
+margin_left = -100.0
+margin_top = 8.0
+margin_right = 100.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 200, 20 )
+rect_pivot_offset = Vector2( 100, 10 )
+
+[node name="Skills" parent="Battler" instance=ExtResource( 15 )]
+
+[node name="Drops" type="Node" parent="Battler"]
+script = ExtResource( 13 )
+
+[node name="AI" type="Node" parent="Battler"]
+script = ExtResource( 10 )

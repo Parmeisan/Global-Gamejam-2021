@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/party/Party.gd" type="Script" id=1]
 [ext_resource path="res://src/party/PartyMember.tscn" type="PackedScene" id=2]
@@ -8,9 +8,10 @@
 [ext_resource path="res://src/combat/battlers/skills/LearnedSkill.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/combat/battlers/skills/Lollislash.tres" type="Resource" id=7]
 [ext_resource path="res://src/combat/battlers/ai/PlayerInput.gd" type="Script" id=8]
-[ext_resource path="res://src/map/pawns/GodettePawnAnim.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/map/pawns/SkyPawnAnim.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/combat/battlers/jobs/RobiJob.tres" type="Resource" id=10]
 [ext_resource path="res://assets/sprites/battlers/Scale_Monster.png" type="Texture" id=11]
+[ext_resource path="res://src/slimes/Slime.gd" type="Script" id=12]
 [ext_resource path="res://src/map/pawns/RobiPawnAnim.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/combat/battlers/actions/Capture.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/sprites/icons/capture.png" type="Texture" id=16]
@@ -53,21 +54,24 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="RedSlime" parent="." instance=ExtResource( 2 )]
 visible = false
-pawn_anim_path = NodePath("../RedSlime/RedSlimeAnim2")
+script = ExtResource( 12 )
+pawn_anim_path = NodePath("RedSlimeAnim2")
 growth = ExtResource( 10 )
 
 [node name="RedSlimeAnim2" parent="RedSlime" instance=ExtResource( 14 )]
 
 [node name="BlueSlime" parent="." instance=ExtResource( 2 )]
 visible = false
-pawn_anim_path = NodePath("../BlueSlime/RobiPawnAnim")
+script = ExtResource( 12 )
+pawn_anim_path = NodePath("RobiPawnAnim")
 growth = ExtResource( 10 )
 
 [node name="RobiPawnAnim" parent="BlueSlime" instance=ExtResource( 14 )]
 
 [node name="YellowSlime" parent="." instance=ExtResource( 2 )]
 visible = false
-pawn_anim_path = NodePath("../YellowSlime/RobiPawnAnim")
+script = ExtResource( 12 )
+pawn_anim_path = NodePath("RobiPawnAnim")
 growth = ExtResource( 10 )
 
 [node name="RobiPawnAnim" parent="YellowSlime" instance=ExtResource( 14 )]

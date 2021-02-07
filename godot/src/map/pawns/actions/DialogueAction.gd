@@ -76,7 +76,7 @@ func load_from_text():
 		if firstchar == "[" or current_line == "":
 			pass
 		elif firstchar == "+" or firstchar == "-":
-			Data.flags[current_line.substr(1)] = (firstchar == "+")
+			Data.setFlagValue(current_line.substr(1), firstchar == "+")
 		else:
 			# Replace character names when given
 			# Assume main character otherwise
