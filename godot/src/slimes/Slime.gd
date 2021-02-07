@@ -1,23 +1,52 @@
-extends CharacterStats
+extends Battler
 
 class_name Slime
 
-export var stats: Resource
-export var hp: int
-export var mp: int
-export var xp: int
+#export var stats: Resource
+#export var hp: int # Starting values
+#export var mp: int
+#export var xp: int
 
+var sprite : Texture
+var turn_icon : Texture
+var current_xp = 0
+var favourite : bool = false
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+enum ABILTIES { RED=0, BLUE, YELLOW }
+var ability_tiers = []
+# Stats are all of these combined: (maybe, I need to test the system)
+#var stats : CharacterStats           # Determined solely by XP/level
+var artifact_boosts : CharacterStats # Can be equipped & unequipped
+#var merged_boosts : CharacterStats   # Bonus each time a merge is done
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	display_name = Data.generate_slime_name()
+	for a in ABILTIES:
+		ability_tiers.append(0)
 
+func merge(s : Slime):
+	# you can only merge with a primary
+	assert(s.is_primary())
+	# then add to my own abilities
+	for a in range(0, ABILTIES.size()):
+		ability_tiers[a] = s.ability_tiers[a]
+	#TODO
+	#for m in range(0, stats.size()):
+	#	merged_boosts[m] += s.stats[m]
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func is_primary():
+	# a primary has exactly one ability at 1 and both others at 0
+	var s_total = 0
+	for a in range(0, ABILTIES.size()):
+		s_total += ability_tiers[a]
+	return s_total == 1
+
+func get_tier_shorthand():
+	var tiers = []
+	for a in range(0, ABILTIES.size()):
+		for t in ability_tiers[a]:
+			tiers.append(a)
+	# It will look something like 0 0 0 2 (three reds, one yellow)
+	return tiers
+	

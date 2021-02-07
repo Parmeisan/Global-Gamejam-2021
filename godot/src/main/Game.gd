@@ -58,9 +58,9 @@ func enter_game():
 
 
 func set_party():
-	var first_slime = get_node("Party/Robi")
-	var second_slime = get_node("Party/Robi2")
-	var third_slime = get_node("Party/Robi3")
+	var first_slime = get_node("Party/Slot1")
+	var second_slime = get_node("Party/Slot2")
+	var third_slime = get_node("Party/Slot3")
 	var first_monster = get_node("Party/Robi4")
 	var second_monster = get_node("Party/Robi5")
 	var third_monster = get_node("Party/Robi6")
@@ -155,7 +155,7 @@ func get_random_enemy_group():
 				enc_type += 1
 		if enc_type > diff: # I could use min() earlier, but I prefer this weighting
 			enc_type = diff
-		#print("Enemy ", e)
+		print("Enemy type %s name %s" % [enc_type, Data.generate_slime_name()])
 		enemy_array.append($Enemies.get_child(enc_type))
 		diff -= Data.combat_diffs[enc_type]
 	#var node_arr = [$Enemies/RedSlime, $Enemies/RedSlime, $Enemies/RedSlime, $Enemies/RedSlime]

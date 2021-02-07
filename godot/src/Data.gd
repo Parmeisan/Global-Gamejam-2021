@@ -147,11 +147,25 @@ func prep_random():
 		weight_total += Data.combat_weights[w]
 	RNG.randomize()
 
+var syll1 = ['b','b','b','d','d','f','g','k','k','k','l','m','m','p','q','r','r','t','v','w','x','x','z','z']
+var syll2 = ['', '', '', 'gl', 'r', 'rl', 'rg', 'lr']
+func generate_slime_name():
+	var slime_name = ""
+	var syllables = RNG.randi_range(2, 6)
+	for s in range(0, syllables):
+		var s1 = RNG.randi_range(0, syll1.size() - 1)
+		var s2 = RNG.randi_range(0, syll2.size() - 1)
+		slime_name += syll1[s1] + syll2[s2]
+	slime_name = slime_name.substr(0, 1).to_upper() + slime_name.substr(1)
+	return slime_name
+
+
+
 # Combat weights start spread out between greys, but change over time
 var combat_weights = []
-var grey_weights = [ 35, 35, 35, 25, 25, 15, 0, 0, 0 ]
+var grey_weights = [ 35, 35, 35, 25, 25, 35 ]#, 0, 0, 0 ]
 var locked_start = 6
-var locked_weights = [ 10, 20, 30 ]
+var locked_weights = [ 210, 20, 30 ]
 var combat_diffs = [ 1, 1, 1, 2, 2, 3, 2, 3, 4 ] # How much does it count toward the fight difficulty
 func setStartingWeights():
 	combat_weights = grey_weights.duplicate()

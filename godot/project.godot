@@ -269,7 +269,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/combat/battlers/actions/SkillAction.gd"
 }, {
-"base": "CharacterStats",
+"base": "Battler",
 "class": "Slime",
 "language": "GDScript",
 "path": "res://src/slimes/Slime.gd"

@@ -5,11 +5,14 @@ class_name MonsterCollection
 signal monster_collection_menu_summoned()
 signal toggle_encounters()
 
-var slimes = []
-onready var party = $Background/Columns/Party
-onready var collection = $Background/Columns/Collection
-onready var artifacts = $Background/Columns/Artifacts
-onready var actions = $Background/Columns/Actions
+var slimes = [] # Enhanced & Primaries
+var greys = [0, 0, 0] # Number owned of each grey difficulty
+var allowed_greys = range(0, 2)
+onready var grpParty = $Background/Columns/Col1/Party
+onready var grpCollection = $Background/Columns/Col2/Collection
+onready var grpArtifacts = $Background/Columns/Col1/Artifacts
+onready var grpActions = $Background/Columns/Actions
+onready var grpGreys = $Background/Columns/Col3/Greys
 
 func add_slime(new_slime: Slime) -> void:
 	slimes.resize(slimes.size() + 1)
@@ -24,6 +27,14 @@ func get_slime(target_pos: int) -> Slime:
 	var rv = slimes[target_pos]
 	return rv
 
+func add_grey(g: int) -> void:
+	assert(g in allowed_greys)
+	greys[g] += 1
+func remove_grey(g: int) -> void:
+	assert(g in allowed_greys)
+	assert(greys[g] >= 1)
+	greys[g] -= 1
+
 func _ready():
 	pass # Replace with function body.
 
@@ -34,8 +45,8 @@ func _process(_delta):
 		emit_signal("toggle_encounters")
 
 enum TEMPLATE { IMG = 0, NAME, LEVEL, XP }
-const FLAVOURS = [ "Red", "Blue", "Green" ]
-const NAME_BASIC = [ "Red", "Blue", "Green" ]
+const FLAVOURS = [ "Red", "Blue", "Yellow" ]
+const NAME_BASIC = [ "Red", "Blue", "Yellow" ]
 const NAME_EVOLVED = [ "Fang", "Eye", "Scale" ]
 const ARTIFACTS = [ "Fang", "Eye", "Scale" ]
 var battler_path = "assets/sprites/battlers/"
@@ -44,17 +55,18 @@ var artifact_path = "assets/sprites/artifacts/"
 var artifact_ext = ".png"
 
 func reload():
-	actions.get_node("AscendButton").visible = checkAscendPossible()
-	actions.get_node("AscendLabel").visible = checkAscendPossible()
-	actions.get_node("MergeButton").visible = checkMergePossible()
-	actions.get_node("MergeLabel").visible = checkMergePossible()
+	grpActions.get_node("AscendButton").visible = checkAscendPossible()
+	grpActions.get_node("AscendLabel").visible = checkAscendPossible()
+	grpActions.get_node("MergeButton").visible = checkMergePossible()
+	grpActions.get_node("MergeLabel").visible = checkMergePossible()
 	# First few children are labels etc and the main character; clear everything else and then start copying it
-	while party.get_child_count() > 3:
-		party.remove_child(party.get_child(3))
+	while grpParty.get_child_count() > 3:
+		grpParty.remove_child(grpParty.get_child(3))
 	var game = Util.getParent(self, "Game")
+	# Party
 	for i in range(0, game.party.get_size()):
 		if Data.hasSlime(i) or Data.hasMonster(i):
-			var t = party.get_node("PartyMember/PartyContainer").duplicate()
+			var t = grpParty.get_node("PartyMember/PartyContainer").duplicate()
 			var member = game.party.get_party_member(i)
 			var img_file = FLAVOURS[i] + "_Slime_128"
 			if Data.hasMonster(i):
@@ -64,26 +76,34 @@ func reload():
 			labelCell(t.get_child(1), TEMPLATE.LEVEL - 1, "Level: " + str(member.stats.level))
 			labelCell(t.get_child(1), TEMPLATE.XP - 1, "Strength: " + str(member.stats.strength))
 			t.visible = true
-			party.add_child(t)
-	while collection.get_child_count() > 3:
-		collection.remove_child(collection.get_child(3))
+			grpParty.add_child(t)
+	# Artifacts
+	while grpArtifacts.get_child_count() > 3:
+		grpArtifacts.remove_child(grpArtifacts.get_child(3))
+	for i in range(0, 3):
+		if Data.hasArtifact(i):
+			var t = grpArtifacts.get_node("ArtifactMember/ArtifactContainer").duplicate()
+			t.get_child(TEMPLATE.IMG).texture = Data.getTexture(artifact_path, ARTIFACTS[i], artifact_ext)
+			labelCell(t, TEMPLATE.NAME, ARTIFACTS[i])
+			t.visible = true
+			grpArtifacts.add_child(t)
+	# Collection (enhanced)
+	while grpCollection.get_child_count() > 3:
+		grpCollection.remove_child(grpCollection.get_child(3))
 	for i in range(0, slimes.size()):
-		var t = collection.get_node("CollMember/CollContainer").duplicate()
+		var t = grpCollection.get_node("CollMember/CollContainer").duplicate()
 		var name = "Red"#NAME_BASIC[i]
 		var img_file = "Red" + "_Slime_128"#FLAVOURS[i]
 		t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
 		labelCell(t, TEMPLATE.NAME, name)
 		t.visible = true
-		collection.add_child(t)
-	while artifacts.get_child_count() > 3:
-		artifacts.remove_child(artifacts.get_child(3))
-	for i in range(0, 3):
-		if Data.hasArtifact(i):
-			var t = artifacts.get_node("ArtifactMember/ArtifactContainer").duplicate()
-			t.get_child(TEMPLATE.IMG).texture = Data.getTexture(artifact_path, ARTIFACTS[i], artifact_ext)
-			labelCell(t, TEMPLATE.NAME, ARTIFACTS[i])
-			t.visible = true
-			artifacts.add_child(t)
+		grpCollection.add_child(t)
+	# Primaries
+	# Greys
+	var greyCont = grpGreys.get_node("GreyMember/GreyContainer")
+	greyCont.get_node("ValGreySolo").text = str(greys[0])
+	greyCont.get_node("ValGreyDuo").text = str(greys[1])
+	greyCont.get_node("ValGreyTrio").text = str(greys[2])
 
 func labelCell(t, posn, data):
 	var lbl : Label = t.get_child(posn)
