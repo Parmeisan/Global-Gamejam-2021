@@ -23,7 +23,6 @@ export var flavour: String = "" setget set_flavour, get_flavour
 var is_alive: bool setget , _is_alive
 var level: int
 
-
 func reset():
 	health = self.max_health
 	mana = self.max_mana
@@ -83,6 +82,10 @@ func remove_modifier(id: int):
 
 
 func _is_alive() -> bool:
+	# Creating a new slime programmatically during combat will
+	# cause this to be nil *just* long enough to crash everything
+	if not health:
+		return false
 	return health >= 0
 
 

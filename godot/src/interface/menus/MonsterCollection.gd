@@ -7,7 +7,7 @@ signal toggle_encounters()
 
 var slimes = [] # Enhanced & Primaries
 var greys = [0, 0, 0] # Number owned of each grey difficulty
-var allowed_greys = range(0, 2)
+var allowed_greys = range(0, 3)
 
 onready var grpParty = $Background/Columns/Col1/Party
 onready var grpCollection = $Background/Columns/Col2/Collection

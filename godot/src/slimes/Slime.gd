@@ -23,16 +23,24 @@ var artifact_boosts : CharacterStats # Can be equipped & unequipped
 var battler_path = "assets/sprites/battlers/"
 var battler_ext = ".png"
 
+const battlers = [preload("res://src/combat/battlers/enemies/slimes/RedSlimeAlly.tscn"),
+					 preload("res://src/combat/battlers/enemies/slimes/BlueSlimeAlly.tscn"),
+				   preload("res://src/combat/battlers/enemies/slimes/YellowSlimeAlly.tscn")]
 const battle_anims = [preload("res://src/combat/animation/RedSlimeAnim.tscn"),
 					 preload("res://src/combat/animation/BlueSlimeAnim.tscn"),
 				   preload("res://src/combat/animation/YellowSlimeAnim.tscn")]
+const growth_curve = preload("res://src/combat/battlers/jobs/SlimeJob.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	initialize()
+	set_data(colour)
 
-func initialize():
-	battler = $Battler
+func set_data(c):
+	colour = c
+	battler = battlers[colour].instance()
+	battler.display_name = Data.generate_slime_name()
+	growth = growth_curve
+	pawn_anim_path = "Anim"
 	initialize_pm()
 	ability_tiers = []
 	for a in range(0, ABILITIES.size()):
@@ -46,19 +54,9 @@ func initialize():
 func init_party_stuff():
 	battler._ready()
 	battler.initialize()
-	battler.party_member = true
 	visible = true
-	battler.turn_order_icon = sprite_small
-	var battle_anim = battler.get_node("Skin")
-	battler.ai.set_script(load("res://src/combat/battlers/ai/PlayerInput.gd"))
-	Util.deleteExtraChildren(battle_anim, 2)
-	#pawn_anim_path = "../%sSlime/Anim" % Data.COLOURS[colour]
-	#get_node("Anim").visible = true # Pawn
-	battle_anim.add_child(battle_anims[colour].instance())
 
 func get_name():
-	if not battler.display_name:
-		battler.display_name = Data.generate_slime_name()
 	return battler.display_name
 func get_colour():
 	return Data.COLOURS[colour]

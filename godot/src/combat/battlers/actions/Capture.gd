@@ -24,12 +24,20 @@ func execute(targets):
 				else:
 					monster_collection.add_grey(0)
 			else:
-				var slime: Slime = target
-				#slime.stats = load("res://src/slimes/CherrySlime.tres")
-				#slime.stats = target.stats
-				slime.hp = slime.stats.max_health
-				slime.mp = slime.stats.max_mana
-				slime.xp = 0
+				var slime: Slime = Slime.new()
+				if "Red" in enemy_type:
+					slime.set_data(0)
+				elif "Blue" in enemy_type:
+					slime.set_data(1)
+				elif "Yellow" in enemy_type:
+					slime.set_data(2)
+				slime.init_party_stuff()
+				
+				# Purely aesthetic - turn the target happy
+				var battle_anim = target.get_node("Skin")
+				Util.deleteExtraChildren(battle_anim, 2)
+				battle_anim.add_child(slime.battle_anims[slime.colour].instance())
+				
 				monster_collection.add_slime(slime)
 			
 			target.take_damage(hit)

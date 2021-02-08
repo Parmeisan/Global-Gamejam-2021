@@ -58,18 +58,26 @@ func enter_game():
 
 func flag_changed(fl, val):
 	if (val):
-		var slime : Slime
 		match fl:
 			"SLIME0":
-				slime = party.get_node("RedSlime").duplicate()
-		if slime:
-			slime.initialize()
-			slime.init_party_stuff()
-			slime.favourite = true
-			monster_list.add_slime(slime)
-			var slot = monster_list.get_party_list().size()
-			if (slot < party.PARTY_SIZE - 1):
-				slime.add_to_party(slot)
+				unlock_slime(0)
+			"SLIME1":
+				unlock_slime(1)
+			"SLIME2":
+				unlock_slime(2)
+
+func unlock_slime(i):
+	var slime : Slime
+	#slime = Slime.new()
+	slime = party.get_node(Data.COLOURS[i] + "Slime").duplicate()
+	slime.set_data(i)
+	slime.init_party_stuff()
+	slime.favourite = true
+	monster_list.add_slime(slime)
+	Data.addSlimeToRandom(i)
+	var slot = monster_list.get_party_list().size()
+	if (slot < party.PARTY_SIZE - 1):
+		slime.add_to_party(slot)
 
 func set_party():
 	#var slots = [ $Party/Slot1, $Party/Slot2, $Party/Slot3 ]
@@ -157,8 +165,8 @@ func get_random_enemy_group():
 			enc_check += Data.combat_weights[w]
 			if enc_rnd > enc_check:
 				enc_type += 1
-		if enc_type > diff: # I could use min() earlier, but I prefer this weighting
-			enc_type = diff
+		if Data.combat_diffs[enc_type] > diff:
+			enc_type -= 1 # Can still go over the max, but not by too much
 		#print("Enemy type %s name %s" % [enc_type, Data.generate_slime_name()])
 		enemy_array.append($Enemies.get_child(enc_type))
 		diff -= Data.combat_diffs[enc_type]

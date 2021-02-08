@@ -163,12 +163,16 @@ func generate_slime_name():
 
 # Combat weights start spread out between greys, but change over time
 var combat_weights = []
-var grey_weights = [ 35, 35, 35, 25, 25, 35 ]#, 0, 0, 0 ]
+var grey_weights = [ 35, 35, 35, 25, 25, 35, 0, 0, 0 ]
 var locked_start = 6
-var locked_weights = [ 210, 20, 30 ]
+const DEBUG_MULTIPLIER = 200
+var locked_weights = [ 10, 20, 30 ]
 var combat_diffs = [ 1, 1, 1, 2, 2, 3, 2, 3, 4 ] # How much does it count toward the fight difficulty
 func setStartingWeights():
 	combat_weights = grey_weights.duplicate()
+	prep_random()
+func addSlimeToRandom(i):
+	combat_weights[locked_start + i] = locked_weights[i] * DEBUG_MULTIPLIER
 	prep_random()
 #func setRedSlime():
 #	var adding = 5
@@ -208,7 +212,6 @@ func setFlag(flname, i, val):
 	setFlagValue(fl, val)
 func setSlime(i, val):
 	setFlag("SLIME", i, val)
-	combat_weights[locked_start + i] = locked_weights[i] if val else 0
 func setArtifact(i, val):
 	setFlag("ARTIFACT", i, val)
 func setMonster(i, val):
