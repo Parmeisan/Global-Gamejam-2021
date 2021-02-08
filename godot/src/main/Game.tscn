@@ -98,6 +98,7 @@ layer = 100
 visible = false
 
 [node name="MonsterCollection" parent="." instance=ExtResource( 11 )]
+layer = 0
 
 [node name="IntroScreen" type="CanvasLayer" parent="."]
 

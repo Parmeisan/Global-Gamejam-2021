@@ -57,32 +57,30 @@ func enter_game():
 	local_map.get_node("GameBoard/Pawns/Usir-purple").visible = false
 
 func flag_changed(fl, val):
-	match fl:
-		"SLIME0":
-			var s : Slime = party.get_node("RedSlime")
-			s.favourite = true
-			if (val): monster_list.add_slime(s)
+	if (val):
+		var slime : Slime
+		match fl:
+			"SLIME0":
+				slime = party.get_node("RedSlime").duplicate()
+		if slime:
+			slime.initialize()
+			slime.init_party_stuff()
+			slime.favourite = true
+			monster_list.add_slime(slime)
+			var slot = monster_list.get_party_list().size()
+			if (slot < party.PARTY_SIZE - 1):
+				slime.add_to_party(slot)
 
 func set_party():
-	var first_slime = get_node("Party/Slot1")
-	var second_slime = get_node("Party/Slot2")
-	var third_slime = get_node("Party/Slot3")
-	var first_monster = get_node("Party/Robi4")
-	var second_monster = get_node("Party/Robi5")
-	var third_monster = get_node("Party/Robi6")
-	#for testing puroses, definitely delete these flag sets if you see them:
-	#Data.setSlime(0, true)
-	#Data.setSlime(1, true)
-	#Data.setSlime(2, true)
-	#Data.setMonster(0, true)
-	#Data.setMonster(1, true)
-	#Data.setMonster(2, true)	
-	first_slime.visible = Data.hasSlime(0) && !Data.hasMonster(0)
-	second_slime.visible = Data.hasSlime(1) && !Data.hasMonster(1)
-	third_slime.visible = Data.hasSlime(2) && !Data.hasMonster(2)	
-	first_monster.visible = Data.hasMonster(0)
-	second_monster.visible = Data.hasMonster(1)
-	third_monster.visible = Data.hasMonster(2)
+	#var slots = [ $Party/Slot1, $Party/Slot2, $Party/Slot3 ]
+	var party = monster_list.get_party_list()
+	#for template in range(0, $Party.get_child_count()):
+	#	if template != 0: # Sky
+			
+	Util.deleteExtraChildren($Party, 4)
+	for s in range(0, party.size()):
+		#var t = $Party.get_child("%sSlime")
+		$Party.add_child(party[s])
 
 #func enter_battle(formation: Formation):
 func enter_battle(formation: Array):

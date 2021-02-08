@@ -18,6 +18,9 @@ onready var SAVE_KEY: String = "party_member_" + name
 
 
 func _ready():
+	initialize_pm()
+
+func initialize_pm():
 	assert(pawn_anim_path)
 	assert(growth)
 	stats = growth.create_stats(experience)

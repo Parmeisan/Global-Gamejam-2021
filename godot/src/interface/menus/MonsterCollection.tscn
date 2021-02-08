@@ -97,11 +97,12 @@ __meta__ = {
 
 [node name="Stats" type="VBoxContainer" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer"]
 margin_left = 132.0
-margin_right = 165.0
+margin_right = 356.0
 margin_bottom = 128.0
+rect_min_size = Vector2( 224, 0 )
 
 [node name="Name" type="Label" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer/Stats"]
-margin_right = 33.0
+margin_right = 224.0
 margin_bottom = 23.0
 theme = SubResource( 2 )
 text = "Sky"
@@ -111,13 +112,45 @@ __meta__ = {
 
 [node name="Level" type="Label" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer/Stats"]
 margin_top = 27.0
-margin_right = 33.0
+margin_right = 224.0
 margin_bottom = 41.0
 
 [node name="XP" type="Label" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer/Stats"]
 margin_top = 45.0
-margin_right = 33.0
+margin_right = 224.0
 margin_bottom = 59.0
+
+[node name="Abilities" type="GridContainer" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer"]
+margin_left = 360.0
+margin_right = 488.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 0 )
+columns = 4
+
+[node name="Icons" type="VBoxContainer" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer"]
+margin_left = 492.0
+margin_right = 524.0
+margin_bottom = 128.0
+
+[node name="FavFavourite" type="TextureRect" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer/Icons"]
+visible = false
+margin_left = 963.0
+margin_top = 132.0
+margin_right = 995.0
+margin_bottom = 172.0
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FavNormal" type="TextureRect" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer/Icons"]
+self_modulate = Color( 1, 1, 1, 0.25098 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AddPartyMember" type="ColorRect" parent="Background/Columns/Col1/Party"]
 margin_top = 175.0
@@ -141,6 +174,7 @@ margin_right = 384.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 384, 128 )
 theme = SubResource( 1 )
+text = "Add New"
 align = 1
 valign = 1
 
@@ -228,7 +262,10 @@ margin_top = 4.0
 margin_right = 500.0
 margin_bottom = 35.0
 theme = SubResource( 3 )
-text = "Collection	"
+text = "Composites"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HSeparator" type="HSeparator" parent="Background/Columns/Col2/Collection"]
 margin_top = 39.0

@@ -60,6 +60,10 @@ static func getParent(me, pname):
 		parent = parent.get_parent()
 	return parent
 
+func deleteExtraChildren(grp, numToKeep : int):
+	while grp.get_child_count() > numToKeep:
+		grp.remove_child(grp.get_child(numToKeep))
+
 # ===== File R/W ========================================================
 
 static func parseGenericCSV(file):

@@ -11,8 +11,9 @@ var sprite_large : Texture
 var sprite_small : Texture
 var current_xp = 0
 var favourite : bool = false
+var party_slot : int = -1
 
-enum ABILTIES { RED=0, BLUE, YELLOW }
+enum ABILITIES { RED=0, BLUE, YELLOW }
 var ability_tiers = []
 # Stats are all of these combined: (maybe, I need to test the system)
 #var stats : CharacterStats           # Determined solely by XP/level
@@ -22,9 +23,19 @@ var artifact_boosts : CharacterStats # Can be equipped & unequipped
 var battler_path = "assets/sprites/battlers/"
 var battler_ext = ".png"
 
+const battle_anims = [preload("res://src/combat/animation/RedSlimeAnim.tscn"),
+					 preload("res://src/combat/animation/BlueSlimeAnim.tscn"),
+				   preload("res://src/combat/animation/YellowSlimeAnim.tscn")]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for a in range(0, ABILTIES.size()):
+	initialize()
+
+func initialize():
+	battler = $Battler
+	initialize_pm()
+	ability_tiers = []
+	for a in range(0, ABILITIES.size()):
 		if a == colour:
 			ability_tiers.append(1)
 		else:
@@ -32,20 +43,38 @@ func _ready():
 	sprite_large = Data.getTexture(battler_path, Data.COLOURS[colour] + "_Slime", battler_ext)
 	sprite_small = Data.getTexture(battler_path, Data.COLOURS[colour] + "_Slime_128", battler_ext)
 
+func init_party_stuff():
+	battler._ready()
+	battler.initialize()
+	battler.party_member = true
+	visible = true
+	battler.turn_order_icon = sprite_small
+	var battle_anim = battler.get_node("Skin")
+	battler.ai.set_script(load("res://src/combat/battlers/ai/PlayerInput.gd"))
+	Util.deleteExtraChildren(battle_anim, 2)
+	#pawn_anim_path = "../%sSlime/Anim" % Data.COLOURS[colour]
+	#get_node("Anim").visible = true # Pawn
+	battle_anim.add_child(battle_anims[colour].instance())
+
 func get_name():
-	if battler:
-		if not battler.display_name:
-			battler.display_name = Data.generate_slime_name()
-		return battler.display_name
-	else:
-		return "unknown"
-	
+	if not battler.display_name:
+		battler.display_name = Data.generate_slime_name()
+	return battler.display_name
+func get_colour():
+	return Data.COLOURS[colour]
+
+func add_to_party(slot : int):
+	party_slot = slot
+func remove_from_party():
+	party_slot = -1
+func is_in_party():
+	return party_slot >= 0
 
 func merge(s : Slime):
 	# you can only merge with a primary
 	assert(s.is_primary())
 	# then add to my own abilities
-	for a in range(0, ABILTIES.size()):
+	for a in range(0, ABILITIES.size()):
 		ability_tiers[a] = s.ability_tiers[a]
 	#TODO
 	#for m in range(0, stats.size()):
@@ -54,13 +83,13 @@ func merge(s : Slime):
 func is_primary():
 	# a primary has exactly one ability at 1 and both others at 0
 	var s_total = 0
-	for a in range(0, ABILTIES.size()):
+	for a in range(0, ABILITIES.size()):
 		s_total += ability_tiers[a]
 	return s_total == 1
 
 func get_tier_shorthand():
 	var tiers = []
-	for a in range(0, ABILTIES.size()):
+	for a in range(0, ABILITIES.size()):
 		for t in ability_tiers[a]:
 			tiers.append(a)
 	# It will look something like 0 0 0 2 (three reds, one yellow)

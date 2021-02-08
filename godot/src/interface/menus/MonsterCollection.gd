@@ -8,6 +8,7 @@ signal toggle_encounters()
 var slimes = [] # Enhanced & Primaries
 var greys = [0, 0, 0] # Number owned of each grey difficulty
 var allowed_greys = range(0, 2)
+
 onready var grpParty = $Background/Columns/Col1/Party
 onready var grpCollection = $Background/Columns/Col2/Collection
 onready var grpArtifacts = $Background/Columns/Col1/Artifacts
@@ -36,14 +37,20 @@ func remove_grey(g: int) -> void:
 	assert(greys[g] >= 1)
 	greys[g] -= 1
 func get_primary_list(colour : int):
-	return get_slimes_filtered(false, colour)
+	return get_slimes_filtered(false, false, colour)
 func get_enhanced_list():
-	return get_slimes_filtered(true, -1)
-func get_slimes_filtered(wants_enhanced : bool, wants_colour : int):
+	return get_slimes_filtered(false, true, -1)
+func get_party_list():
+	return get_slimes_filtered(true, true, -1)
+
+func get_slimes_filtered(wants_party : bool, wants_enhanced : bool, wants_colour : int):
 	var arr = []
 	for s in slimes:
-		if (wants_enhanced != s.is_primary()):
-			arr.append(s)
+		if wants_party and s.is_in_party():
+			arr.append(s) # We don't care in this case if primary or not
+		elif not s.is_in_party():
+			if wants_enhanced != s.is_primary():
+				arr.append(s)
 	return arr
 
 # Main functions
@@ -56,9 +63,6 @@ func _process(_delta):
 	if(Input.is_action_just_released("ui_toggle_encs")):
 		emit_signal("toggle_encounters")
 
-enum TEMPLATE { IMG = 0, NAME, LEVEL, XP }
-const NAME_BASIC = [ "Red", "Blue", "Yellow" ]
-const NAME_EVOLVED = [ "Fang", "Eye", "Scale" ]
 const ARTIFACTS = [ "Fang", "Eye", "Scale" ]
 var artifact_path = "assets/sprites/artifacts/"
 var artifact_ext = ".png"
@@ -71,33 +75,46 @@ func reload():
 	# First few children are labels etc and the main character; clear everything else and then start copying it
 	var game = Util.getParent(self, "Game")
 	# Party
-	deleteExtraChildren(grpParty, 3)
-#	for i in range(0, min(game.party.get_size(), game.party.PARTY_SIZE)):
-#		if Data.hasSlime(i) or Data.hasMonster(i):
-#			var t = grpParty.get_node("PartyMember/PartyContainer").duplicate()
-#			var member = game.party.get_party_member(i)
-#			var img_file = Data.COLOURS[i] + "_Slime_128"
-#			if Data.hasMonster(i):
-#				img_file = NAME_EVOLVED[i] + "_Monster"
-#			t.get_child(TEMPLATE.IMG).texture = Data.getTexture(battler_path, img_file, battler_ext)
-#			labelCell(t.get_child(1), TEMPLATE.NAME - 1, NAME_BASIC[i])
-#			labelCell(t.get_child(1), TEMPLATE.LEVEL - 1, "Level: " + str(member.stats.level))
-#			labelCell(t.get_child(1), TEMPLATE.XP - 1, "Strength: " + str(member.stats.strength))
-#			t.visible = true
-#			grpParty.add_child(t)
+	Util.deleteExtraChildren(grpParty, 3)
+	var party = get_party_list()
+	for i in range(0, min(party.size(), game.party.PARTY_SIZE)):
+		var t = grpParty.get_node("PartyMember/PartyContainer").duplicate()
+		var s = party[i]
+		t.get_child(0).texture = s.sprite_small
+		var stats = t.get_child(1)
+		labelCell(stats, 0, s.get_name())
+		labelCell(stats, 1, "Level: " + str(s.stats.level))
+		labelCell(stats, 2, "Strength: " + str(s.stats.strength))
+		var abilities = t.get_node("Abilities")
+		for a in range(0, s.ABILITIES.size()):
+			for tier in range(0, 4): #FIXME use a constant
+				var icon_name = "none"
+				if s.ability_tiers[a] > tier:
+					icon_name = "Track%sTier%s" % [a, tier]
+				icon_name += "_Tiny"
+				var ab_icon = Data.getTexture("assets/sprites/abilities", icon_name, ".png")
+				var ab_node = TextureRect.new()
+				ab_node.set_texture(ab_icon)
+				ab_node.set_size(Vector2(32,32))
+				ab_node.visible = true
+				abilities.add_child(ab_node)
+		t.get_node("Icons/FavFavourite").visible = s.favourite
+		t.get_node("Icons/FavNormal").visible = !s.favourite
+		t.visible = true
+		grpParty.add_child(t)
 	#FIXME Why doesn't this work?
 	#grpParty.get_node("AddPartyMember").visible = game.party.get_size() < game.party.PARTY_SIZE
 	# Artifacts
-	deleteExtraChildren(grpArtifacts, 3)
+	Util.deleteExtraChildren(grpArtifacts, 3)
 	for i in range(0, 3):
 		if Data.hasArtifact(i):
 			var t = grpArtifacts.get_node("ArtifactMember/ArtifactContainer").duplicate()
-			t.get_child(TEMPLATE.IMG).texture = Data.getTexture(artifact_path, ARTIFACTS[i], artifact_ext)
-			labelCell(t, TEMPLATE.NAME, ARTIFACTS[i])
+			t.get_child(0).texture = Data.getTexture(artifact_path, ARTIFACTS[i], artifact_ext)
+			labelCell(t, 1, ARTIFACTS[i])
 			t.visible = true
 			grpArtifacts.add_child(t)
 	# Collection (enhanced)
-	deleteExtraChildren(grpCollection, 3)
+	Util.deleteExtraChildren(grpCollection, 3)
 #	var coll = get_enhanced_list()
 #	for s in range(0, coll.size()):
 #		var t = grpCollection.get_node("CollMember/CollContainer").duplicate()
@@ -113,7 +130,7 @@ func reload():
 		if Data.hasSlime(g):
 			grps[g].modulate = Color(1,1,1,1)
 			var list = grps[g].get_node("List")
-			deleteExtraChildren(list, 2)
+			Util.deleteExtraChildren(list, 2)
 			for s in get_primary_list(g):
 				var t = list.get_node("Member").duplicate()
 				labelCell(t, 0, s.get_name().substr(0, 8))
@@ -133,10 +150,6 @@ func reload():
 func labelCell(t, posn, data):
 	var lbl : Label = t.get_child(posn)
 	lbl.text = str(data)
-
-func deleteExtraChildren(grp, numToKeep : int):
-	while grp.get_child_count() > numToKeep:
-		grp.remove_child(grp.get_child(numToKeep))
 
 func ascend(i):
 	Data.setSlime(i, false)
