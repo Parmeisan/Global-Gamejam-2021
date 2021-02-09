@@ -19,7 +19,6 @@ func get_active_members():
 	return active
 
 
-
 func get_unlocked_characters() -> Array:
 	# Returns all the characters that can be active in the party
 	var has_unlocked = []

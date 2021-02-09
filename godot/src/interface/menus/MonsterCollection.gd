@@ -202,13 +202,21 @@ func clickButton(button):
 	reload()
 
 func doAction(action : String):
-	var first = get_slime_by_id(curr_selection_1ST)
+	var s1 = get_slime_by_id(curr_selection_1ST)
+	var s2 = get_slime_by_id(curr_selection_2ND)
 	match action:
 		"AddPartyMember":
 			if checkPartyPossible():
-				first.party_slot = get_party_list().size()
+				s1.party_slot = get_party_list().size()
 			#else
 			#	game.script_manager.load_and_run({})
+		"Merge":
+			if checkMergePossible():
+				var m = s1.merge(s2)
+				var posn = slimes.find(s1)
+				slimes.erase(s1)
+				slimes.insert(posn, m)
+				slimes.erase(s2)
 	reset()
 
 func ascend(i):
@@ -224,8 +232,14 @@ func checkAscendPossible():
 	#		poss = true
 	#return poss
 func checkMergePossible():
-	return curr_selection_1ST != NONE
+	var s1 = curr_selection_1ST
+	var s2 = curr_selection_2ND
+	if s1 == NONE or s2 == NONE:
+		return false
+	return true
 	#return (Data.hasSlime(0) or Data.hasMonster(0)) and slimes.size() > 0
+	
+	
 func checkPartyPossible():
 	if get_party_list().size() < game.party.PARTY_SIZE:
 		return curr_selection_1ST != NONE and curr_selection_2ND == NONE
@@ -239,15 +253,16 @@ func _on_AscendButton_button_down():
 			reload()
 			break
 
-func merge():
-	if checkMergePossible():
-		# first collection item
-		var m : Slime = slimes.pop_front()
-		# merges into appropriate party member
-		var game = Util.getParent(self, "Game")
-		var member = game.party.get_party_member(0)
-		member.stats.level += 1
-		reload()
+#func merge():
+#	if checkMergePossible():
+#		# first collection item
+#		var m : Slime = slimes.pop_front()
+#		# merges into appropriate party member
+#		var game = Util.getParent(self, "Game")
+#		var member = game.party.get_party_member(0)
+#		member.stats.level += 1
+#		reload()
 
 func _on_MergeButton_button_down():
-	merge()
+	#merge()
+	doAction("Merge")

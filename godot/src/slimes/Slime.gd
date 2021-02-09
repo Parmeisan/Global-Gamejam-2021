@@ -71,13 +71,22 @@ func is_in_party():
 
 func merge(s : Slime):
 	# you can only merge with a primary
-	assert(s.is_primary())
+	#assert(s.is_primary()) # Meh, but why?
 	# then add to my own abilities
+	#var result = s.duplicate()
+	var colours = 0 # If you get to 3, this is invalid
 	for a in range(0, ABILITIES.size()):
-		ability_tiers[a] = s.ability_tiers[a]
+		ability_tiers[a] += s.ability_tiers[a]
+		if ability_tiers[a] > 1:
+			colours += 1
+		if ability_tiers[a] > 5:
+			return false
+	if colours > 2:
+		return false
 	#TODO
 	#for m in range(0, stats.size()):
 	#	merged_boosts[m] += s.stats[m]
+	return self#result
 
 func is_primary():
 	# a primary has exactly one ability at 1 and both others at 0
