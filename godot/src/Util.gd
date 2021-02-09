@@ -61,6 +61,8 @@ static func getParent(me, pname):
 	return parent
 
 func deleteExtraChildren(grp, numToKeep : int):
+	# First few children in every section are labels, templates, etc
+	# So reloading lists means clearing everything else & recreating
 	while grp.get_child_count() > numToKeep:
 		grp.remove_child(grp.get_child(numToKeep))
 

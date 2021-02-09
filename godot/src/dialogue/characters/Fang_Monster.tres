@@ -1,16 +1,7 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://assets/sprites/battlers/Fang_Monster.png" type="Texture" id=1]
 [ext_resource path="res://src/dialogue/characters/Character.gd" type="Script" id=2]
-
-[sub_resource type="Image" id=1]
-data = {
-"data": PoolByteArray(  ),
-"format": "Lum8",
-"height": 0,
-"mipmaps": false,
-"width": 0
-}
 
 [resource]
 script = ExtResource( 2 )
@@ -18,6 +9,6 @@ display_name = "Fang Monster"
 backstory = "
 "
 expressions = {
-"neutral": SubResource( 1 ),
+"neutral": ExtResource( 1 ),
 "normal": ExtResource( 1 )
 }

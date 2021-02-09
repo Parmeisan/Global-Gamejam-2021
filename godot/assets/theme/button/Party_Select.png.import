@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/godette.png-3e84a3fd87446f9bb7c1041453df2a12.stex"
+path="res://.import/Party_Select.png-3e5d2f970389904a3101c403d8f6d6de.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battlers/godette.png"
-dest_files=[ "res://.import/godette.png-3e84a3fd87446f9bb7c1041453df2a12.stex" ]
+source_file="res://assets/theme/button/Party_Select.png"
+dest_files=[ "res://.import/Party_Select.png-3e5d2f970389904a3101c403d8f6d6de.stex" ]
 
 [params]
 

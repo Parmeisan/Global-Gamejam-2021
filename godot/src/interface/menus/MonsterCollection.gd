@@ -4,19 +4,26 @@ class_name MonsterCollection
 
 signal monster_collection_menu_summoned()
 signal toggle_encounters()
+const NONE = -1
 
 var slimes = [] # Enhanced & Primaries
 var greys = [0, 0, 0] # Number owned of each grey difficulty
 var allowed_greys = range(0, 3)
+var curr_selection_1ST = NONE # Some actions require 2 choices, e.g. merging
+var curr_selection_2ND = NONE
+var prev_result = NONE
 
 onready var grpParty = $Background/Columns/Col1/Party
 onready var grpCollection = $Background/Columns/Col2/Collection
 onready var grpArtifacts = $Background/Columns/Col1/Artifacts
 onready var grpActions = $Background/Columns/Actions
 onready var grpGreys = $Background/Columns/Col3/Greys
-onready var grpReds = $Background/Columns/Col3/Primaries/PrimCols/RedBack
-onready var grpBlues = $Background/Columns/Col3/Primaries/PrimCols/BlueBack
-onready var grpYellows = $Background/Columns/Col3/Primaries/PrimCols/YellowBack
+onready var grpPrimaries = $Background/Columns/Col3/Primaries/PrimHeadings
+onready var grpReds = $Background/Columns/Col3/Primaries/PrimCols/Reds
+onready var grpBlues = $Background/Columns/Col3/Primaries/PrimCols/Blues
+onready var grpYellows = $Background/Columns/Col3/Primaries/PrimCols/Yellows
+var selected = Data.getTexture("assets/theme/button/", "selected", ".png")
+var game
 
 # Array interface functions
 func add_slime(new_slime: Slime) -> void:
@@ -49,13 +56,13 @@ func get_slimes_filtered(wants_party : bool, wants_enhanced : bool, wants_colour
 		if wants_party and s.is_in_party():
 			arr.append(s) # We don't care in this case if primary or not
 		elif not s.is_in_party():
-			if wants_enhanced != s.is_primary():
+			if wants_enhanced != s.is_primary() and wants_colour in [s.colour, -1]:
 				arr.append(s)
 	return arr
 
 # Main functions
 func _ready():
-	pass
+	 game = Util.getParent(self, "Game")
 
 func _process(_delta):
 	if(Input.is_action_just_released("ui_select")):
@@ -65,21 +72,30 @@ func _process(_delta):
 
 const ARTIFACTS = [ "Fang", "Eye", "Scale" ]
 var artifact_path = "assets/sprites/artifacts/"
-var artifact_ext = ".png"
+var artifact_ext = "_128.png"
+
+func reset():
+	curr_selection_1ST = NONE
+	curr_selection_2ND = NONE
+	# FOR TESTING!
+	#add_slime(game.create_slime(0))
+	#add_slime(game.create_slime(0))
+	#add_slime(game.create_slime(1))
+	reload()
 
 func reload():
 	grpActions.get_node("AscendButton").visible = checkAscendPossible()
 	grpActions.get_node("AscendLabel").visible = checkAscendPossible()
 	grpActions.get_node("MergeButton").visible = checkMergePossible()
 	grpActions.get_node("MergeLabel").visible = checkMergePossible()
-	# First few children are labels etc and the main character; clear everything else and then start copying it
-	var game = Util.getParent(self, "Game")
 	# Party
 	Util.deleteExtraChildren(grpParty, 3)
 	var party = get_party_list()
 	for i in range(0, min(party.size(), game.party.PARTY_SIZE)):
 		var t = grpParty.get_node("PartyMember/PartyContainer").duplicate()
 		var s = party[i]
+		#print(s.name)
+		#t.add_child(s, true)
 		t.get_child(0).texture = s.sprite_small
 		var stats = t.get_child(1)
 		labelCell(stats, 0, s.get_name())
@@ -128,19 +144,21 @@ func reload():
 	var grps = [ grpReds, grpBlues, grpYellows ]
 	for g in range(0, grps.size()):
 		if Data.hasSlime(g):
-			grps[g].modulate = Color(1,1,1,1)
-			var list = grps[g].get_node("List")
-			Util.deleteExtraChildren(list, 2)
-			for s in get_primary_list(g):
-				var t = list.get_node("Member").duplicate()
-				labelCell(t, 0, s.get_name().substr(0, 8))
-				labelCell(t, 1, s.current_xp)
-				t.get_node("FavFavourite").visible = s.favourite
-				t.get_node("FavNormal").visible = !s.favourite
-				t.visible = true
-				list.add_child(t)
+			grpPrimaries.get_child(g).modulate = Color(1,1,1,1)
 		else:
-			grps[g].modulate = Color(1,1,1,0.125)
+			grpPrimaries.get_child(g).modulate = Color(1,1,1,0.125)
+		var list = grps[g]#.get_node("List")
+		Util.deleteExtraChildren(list, 1)
+		for s in get_primary_list(g):
+			var b = list.get_node("Button").duplicate()
+			handleButton(b, s)
+			var m = b.get_node("Member")
+			labelCell(m, 0, s.get_name().substr(0, 8))
+			labelCell(m, 1, s.current_xp)
+			m.get_node("FavFavourite").visible = s.favourite
+			m.get_node("FavNormal").visible = !s.favourite
+			b.visible = true
+			list.add_child(b)
 	# Greys
 	var greyCont = grpGreys.get_node("GreyMember/GreyContainer")
 	greyCont.get_node("ValGreySolo").text = str(greys[0])
@@ -151,19 +169,41 @@ func labelCell(t, posn, data):
 	var lbl : Label = t.get_child(posn)
 	lbl.text = str(data)
 
+func handleButton(button, slime):
+	# Every button's first child is a label with instance ID of corresponding slime
+	labelCell(button, 0, slime.get_instance_id())
+	# If this slime is selected, the button should reflect that
+	var sel = slime.get_instance_id() in [curr_selection_1ST, curr_selection_2ND]
+	button.texture_pressed = selected
+	button.toggle_mode = sel
+	button.pressed = sel
+
+func clickButton(button):
+	var inst = int(button.get_node("InstanceID").text)
+	if curr_selection_1ST == NONE:
+		curr_selection_1ST = inst
+	elif curr_selection_2ND == NONE:
+		curr_selection_2ND = inst
+	else:
+		curr_selection_2ND = curr_selection_1ST
+		curr_selection_1ST = inst
+	reload()
+
 func ascend(i):
 	Data.setSlime(i, false)
 	Data.setArtifact(i, false)
 	Data.setMonster(i, true)
 
 func checkAscendPossible():
-	var poss = false
-	for i in range(0, 3):
-		if Data.hasSlime(i) and Data.hasArtifact(i) and not Data.hasMonster(i):
-			poss = true
-	return poss
+	return curr_selection_1ST != NONE
+	#var poss = false
+	#for i in range(0, 3):
+	#	if Data.hasSlime(i) and Data.hasArtifact(i) and not Data.hasMonster(i):
+	#		poss = true
+	#return poss
 func checkMergePossible():
-	return (Data.hasSlime(0) or Data.hasMonster(0)) and slimes.size() > 0
+	return curr_selection_1ST != NONE
+	#return (Data.hasSlime(0) or Data.hasMonster(0)) and slimes.size() > 0
 
 func _on_AscendButton_button_down():
 	for i in range(0, 3):

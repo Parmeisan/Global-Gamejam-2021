@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/godette_pawn.png-ca9dcb9e07516d0413d95d19c121b9ff.stex"
+path="res://.import/Primary_Select.png-e9e721703bbfdddefcd7c21f66e5dd0b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/local_map/characters/godette_pawn.png"
-dest_files=[ "res://.import/godette_pawn.png-ca9dcb9e07516d0413d95d19c121b9ff.stex" ]
+source_file="res://assets/theme/button/Primary_Select.png"
+dest_files=[ "res://.import/Primary_Select.png-e9e721703bbfdddefcd7c21f66e5dd0b.stex" ]
 
 [params]
 

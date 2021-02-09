@@ -1,7 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
 [sub_resource type="GDScript" id=1]
-
 script/source = "extends Node
 
 func get_children():
@@ -26,4 +25,3 @@ func get_children():
 
 [node name="Skills" type="Node"]
 script = SubResource( 1 )
-

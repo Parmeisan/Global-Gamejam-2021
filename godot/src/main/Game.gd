@@ -66,15 +66,20 @@ func flag_changed(fl, val):
 			"SLIME2":
 				unlock_slime(2)
 
-func unlock_slime(i):
+func create_slime(i):
 	var slime : Slime
 	#slime = Slime.new()
 	slime = party.get_node(Data.COLOURS[i] + "Slime").duplicate()
 	slime.set_data(i)
 	slime.init_party_stuff()
+	return slime
+
+func unlock_slime(i):
+	var slime = create_slime(i)
 	slime.favourite = true
 	monster_list.add_slime(slime)
 	Data.addSlimeToRandom(i)
+	# If there's room in the party for this Friend slime, add it
 	var slot = monster_list.get_party_list().size()
 	if (slot < party.PARTY_SIZE - 1):
 		slime.add_to_party(slot)
@@ -213,7 +218,7 @@ func _on_MonsterCollection_monster_collection_menu_summoned():
 	var bg = monster_list.get_node("Background")
 	bg.visible = !bg.visible
 	if bg.visible:
-		monster_list.reload()
+		monster_list.reset()
 
 func _on_toggle_encounters():
 	Data.encounters_on = !Data.encounters_on
