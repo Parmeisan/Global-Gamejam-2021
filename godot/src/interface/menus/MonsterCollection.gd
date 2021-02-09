@@ -29,6 +29,7 @@ var game
 func add_slime(new_slime: Slime) -> void:
 	slimes.resize(slimes.size() + 1)
 	slimes[slimes.size() - 1] = new_slime
+	
 func remove_slime(target_pos: int) -> Slime:
 	var rv = slimes[target_pos]
 	slimes.remove(target_pos)
@@ -58,7 +59,13 @@ func get_slimes_filtered(wants_party : bool, wants_enhanced : bool, wants_colour
 		elif not s.is_in_party():
 			if wants_enhanced != s.is_primary() and wants_colour in [s.colour, -1]:
 				arr.append(s)
+	pass # gives me a chance to evaluate arr during debugging
 	return arr
+func get_slime_by_id(id):
+	for s in slimes:
+		if s.get_instance_id() == id:
+			return s
+	return null
 
 # Main functions
 func _ready():
@@ -89,6 +96,7 @@ func reload():
 	grpActions.get_node("MergeButton").visible = checkMergePossible()
 	grpActions.get_node("MergeLabel").visible = checkMergePossible()
 	# Party
+	var add = grpParty.get_node("AddPartyMember").duplicate() # before it's removed
 	Util.deleteExtraChildren(grpParty, 3)
 	var party = get_party_list()
 	for i in range(0, min(party.size(), game.party.PARTY_SIZE)):
@@ -108,7 +116,7 @@ func reload():
 				if s.ability_tiers[a] > tier:
 					icon_name = "Track%sTier%s" % [a, tier]
 				icon_name += "_Tiny"
-				var ab_icon = Data.getTexture("assets/sprites/abilities", icon_name, ".png")
+				var ab_icon = Data.getTexture("assets/sprites/abilities/", icon_name, ".png")
 				var ab_node = TextureRect.new()
 				ab_node.set_texture(ab_icon)
 				ab_node.set_size(Vector2(32,32))
@@ -118,6 +126,8 @@ func reload():
 		t.get_node("Icons/FavNormal").visible = !s.favourite
 		t.visible = true
 		grpParty.add_child(t)
+	grpParty.add_child(add)
+	add.visible = checkPartyPossible()
 	#FIXME Why doesn't this work?
 	#grpParty.get_node("AddPartyMember").visible = game.party.get_size() < game.party.PARTY_SIZE
 	# Artifacts
@@ -187,7 +197,19 @@ func clickButton(button):
 	else:
 		curr_selection_2ND = curr_selection_1ST
 		curr_selection_1ST = inst
+	if curr_selection_1ST == curr_selection_2ND:
+		curr_selection_2ND = NONE
 	reload()
+
+func doAction(action : String):
+	var first = get_slime_by_id(curr_selection_1ST)
+	match action:
+		"AddPartyMember":
+			if checkPartyPossible():
+				first.party_slot = get_party_list().size()
+			#else
+			#	game.script_manager.load_and_run({})
+	reset()
 
 func ascend(i):
 	Data.setSlime(i, false)
@@ -204,6 +226,11 @@ func checkAscendPossible():
 func checkMergePossible():
 	return curr_selection_1ST != NONE
 	#return (Data.hasSlime(0) or Data.hasMonster(0)) and slimes.size() > 0
+func checkPartyPossible():
+	if get_party_list().size() < game.party.PARTY_SIZE:
+		return curr_selection_1ST != NONE and curr_selection_2ND == NONE
+	return false
+
 
 func _on_AscendButton_button_down():
 	for i in range(0, 3):

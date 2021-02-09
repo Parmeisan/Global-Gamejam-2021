@@ -176,11 +176,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AddPartyMember" type="ColorRect" parent="Background/Columns/Col1/Party"]
-visible = false
+[node name="AddPartyMember" type="TextureButton" parent="Background/Columns/Col1/Party"]
 margin_top = 175.0
 margin_right = 512.0
-margin_bottom = 303.0
+margin_bottom = 175.0
+expand = true
+stretch_mode = 1
+script = ExtResource( 19 )
+
+[node name="Back" type="ColorRect" parent="Background/Columns/Col1/Party/AddPartyMember"]
+margin_right = 512.0
+margin_bottom = 128.0
 rect_min_size = Vector2( 500, 128 )
 color = Color( 0.807843, 1, 0.611765, 0.117647 )
 __meta__ = {

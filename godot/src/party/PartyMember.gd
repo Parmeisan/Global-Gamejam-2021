@@ -18,7 +18,8 @@ onready var SAVE_KEY: String = "party_member_" + name
 
 
 func _ready():
-	initialize_pm()
+	if battler:
+		initialize_pm()
 
 func initialize_pm():
 	assert(pawn_anim_path)

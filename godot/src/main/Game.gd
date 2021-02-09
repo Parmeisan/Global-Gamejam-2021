@@ -85,15 +85,10 @@ func unlock_slime(i):
 		slime.add_to_party(slot)
 
 func set_party():
-	#var slots = [ $Party/Slot1, $Party/Slot2, $Party/Slot3 ]
-	var party = monster_list.get_party_list()
-	#for template in range(0, $Party.get_child_count()):
-	#	if template != 0: # Sky
-			
-	Util.deleteExtraChildren($Party, 4)
-	for s in range(0, party.size()):
-		#var t = $Party.get_child("%sSlime")
-		$Party.add_child(party[s])
+	var p = monster_list.get_party_list()
+	Util.deleteExtraChildren(party, 4)
+	for s in range(0, p.size()):
+		party.add_child(p[s])
 
 #func enter_battle(formation: Formation):
 func enter_battle(formation: Array):

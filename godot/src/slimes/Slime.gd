@@ -38,7 +38,8 @@ func _ready():
 func set_data(c):
 	colour = c
 	battler = battlers[colour].instance()
-	battler.display_name = Data.generate_slime_name()
+	if not battler.display_name:
+		battler.display_name = Data.generate_slime_name()
 	growth = growth_curve
 	pawn_anim_path = "Anim"
 	initialize_pm()
