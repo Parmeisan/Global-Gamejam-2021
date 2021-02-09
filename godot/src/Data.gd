@@ -136,12 +136,63 @@ func getFileAccessTime(fname):
 var curr_combat_chance = 0.0
 const max_combat_chance = 15.0
 const combat_chance_inc = 0.75
-const combat_weights = [ 30.0, 25.0, 20.0 ]#, 10.0, 7.5, 5.0 ]
-const combat_types = [ "LoneRedSlime", "LoneBlueSlime", "LoneGreenSlime", "ThreeReds", "OneRedTwoBlues", "OneOfEach" ]
+#const combat_types = [ "LoneRedSlime", "LoneBlueSlime", "LoneGreenSlime", "ThreeReds", "OneRedTwoBlues", "OneOfEach" ]
 var encounters_on = true
 
+var RNG = RandomNumberGenerator.new()
+var weight_total
+func prep_random():
+	weight_total = 0.0
+	for w in range(0, Data.combat_weights.size()):
+		weight_total += Data.combat_weights[w]
+	RNG.randomize()
+
+var syll1 = ['b','b','b','d','d','f','g','k','k','k','l','m','m','p','q','r','r','t','v','w','x','x','z','z']
+var syll2 = ['', '', '', 'gl', 'r', 'rl', 'rg', 'lr']
+func generate_slime_name():
+	var slime_name = ""
+	var syllables = RNG.randi_range(2, 6)
+	for s in range(0, syllables):
+		var s1 = RNG.randi_range(0, syll1.size() - 1)
+		var s2 = RNG.randi_range(0, syll2.size() - 1)
+		slime_name += syll1[s1] + syll2[s2]
+	slime_name = slime_name.substr(0, 1).to_upper() + slime_name.substr(1)
+	return slime_name
+
+
+
+# Combat weights start spread out between greys, but change over time
+var combat_weights = []
+var grey_weights = [ 35, 35, 35, 25, 25, 35, 0, 0, 0 ]
+var locked_start = 6
+const DEBUG_MULTIPLIER = 200
+var locked_weights = [ 10, 20, 30 ]
+var combat_diffs = [ 1, 1, 1, 2, 2, 3, 2, 3, 4 ] # How much does it count toward the fight difficulty
+func setStartingWeights():
+	combat_weights = grey_weights.duplicate()
+	prep_random()
+func addSlimeToRandom(i):
+	combat_weights[locked_start + i] = locked_weights[i] * DEBUG_MULTIPLIER
+	prep_random()
+#func setRedSlime():
+#	var adding = 5
+#	setStartingWeights() # I don't want to be able to accidentally add red twice
+#	combat_weights.append(adding)
+#	weight_total += adding
+#func setBlueSlime():
+#	var adding = 7.5
+#	setRedSlime()
+#	combat_weights.append(adding)
+#	weight_total += adding
+#func setYellowSlime():
+#	var adding = 10
+#	setBlueSlime()
+#	combat_weights.append(adding)
+#	weight_total += adding
+
+
 # Flags & flag interface functions
-var flags = {}
+var flags = {} # DO NOT TOUCH EXCEPT THROUGH setFlagVal
 
 func hasFlag(flname, i):
 	var fl = flname + str(i)
@@ -158,7 +209,7 @@ func hasMonster(i):
 
 func setFlag(flname, i, val):
 	var fl = flname + str(i)
-	flags[fl] = val
+	setFlagValue(fl, val)
 func setSlime(i, val):
 	setFlag("SLIME", i, val)
 func setArtifact(i, val):
@@ -166,7 +217,15 @@ func setArtifact(i, val):
 func setMonster(i, val):
 	setFlag("MONSTER", i, val)
 
+func setFlagValue(fl, val):
+	flags[fl] = val
+	# Some flags also update arrays etc
+	get_node("/root/Game").flag_changed(fl, val)
+
+
 # A bit hacky, but will contain MapName.ObjName e.g. LocalMap2.FriendlyBlue
 var disappeared = []
 var loaded_maps = {}
 var map_difficulty
+
+const COLOURS = [ "Red", "Blue", "Yellow" ]

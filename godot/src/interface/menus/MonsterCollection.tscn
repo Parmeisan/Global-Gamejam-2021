@@ -1,12 +1,25 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src/interface/menus/MonsterCollection.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/source_code_pro_explanations.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/sprites/battlers/main_portrait_128.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/source_code_pro_explanations_bold.tres" type="DynamicFont" id=4]
 [ext_resource path="res://assets/sprites/icons/ascend_icon.png" type="Texture" id=5]
-[ext_resource path="res://assets/sprites/icons/merge_icon.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/icons/Merge_Icon.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/battlers/sky_portrait_128.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/battlers/Grey_Slime_1_128.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/battlers/Three_Greys_1_128.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/battlers/Two_Greys_2_128.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/icons/add_icon.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/battlers/Red_Slime_128.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/icons/fav_favourite.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/icons/fav_normal.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/battlers/Yellow_Slime_128.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/battlers/Blue_Slime_128.png" type="Texture" id=16]
+[ext_resource path="res://assets/theme/button/PMember_Select.png" type="Texture" id=17]
+[ext_resource path="res://assets/theme/button/Party_Select.png" type="Texture" id=18]
+[ext_resource path="res://src/interface/menus/SlimeButton.gd" type="Script" id=19]
+[ext_resource path="res://assets/theme/button/Primary_Select.png" type="Texture" id=20]
 
 [sub_resource type="Theme" id=1]
 default_font = ExtResource( 4 )
@@ -38,37 +51,65 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Party" type="VBoxContainer" parent="Background/Columns"]
-margin_right = 500.0
-margin_bottom = 205.0
+[node name="Col1" type="VBoxContainer" parent="Background/Columns"]
+margin_right = 512.0
+margin_bottom = 1035.0
 rect_min_size = Vector2( 500, 0 )
 
-[node name="Label" type="Label" parent="Background/Columns/Party"]
-margin_right = 500.0
+[node name="Party" type="VBoxContainer" parent="Background/Columns/Col1"]
+margin_right = 512.0
+margin_bottom = 544.0
+rect_min_size = Vector2( 512, 544 )
+
+[node name="PartyLabel" type="Label" parent="Background/Columns/Col1/Party"]
+margin_right = 512.0
 margin_bottom = 31.0
 theme = SubResource( 1 )
 text = "Party"
 
-[node name="HSeparator" type="HSeparator" parent="Background/Columns/Party"]
+[node name="PartyHR" type="HSeparator" parent="Background/Columns/Col1/Party"]
 margin_top = 35.0
-margin_right = 500.0
+margin_right = 512.0
 margin_bottom = 39.0
 
-[node name="PartyMember" type="ColorRect" parent="Background/Columns/Party"]
+[node name="PartyMember" type="TextureButton" parent="Background/Columns/Col1/Party"]
 margin_top = 43.0
-margin_right = 500.0
+margin_right = 512.0
 margin_bottom = 171.0
-rect_min_size = Vector2( 500, 128 )
-color = Color( 0.529412, 0.360784, 0, 1 )
-
-[node name="PartyContainer" type="HBoxContainer" parent="Background/Columns/Party/PartyMember"]
-margin_right = 40.0
-margin_bottom = 40.0
+rect_min_size = Vector2( 512, 128 )
+texture_hover = ExtResource( 18 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 19 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Image" type="TextureRect" parent="Background/Columns/Party/PartyMember/PartyContainer"]
+[node name="InstanceID" type="Label" parent="Background/Columns/Col1/Party/PartyMember"]
+visible = false
+margin_left = 1020.0
+margin_top = 132.0
+margin_right = 1060.0
+margin_bottom = 146.0
+
+[node name="PMBack" type="ColorRect" parent="Background/Columns/Col1/Party/PartyMember"]
+margin_right = 512.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 500, 128 )
+color = Color( 0.796078, 0.635294, 0, 0.113725 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PartyContainer" type="HBoxContainer" parent="Background/Columns/Col1/Party/PartyMember"]
+margin_top = -4.0
+margin_right = 524.0
+margin_bottom = 124.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="TextureRect" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer"]
 margin_right = 128.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 128, 128 )
@@ -78,119 +119,140 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stats" type="VBoxContainer" parent="Background/Columns/Party/PartyMember/PartyContainer"]
-margin_right = 40.0
-margin_bottom = 59.0
-
-[node name="Name" type="Label" parent="Background/Columns/Party/PartyMember/PartyContainer/Stats"]
+[node name="Stats" type="VBoxContainer" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer"]
 margin_left = 132.0
-margin_top = 52.0
-margin_right = 165.0
-margin_bottom = 75.0
+margin_right = 356.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 224, 0 )
+
+[node name="Name" type="Label" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer/Stats"]
+margin_right = 224.0
+margin_bottom = 23.0
 theme = SubResource( 2 )
 text = "Sky"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Level" type="Label" parent="Background/Columns/Party/PartyMember/PartyContainer/Stats"]
-margin_left = 169.0
-margin_top = 57.0
-margin_right = 169.0
-margin_bottom = 71.0
+[node name="Level" type="Label" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer/Stats"]
+margin_top = 27.0
+margin_right = 224.0
+margin_bottom = 41.0
 
-[node name="XP" type="Label" parent="Background/Columns/Party/PartyMember/PartyContainer/Stats"]
-margin_left = 173.0
-margin_top = 57.0
-margin_right = 173.0
-margin_bottom = 71.0
+[node name="XP" type="Label" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer/Stats"]
+margin_top = 45.0
+margin_right = 224.0
+margin_bottom = 59.0
 
-[node name="Collection" type="VBoxContainer" parent="Background/Columns"]
-margin_left = 504.0
-margin_right = 1004.0
-margin_bottom = 205.0
-rect_min_size = Vector2( 500, 0 )
+[node name="Abilities" type="GridContainer" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer"]
+margin_left = 360.0
+margin_right = 488.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 0 )
+columns = 4
 
-[node name="Label" type="Label" parent="Background/Columns/Collection"]
-margin_right = 500.0
-margin_bottom = 31.0
-theme = SubResource( 3 )
-text = "Collection	"
+[node name="Icons" type="VBoxContainer" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer"]
+margin_left = 492.0
+margin_right = 524.0
+margin_bottom = 128.0
 
-[node name="HSeparator" type="HSeparator" parent="Background/Columns/Collection"]
-margin_top = 35.0
-margin_right = 500.0
-margin_bottom = 39.0
-
-[node name="CollMember" type="ColorRect" parent="Background/Columns/Collection"]
+[node name="FavFavourite" type="TextureRect" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer/Icons"]
 visible = false
-margin_top = 43.0
-margin_right = 500.0
-margin_bottom = 171.0
-rect_min_size = Vector2( 500, 128 )
-color = Color( 0.529412, 0.360784, 0, 1 )
-
-[node name="CollContainer" type="HBoxContainer" parent="Background/Columns/Collection/CollMember"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 963.0
+margin_top = 132.0
+margin_right = 995.0
+margin_bottom = 172.0
+texture = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Image" type="TextureRect" parent="Background/Columns/Collection/CollMember/CollContainer"]
-margin_right = 128.0
+[node name="FavNormal" type="TextureRect" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer/Icons"]
+self_modulate = Color( 1, 1, 1, 0.25098 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AddPartyMember" type="ColorRect" parent="Background/Columns/Col1/Party"]
+visible = false
+margin_top = 175.0
+margin_right = 512.0
+margin_bottom = 303.0
+rect_min_size = Vector2( 500, 128 )
+color = Color( 0.807843, 1, 0.611765, 0.117647 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PartyContainer" type="HBoxContainer" parent="Background/Columns/Col1/Party/AddPartyMember"]
+margin_right = 516.0
+margin_bottom = 128.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AddInstructions" type="Label" parent="Background/Columns/Col1/Party/AddPartyMember/PartyContainer"]
+margin_right = 384.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 384, 128 )
+theme = SubResource( 1 )
+text = "Add to Party"
+align = 1
+valign = 1
+
+[node name="Image" type="TextureRect" parent="Background/Columns/Col1/Party/AddPartyMember/PartyContainer"]
+margin_left = 388.0
+margin_right = 516.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 128, 128 )
-texture = ExtResource( 3 )
+texture = ExtResource( 11 )
 stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Background/Columns/Collection/CollMember/CollContainer"]
-margin_left = 132.0
-margin_top = 52.0
-margin_right = 165.0
-margin_bottom = 75.0
-theme = SubResource( 2 )
-text = "Sky"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Artifacts" type="VBoxContainer" parent="Background/Columns/Col1"]
+margin_top = 548.0
+margin_right = 512.0
+margin_bottom = 587.0
 
-[node name="Artifacts" type="VBoxContainer" parent="Background/Columns"]
-margin_left = 1008.0
-margin_right = 1508.0
-margin_bottom = 205.0
-rect_min_size = Vector2( 500, 0 )
-
-[node name="Label" type="Label" parent="Background/Columns/Artifacts"]
-margin_right = 500.0
+[node name="ArtifactsLabel" type="Label" parent="Background/Columns/Col1/Artifacts"]
+margin_right = 512.0
 margin_bottom = 31.0
 theme = SubResource( 1 )
 text = "Artifacts"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="HSeparator" type="HSeparator" parent="Background/Columns/Artifacts"]
+[node name="ArtifactsHR" type="HSeparator" parent="Background/Columns/Col1/Artifacts"]
 margin_top = 35.0
-margin_right = 500.0
+margin_right = 512.0
 margin_bottom = 39.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="ArtifactMember" type="ColorRect" parent="Background/Columns/Artifacts"]
+[node name="ArtifactMember" type="ColorRect" parent="Background/Columns/Col1/Artifacts"]
 visible = false
-margin_top = 43.0
-margin_right = 500.0
-margin_bottom = 171.0
+margin_left = 504.0
+margin_top = -516.0
+margin_right = 1004.0
+margin_bottom = -388.0
 rect_min_size = Vector2( 500, 128 )
 color = Color( 0.529412, 0.360784, 0, 1 )
 
-[node name="ArtifactContainer" type="HBoxContainer" parent="Background/Columns/Artifacts/ArtifactMember"]
+[node name="ArtifactContainer" type="HBoxContainer" parent="Background/Columns/Col1/Artifacts/ArtifactMember"]
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Image" type="TextureRect" parent="Background/Columns/Artifacts/ArtifactMember/ArtifactContainer"]
+[node name="Image" type="TextureRect" parent="Background/Columns/Col1/Artifacts/ArtifactMember/ArtifactContainer"]
 margin_right = 128.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 128, 128 )
@@ -200,62 +262,609 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Background/Columns/Artifacts/ArtifactMember/ArtifactContainer"]
+[node name="Name" type="Label" parent="Background/Columns/Col1/Artifacts/ArtifactMember/ArtifactContainer"]
 margin_left = 132.0
 margin_top = 52.0
 margin_right = 165.0
 margin_bottom = 75.0
 theme = SubResource( 2 )
 text = "Sky"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Col2" type="VBoxContainer" parent="Background/Columns"]
+margin_left = 516.0
+margin_right = 1016.0
+margin_bottom = 1035.0
+rect_min_size = Vector2( 500, 0 )
+
+[node name="Collection" type="Control" parent="Background/Columns/Col2"]
+margin_right = 500.0
+
+[node name="Label" type="Label" parent="Background/Columns/Col2/Collection"]
+margin_top = 4.0
+margin_right = 500.0
+margin_bottom = 35.0
+theme = SubResource( 3 )
+text = "Composites"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="Background/Columns/Col2/Collection"]
+margin_top = 39.0
+margin_right = 500.0
+margin_bottom = 43.0
+
+[node name="CollMember" type="ColorRect" parent="Background/Columns/Col2/Collection"]
+visible = false
+margin_top = 43.0
+margin_right = 500.0
+margin_bottom = 171.0
+rect_min_size = Vector2( 500, 128 )
+color = Color( 0.529412, 0.360784, 0, 1 )
+
+[node name="CollContainer" type="HBoxContainer" parent="Background/Columns/Col2/Collection/CollMember"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="TextureRect" parent="Background/Columns/Col2/Collection/CollMember/CollContainer"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+texture = ExtResource( 3 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Background/Columns/Col2/Collection/CollMember/CollContainer"]
+margin_left = 132.0
+margin_top = 52.0
+margin_right = 165.0
+margin_bottom = 75.0
+theme = SubResource( 2 )
+text = "Sky"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Col3" type="VBoxContainer" parent="Background/Columns"]
+margin_left = 1020.0
+margin_right = 1604.0
+margin_bottom = 1035.0
+rect_min_size = Vector2( 512, 0 )
+
+[node name="Primaries" type="VBoxContainer" parent="Background/Columns/Col3"]
+margin_right = 584.0
+margin_bottom = 860.0
+rect_min_size = Vector2( 0, 860 )
+
+[node name="Label" type="Label" parent="Background/Columns/Col3/Primaries"]
+margin_right = 584.0
+margin_bottom = 31.0
+theme = SubResource( 3 )
+text = "Primaries"
+
+[node name="HSeparator" type="HSeparator" parent="Background/Columns/Col3/Primaries"]
+margin_top = 35.0
+margin_right = 584.0
+margin_bottom = 39.0
+
+[node name="PrimHeadings" type="HBoxContainer" parent="Background/Columns/Col3/Primaries"]
+margin_top = 43.0
+margin_right = 584.0
+margin_bottom = 171.0
+
+[node name="Reds" type="TextureButton" parent="Background/Columns/Col3/Primaries/PrimHeadings"]
+margin_right = 192.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 192, 128 )
+texture_hover = ExtResource( 20 )
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RedBack" type="ColorRect" parent="Background/Columns/Col3/Primaries/PrimHeadings/Reds"]
+margin_right = 192.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 192, 128 )
+color = Color( 1, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Img" type="TextureRect" parent="Background/Columns/Col3/Primaries/PrimHeadings/Reds"]
+margin_left = 32.0
+margin_right = 224.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 64 )
+texture = ExtResource( 12 )
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blues" type="TextureButton" parent="Background/Columns/Col3/Primaries/PrimHeadings"]
+margin_left = 196.0
+margin_right = 388.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 192, 128 )
+texture_hover = ExtResource( 20 )
+script = ExtResource( 19 )
+
+[node name="BlueBack" type="ColorRect" parent="Background/Columns/Col3/Primaries/PrimHeadings/Blues"]
+margin_right = 192.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 192, 128 )
+color = Color( 0, 0.368627, 1, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Img" type="TextureRect" parent="Background/Columns/Col3/Primaries/PrimHeadings/Blues"]
+margin_left = 32.0
+margin_right = 224.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 64, 128 )
+texture = ExtResource( 16 )
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Yellows" type="TextureButton" parent="Background/Columns/Col3/Primaries/PrimHeadings"]
+margin_left = 392.0
+margin_right = 584.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 192, 128 )
+texture_hover = ExtResource( 20 )
+script = ExtResource( 19 )
+
+[node name="YellowBack" type="ColorRect" parent="Background/Columns/Col3/Primaries/PrimHeadings/Yellows"]
+margin_right = 192.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 192, 128 )
+color = Color( 0.909804, 0.831373, 0, 0.768627 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Img" type="TextureRect" parent="Background/Columns/Col3/Primaries/PrimHeadings/Yellows"]
+margin_left = 32.0
+margin_right = 224.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 64 )
+texture = ExtResource( 15 )
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrimCols" type="HBoxContainer" parent="Background/Columns/Col3/Primaries"]
+margin_top = 175.0
+margin_right = 584.0
+margin_bottom = 303.0
+
+[node name="Reds" type="VBoxContainer" parent="Background/Columns/Col3/Primaries/PrimCols"]
+margin_right = 192.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 192, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Background/Columns/Col3/Primaries/PrimCols/Reds"]
+visible = false
+margin_right = 192.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 192, 32 )
+texture_hover = ExtResource( 17 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 19 )
+
+[node name="InstanceID" type="Label" parent="Background/Columns/Col3/Primaries/PrimCols/Reds/Button"]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+
+[node name="Member" type="HBoxContainer" parent="Background/Columns/Col3/Primaries/PrimCols/Reds/Button"]
+margin_right = 192.0
+margin_bottom = 32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Background/Columns/Col3/Primaries/PrimCols/Reds/Button/Member"]
+margin_top = 4.0
+margin_right = 112.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 112, 0 )
+theme = SubResource( 2 )
+text = "Xgrlgl	"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="XP" type="Label" parent="Background/Columns/Col3/Primaries/PrimCols/Reds/Button/Member"]
+margin_left = 116.0
+margin_top = 4.0
+margin_right = 148.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 32, 0 )
+theme = SubResource( 2 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FavFavourite" type="TextureRect" parent="Background/Columns/Col3/Primaries/PrimCols/Reds/Button/Member"]
+visible = false
+margin_left = 152.0
+margin_right = 184.0
+margin_bottom = 40.0
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FavNormal" type="TextureRect" parent="Background/Columns/Col3/Primaries/PrimCols/Reds/Button/Member"]
+self_modulate = Color( 1, 1, 1, 0.25098 )
+margin_left = 152.0
+margin_right = 184.0
+margin_bottom = 32.0
+texture = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blues" type="VBoxContainer" parent="Background/Columns/Col3/Primaries/PrimCols"]
+margin_left = 196.0
+margin_right = 388.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 192, 128 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Background/Columns/Col3/Primaries/PrimCols/Blues"]
+visible = false
+margin_right = 192.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 192, 32 )
+texture_hover = ExtResource( 17 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 19 )
+
+[node name="InstanceID" type="Label" parent="Background/Columns/Col3/Primaries/PrimCols/Blues/Button"]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+
+[node name="Member" type="HBoxContainer" parent="Background/Columns/Col3/Primaries/PrimCols/Blues/Button"]
+margin_right = 192.0
+margin_bottom = 32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Background/Columns/Col3/Primaries/PrimCols/Blues/Button/Member"]
+margin_top = 4.0
+margin_right = 112.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 112, 0 )
+theme = SubResource( 2 )
+text = "Xgrlgl	"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="XP" type="Label" parent="Background/Columns/Col3/Primaries/PrimCols/Blues/Button/Member"]
+margin_left = 116.0
+margin_top = 4.0
+margin_right = 148.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 32, 0 )
+theme = SubResource( 2 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FavFavourite" type="TextureRect" parent="Background/Columns/Col3/Primaries/PrimCols/Blues/Button/Member"]
+visible = false
+margin_left = 152.0
+margin_right = 184.0
+margin_bottom = 40.0
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FavNormal" type="TextureRect" parent="Background/Columns/Col3/Primaries/PrimCols/Blues/Button/Member"]
+self_modulate = Color( 1, 1, 1, 0.25098 )
+margin_left = 152.0
+margin_right = 184.0
+margin_bottom = 32.0
+texture = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Yellows" type="VBoxContainer" parent="Background/Columns/Col3/Primaries/PrimCols"]
+margin_left = 392.0
+margin_right = 584.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 192, 128 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="Background/Columns/Col3/Primaries/PrimCols/Yellows"]
+visible = false
+margin_right = 192.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 192, 32 )
+texture_hover = ExtResource( 17 )
+expand = true
+stretch_mode = 1
+script = ExtResource( 19 )
+
+[node name="InstanceID" type="Label" parent="Background/Columns/Col3/Primaries/PrimCols/Yellows/Button"]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+
+[node name="Member" type="HBoxContainer" parent="Background/Columns/Col3/Primaries/PrimCols/Yellows/Button"]
+margin_right = 192.0
+margin_bottom = 32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Background/Columns/Col3/Primaries/PrimCols/Yellows/Button/Member"]
+margin_top = 4.0
+margin_right = 112.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 112, 0 )
+theme = SubResource( 2 )
+text = "Xgrlgl	"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="XP" type="Label" parent="Background/Columns/Col3/Primaries/PrimCols/Yellows/Button/Member"]
+margin_left = 116.0
+margin_top = 4.0
+margin_right = 148.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 32, 0 )
+theme = SubResource( 2 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FavFavourite" type="TextureRect" parent="Background/Columns/Col3/Primaries/PrimCols/Yellows/Button/Member"]
+visible = false
+margin_left = 152.0
+margin_right = 184.0
+margin_bottom = 40.0
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FavNormal" type="TextureRect" parent="Background/Columns/Col3/Primaries/PrimCols/Yellows/Button/Member"]
+self_modulate = Color( 1, 1, 1, 0.25098 )
+margin_left = 152.0
+margin_right = 184.0
+margin_bottom = 32.0
+texture = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrimMember" type="ColorRect" parent="Background/Columns/Col3/Primaries"]
+visible = false
+margin_top = 47.0
+margin_right = 576.0
+margin_bottom = 175.0
+rect_min_size = Vector2( 500, 128 )
+color = Color( 0.529412, 0.360784, 0, 1 )
+
+[node name="PrimContainer" type="HBoxContainer" parent="Background/Columns/Col3/Primaries/PrimMember"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="TextureRect" parent="Background/Columns/Col3/Primaries/PrimMember/PrimContainer"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+texture = ExtResource( 3 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Background/Columns/Col3/Primaries/PrimMember/PrimContainer"]
+margin_left = 132.0
+margin_top = 52.0
+margin_right = 165.0
+margin_bottom = 75.0
+theme = SubResource( 2 )
+text = "Sky"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Greys" type="VBoxContainer" parent="Background/Columns/Col3"]
+margin_top = 864.0
+margin_right = 584.0
+margin_bottom = 1035.0
+rect_min_size = Vector2( 500, 0 )
+
+[node name="Label" type="Label" parent="Background/Columns/Col3/Greys"]
+margin_right = 584.0
+margin_bottom = 31.0
+theme = SubResource( 3 )
+text = "Greys"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="Background/Columns/Col3/Greys"]
+margin_top = 35.0
+margin_right = 584.0
+margin_bottom = 39.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GreyMember" type="ColorRect" parent="Background/Columns/Col3/Greys"]
+margin_top = 43.0
+margin_right = 584.0
+margin_bottom = 171.0
+rect_min_size = Vector2( 576, 128 )
+color = Color( 1, 1, 1, 0.0627451 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GreyContainer" type="HBoxContainer" parent="Background/Columns/Col3/Greys/GreyMember"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ImgGreySolo" type="TextureRect" parent="Background/Columns/Col3/Greys/GreyMember/GreyContainer"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+texture = ExtResource( 8 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ValGreySolo" type="Label" parent="Background/Columns/Col3/Greys/GreyMember/GreyContainer"]
+margin_left = 132.0
+margin_top = 52.0
+margin_right = 196.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 64, 0 )
+theme = SubResource( 2 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ImgGreyDuo" type="TextureRect" parent="Background/Columns/Col3/Greys/GreyMember/GreyContainer"]
+margin_left = 200.0
+margin_right = 328.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+texture = ExtResource( 10 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ValGreyDuo" type="Label" parent="Background/Columns/Col3/Greys/GreyMember/GreyContainer"]
+margin_left = 332.0
+margin_top = 52.0
+margin_right = 396.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 64, 0 )
+theme = SubResource( 2 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ImgGreyTrio" type="TextureRect" parent="Background/Columns/Col3/Greys/GreyMember/GreyContainer"]
+margin_left = 400.0
+margin_right = 528.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+texture = ExtResource( 9 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ValGreyTrio" type="Label" parent="Background/Columns/Col3/Greys/GreyMember/GreyContainer"]
+margin_left = 532.0
+margin_top = 52.0
+margin_right = 596.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 64, 0 )
+theme = SubResource( 2 )
+text = "0"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Actions" type="VBoxContainer" parent="Background/Columns"]
-margin_left = 1512.0
-margin_right = 1812.0
-margin_bottom = 205.0
+margin_left = 1608.0
+margin_right = 1952.0
+margin_bottom = 1035.0
 rect_min_size = Vector2( 300, 0 )
 
 [node name="Label" type="Label" parent="Background/Columns/Actions"]
+margin_right = 344.0
+margin_bottom = 31.0
 theme = SubResource( 1 )
-text = "Actions
-"
+text = "Actions"
 
 [node name="HSeparator" type="HSeparator" parent="Background/Columns/Actions"]
-margin_top = 69.0
-margin_right = 300.0
-margin_bottom = 73.0
+margin_top = 35.0
+margin_right = 344.0
+margin_bottom = 39.0
 
 [node name="AscendButton" type="TextureButton" parent="Background/Columns/Actions"]
-margin_top = 77.0
-margin_right = 300.0
-margin_bottom = 205.0
+margin_top = 43.0
+margin_right = 344.0
+margin_bottom = 452.0
 texture_normal = ExtResource( 5 )
 
 [node name="AscendLabel" type="Label" parent="Background/Columns/Actions"]
-margin_right = 300.0
-margin_bottom = 65.0
+margin_top = 456.0
+margin_right = 344.0
+margin_bottom = 487.0
 theme = SubResource( 1 )
-text = "        Ascend
-"
+text = "        Ascend"
 
 [node name="HSeparator2" type="HSeparator" parent="Background/Columns/Actions"]
-margin_top = 69.0
-margin_right = 300.0
-margin_bottom = 73.0
+margin_top = 491.0
+margin_right = 344.0
+margin_bottom = 495.0
 
 [node name="MergeButton" type="TextureButton" parent="Background/Columns/Actions"]
-margin_top = 77.0
-margin_right = 300.0
-margin_bottom = 205.0
+margin_top = 499.0
+margin_right = 344.0
+margin_bottom = 908.0
 texture_normal = ExtResource( 6 )
 
 [node name="MergeLabel" type="Label" parent="Background/Columns/Actions"]
-margin_right = 300.0
-margin_bottom = 65.0
+margin_top = 912.0
+margin_right = 344.0
+margin_bottom = 943.0
 theme = SubResource( 1 )
-text = "  Merge
-"
+text = "  Merge"
 [connection signal="button_down" from="Background/Columns/Actions/AscendButton" to="." method="_on_AscendButton_button_down"]
 [connection signal="button_down" from="Background/Columns/Actions/MergeButton" to="." method="_on_MergeButton_button_down"]

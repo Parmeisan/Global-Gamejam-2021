@@ -2,9 +2,7 @@
 
 [ext_resource path="res://src/combat/animation/BattlerAnim.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/battlers/shadow.png" type="Texture" id=2]
-[ext_resource path="res://assets/sprites/battlers/godette.png" type="Texture" id=3]
-
-
+[ext_resource path="res://assets/sprites/battlers/Sky_Battle_Sprite.png" type="Texture" id=3]
 
 [node name="GodetteAnim" instance=ExtResource( 1 )]
 
@@ -21,4 +19,3 @@ texture = ExtResource( 3 )
 [node name="RectExtents" parent="." index="3"]
 position = Vector2( 3.11111, -108.444 )
 size = Vector2( 165.333, 223.556 )
-

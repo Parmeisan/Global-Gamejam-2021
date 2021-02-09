@@ -11,7 +11,7 @@ onready var party = $Party as Party
 onready var music_player = $MusicPlayer
 onready var game_over_interface := $GameOverInterface
 onready var gui := $GUI
-onready var monster_collection_interface := $MonsterCollection
+onready var monster_list := $MonsterCollection
 
 var transitioning = false
 var combat_arena: CombatArena
@@ -28,11 +28,11 @@ func _ready():
 	local_map.spawn_party(party)
 	local_map.visible = true
 	Data.map_difficulty = $LocalMap.map_difficulty
+	Data.setStartingWeights()
 	local_map.connect("enemies_encountered", self, "enter_battle")
 	music_player.play_field_theme()
 	script_manager = DialogueAction.new()
 	script_manager.initialize(local_map)
-	prep_random()
 	debug.debugMessage(CAT.FILE, "Game load complete")
 
 	# introTimer to clear splash screen and then load introduction scripts
@@ -56,27 +56,44 @@ func enter_game():
 	yield(script_manager, "finished")
 	local_map.get_node("GameBoard/Pawns/Usir-purple").visible = false
 
+func flag_changed(fl, val):
+	if (val):
+		match fl:
+			"SLIME0":
+				unlock_slime(0)
+			"SLIME1":
+				unlock_slime(1)
+			"SLIME2":
+				unlock_slime(2)
+
+func create_slime(i):
+	var slime : Slime
+	#slime = Slime.new()
+	slime = party.get_node(Data.COLOURS[i] + "Slime").duplicate()
+	slime.set_data(i)
+	slime.init_party_stuff()
+	return slime
+
+func unlock_slime(i):
+	var slime = create_slime(i)
+	slime.favourite = true
+	monster_list.add_slime(slime)
+	Data.addSlimeToRandom(i)
+	# If there's room in the party for this Friend slime, add it
+	var slot = monster_list.get_party_list().size()
+	if (slot < party.PARTY_SIZE - 1):
+		slime.add_to_party(slot)
 
 func set_party():
-	var first_slime = get_node("Party/Robi")
-	var second_slime = get_node("Party/Robi2")
-	var third_slime = get_node("Party/Robi3")
-	var first_monster = get_node("Party/Robi4")
-	var second_monster = get_node("Party/Robi5")
-	var third_monster = get_node("Party/Robi6")	
-	#for testing puroses, definitely delete these flag sets if you see them:
-	#Data.setSlime(0, true)
-	#Data.setSlime(1, true)
-	#Data.setSlime(2, true)
-	#Data.setMonster(0, true)
-	#Data.setMonster(1, true)
-	#Data.setMonster(2, true)	
-	first_slime.visible = Data.hasSlime(0) && !Data.hasMonster(0)
-	second_slime.visible = Data.hasSlime(1) && !Data.hasMonster(1)
-	third_slime.visible = Data.hasSlime(2) && !Data.hasMonster(2)	
-	first_monster.visible = Data.hasMonster(0)
-	second_monster.visible = Data.hasMonster(1)
-	third_monster.visible = Data.hasMonster(2)
+	#var slots = [ $Party/Slot1, $Party/Slot2, $Party/Slot3 ]
+	var party = monster_list.get_party_list()
+	#for template in range(0, $Party.get_child_count()):
+	#	if template != 0: # Sky
+			
+	Util.deleteExtraChildren($Party, 4)
+	for s in range(0, party.size()):
+		#var t = $Party.get_child("%sSlime")
+		$Party.add_child(party[s])
 
 #func enter_battle(formation: Formation):
 func enter_battle(formation: Array):
@@ -112,20 +129,11 @@ func enter_battle(formation: Array):
 
 
 # Random encounters
-var RNG = RandomNumberGenerator.new()
-var weight_total
-func prep_random():
-	weight_total = 0.0
-	for w in range(0, Data.combat_weights.size()):
-		weight_total += Data.combat_weights[w]
-	RNG.randomize()
 
 func random_encounter():
 	#print("Chance of encounter: %s%%" % curr_combat_chance)
-	var rnd = RNG.randf_range(0.0, 100.0)
+	var rnd = Data.RNG.randf_range(0.0, 100.0)
 	if rnd < Data.curr_combat_chance:
-		var enc_rnd = RNG.randf_range(0.0, weight_total)
-		var enc_check = 0.0
 		Data.curr_combat_chance = 0.0
 		#var enc = map.get_node("GameBoard/Pawns/" + Data.combat_types[enc_type])
 		var enc = get_random_enemy_group()
@@ -149,23 +157,24 @@ func random_encounter():
 #	else:
 #		return null
 
-#		var enc_type = 0
-#		for w in range(0, Data.combat_weights.size()):
-#			enc_check += Data.combat_weights[w]
-#			if enc_rnd > enc_check:
-#				enc_type += 1
 func get_random_enemy_group():
 	var enemy_array = []
 	var min_diff = floor(Data.map_difficulty * 2 / 3)
-	var diff = RNG.randi_range(min_diff, Data.map_difficulty)
+	var diff = Data.RNG.randi_range(min_diff, Data.map_difficulty)
 	print("Random encounter of difficulty %s!" % diff)
 	while diff > 0:
-		var e = RNG.randi_range(1, 3)
-		if e > diff:
-			e = diff
-		#print("Enemy ", e)
-		enemy_array.append($Enemies.get_child(e - 1))
-		diff -= e
+		var enc_type = 0
+		var enc_rnd = Data.RNG.randf_range(0.0, Data.weight_total)
+		var enc_check = 0.0
+		for w in range(0, Data.combat_weights.size()):
+			enc_check += Data.combat_weights[w]
+			if enc_rnd > enc_check:
+				enc_type += 1
+		if Data.combat_diffs[enc_type] > diff:
+			enc_type -= 1 # Can still go over the max, but not by too much
+		#print("Enemy type %s name %s" % [enc_type, Data.generate_slime_name()])
+		enemy_array.append($Enemies.get_child(enc_type))
+		diff -= Data.combat_diffs[enc_type]
 	#var node_arr = [$Enemies/RedSlime, $Enemies/RedSlime, $Enemies/RedSlime, $Enemies/RedSlime]
 	return enemy_array
 
@@ -206,13 +215,14 @@ func _on_GameOverInterface_restart_requested():
 
 
 func _on_MonsterCollection_monster_collection_menu_summoned():
-	var bg = monster_collection_interface.get_node("Background")
-	monster_collection_interface.reload()
+	var bg = monster_list.get_node("Background")
 	bg.visible = !bg.visible
+	if bg.visible:
+		monster_list.reset()
 
 func _on_toggle_encounters():
 	Data.encounters_on = !Data.encounters_on
 
 func _process(_delta):
 	if(Input.is_action_just_released("ui_quicksave")):
-		Data.saveCSV("saves/", "slimes", ".csv", monster_collection_interface.slimes)
+		Data.saveCSV("saves/", "slimes", ".csv", monster_list.slimes)
