@@ -66,11 +66,19 @@ func flag_changed(fl, val):
 			"SLIME2":
 				unlock_slime(2)
 
-func create_slime(i):
-	var slime : Slime
-	#slime = Slime.new()
-	slime = party.get_node(Data.COLOURS[i] + "Slime").duplicate()
-	slime.set_data(i)
+#func create_slime(i):
+#	var slime : Slime
+#	#slime = $Party.get_node(Data.COLOURS[i] + "Slime").duplicate()
+#	#slime = load(Slime.slime_scene % Data.COLOURS[i]).instance()
+#	slime.set_data(i)
+#	slime.init_party_stuff()
+#	return slime
+	#slime = load(slime_scene % Data.COLOURS[c])
+	#slime = slime_scenes[c]
+
+func create_slime(c):
+	var slime: Slime = Slime.new()
+	slime.set_data(c)
 	slime.init_party_stuff()
 	return slime
 
@@ -81,19 +89,14 @@ func unlock_slime(i):
 	Data.addSlimeToRandom(i)
 	# If there's room in the party for this Friend slime, add it
 	var slot = monster_list.get_party_list().size()
-	if (slot < party.PARTY_SIZE - 1):
+	if (slot < party.PARTY_SIZE - 2): # Sky takes up a slot but we still start at 0
 		slime.add_to_party(slot)
 
 func set_party():
-	#var slots = [ $Party/Slot1, $Party/Slot2, $Party/Slot3 ]
-	var party = monster_list.get_party_list()
-	#for template in range(0, $Party.get_child_count()):
-	#	if template != 0: # Sky
-			
-	Util.deleteExtraChildren($Party, 4)
-	for s in range(0, party.size()):
-		#var t = $Party.get_child("%sSlime")
-		$Party.add_child(party[s])
+	var p = monster_list.get_party_list()
+	Util.deleteExtraChildren(party, 4)
+	for s in range(0, p.size()):
+		party.add_child(p[s])
 
 #func enter_battle(formation: Formation):
 func enter_battle(formation: Array):

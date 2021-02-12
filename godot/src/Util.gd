@@ -57,6 +57,7 @@ static func getParent(me, pname):
 	var limitter = 0
 	var parent = me
 	while pname != parent.get_name() and limitter < 15:
+		print("parent ", parent.get_name())
 		parent = parent.get_parent()
 	return parent
 
