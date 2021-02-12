@@ -112,10 +112,10 @@ func reload():
 		labelCell(stats, 1, "Level: " + str(s.stats.level))
 		labelCell(stats, 2, "Strength: " + str(s.stats.strength))
 		displayAbilityTracks(t.get_node("Abilities"), s, true)
+		b.get_node("PartyContainer/De-Party").visible = true
+		b.get_node("PartyContainer/Icons").visible = true
+		t.get_node("Image").rect_position.x = 0 # Overlap with favourite
 		grpParty.add_child(b)
-	# Sky is special and cannot be de-partied
-	sky.get_node("PartyContainer/De-Party").visible = false
-	sky.get_node("PartyContainer/Icons").visible = false
 	# Put back the AddPartyMember button, after everything else
 	grpParty.add_child(add)
 	add.visible = checkPartyPossible()
@@ -206,7 +206,7 @@ func clickButton(button):
 		selected_2ND = NONE
 	reload()
 
-func doAction(action : String):
+func doAction(action : String):#btn : TextureRect):
 	var s1 = get_slime_by_id(selected_1ST)
 	var s2 = get_slime_by_id(selected_2ND)
 	match action:
@@ -215,6 +215,8 @@ func doAction(action : String):
 				s1.party_slot = get_party_list().size()
 			#else
 			#	game.script_manager.load_and_run({})
+		"De-Party":
+			s1.party_slot = NONE
 		"Merge":
 			if checkMergePossible():
 				var m = s1.merge(game, s2)
@@ -249,7 +251,8 @@ func checkPartyPossible():
 	if get_party_list().size() < game.party.PARTY_SIZE:
 		if selected_1ST != NONE and selected_2ND == NONE:
 			var slime = get_slime_by_id(selected_1ST)
-			return !slime.is_in_party()
+			if slime:
+				return !slime.is_in_party()
 	return false
 
 
@@ -273,3 +276,7 @@ func _on_AscendButton_button_down():
 func _on_MergeButton_button_down():
 	#merge()
 	doAction("Merge")
+
+
+func _on_DeParty_pressed():
+	pass # Replace with function body.
