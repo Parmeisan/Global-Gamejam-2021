@@ -38,6 +38,7 @@ turn_order_icon = ExtResource( 4 )
 
 [node name="Capture" parent="Godette/Battler/Actions" index="1" instance=ExtResource( 15 )]
 icon = ExtResource( 16 )
+description = null
 
 [node name="Flee" parent="Godette/Battler/Actions" index="2" instance=ExtResource( 27 )]
 icon = ExtResource( 28 )
@@ -51,17 +52,6 @@ script = ExtResource( 8 )
 
 [node name="GodettePawnAnim" parent="Godette" instance=ExtResource( 9 )]
 scale = Vector2( 0.5, 0.5 )
-
-[node name="RedSlime" parent="." instance=ExtResource( 2 )]
-visible = false
-script = ExtResource( 12 )
-pawn_anim_path = NodePath("Anim")
-growth = ExtResource( 10 )
-
-[node name="AI" parent="RedSlime/Battler" index="6"]
-script = ExtResource( 8 )
-
-[node name="Anim" parent="RedSlime" instance=ExtResource( 14 )]
 
 [node name="BlueSlime" parent="." instance=ExtResource( 2 )]
 visible = false
@@ -134,10 +124,6 @@ script = ExtResource( 8 )
 [editable path="Godette/Battler"]
 
 [editable path="Godette/Battler/Actions/Flee"]
-
-[editable path="RedSlime"]
-
-[editable path="RedSlime/Battler"]
 
 [editable path="BlueSlime"]
 

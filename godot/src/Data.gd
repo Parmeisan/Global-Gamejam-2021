@@ -228,4 +228,4 @@ var disappeared = []
 var loaded_maps = {}
 var map_difficulty
 
-const COLOURS = [ "Red", "Blue", "Yellow" ]
+const COLOURS = [ "Red", "Blue", "Yellow", "Purple", "Orange", "Green" ]
