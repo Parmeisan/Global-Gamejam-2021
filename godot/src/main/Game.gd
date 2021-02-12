@@ -61,6 +61,7 @@ func flag_changed(fl, val):
 		match fl:
 			"SLIME0":
 				unlock_slime(0)
+				monster_list.show_overlay()
 			"SLIME1":
 				unlock_slime(1)
 			"SLIME2":
@@ -94,7 +95,7 @@ func unlock_slime(i):
 
 func set_party():
 	var p = monster_list.get_party_list()
-	Util.deleteExtraChildren(party, 4)
+	Util.deleteExtraChildren(party, 1)
 	for s in range(0, p.size()):
 		party.add_child(p[s])
 
@@ -106,6 +107,7 @@ func enter_battle(formation: Array):
 
 	set_party()
 	gui.hide()
+	monster_list.hide_overlay()
 	music_player.play_battle_theme()
 
 	transitioning = true
@@ -185,6 +187,7 @@ func _on_CombatArena_battle_completed(arena):
 	# At the end of an encounter, fade the screen, remove the combat arena
 	# and add the local map back
 	gui.show()
+	monster_list.show_overlay()
 
 	transitioning = true
 	yield(transition.fade_to_color(), "completed")
@@ -219,7 +222,9 @@ func _on_GameOverInterface_restart_requested():
 
 func _on_MonsterCollection_monster_collection_menu_summoned():
 	var bg = monster_list.get_node("Background")
+	var fg = monster_list.get_node("GameOverlay")
 	bg.visible = !bg.visible
+	fg.visible = !bg.visible
 	if bg.visible:
 		monster_list.reset()
 

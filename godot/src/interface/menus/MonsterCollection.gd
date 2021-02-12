@@ -112,7 +112,6 @@ func reload():
 		labelCell(stats, 1, "Level: " + str(s.stats.level))
 		labelCell(stats, 2, "Strength: " + str(s.stats.strength))
 		displayAbilityTracks(t.get_node("Abilities"), s, true)
-		b.get_node("PartyContainer/De-Party").visible = true
 		b.get_node("PartyContainer/Icons").visible = true
 		t.get_node("Image").rect_position.x = 0 # Overlap with favourite
 		grpParty.add_child(b)
@@ -277,6 +276,12 @@ func _on_MergeButton_button_down():
 	#merge()
 	doAction("Merge")
 
+func _on_OpenMenu_pressed():
+	emit_signal("monster_collection_menu_summoned")
+func _on_CloseCollection_pressed():
+	emit_signal("monster_collection_menu_summoned")
+func show_overlay():
+	$GameOverlay.visible = true
+func hide_overlay():
+	$GameOverlay.visible = false
 
-func _on_DeParty_pressed():
-	pass # Replace with function body.
