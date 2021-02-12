@@ -19,9 +19,9 @@ export var max_mana: int = 0 setget set_max_mana, _get_max_mana
 export var strength: int = 1 setget , _get_strength
 export var defense: int = 1 setget , _get_defense
 export var speed: int = 1 setget , _get_speed
+export var flavour: String = "" setget set_flavour, get_flavour
 var is_alive: bool setget , _is_alive
 var level: int
-
 
 func reset():
 	health = self.max_health
@@ -82,6 +82,10 @@ func remove_modifier(id: int):
 
 
 func _is_alive() -> bool:
+	# Creating a new slime programmatically during combat will
+	# cause this to be nil *just* long enough to crash everything
+	if not health:
+		return false
 	return health >= 0
 
 
@@ -107,3 +111,9 @@ func _get_speed() -> int:
 
 func _get_level() -> int:
 	return level
+
+func get_flavour() -> String:
+	return flavour
+
+func set_flavour(flavour_in: String) -> void:
+	flavour = flavour_in

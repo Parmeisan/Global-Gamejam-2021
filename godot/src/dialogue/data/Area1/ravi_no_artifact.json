@@ -1,0 +1,7 @@
+{"001":{"_comment":"#[Overworld dialogue when you approach Ravi before you get the first artifact]",
+"name":"Ravi","expression":"normal","text":"You got one of those slimes to follow you around?"},
+"002":{"name":"Sky","expression":"normal","text":"Yeah! I think this one’s special, it’s more friendly than the others. Wonder if I could take it home."},
+"003":{"name":"Ravi","expression":"normal","text":"Why am I the only person in this friend group who doesn’t think befriending monsters is a good idea…"},
+"004":{"name":"color slime","expression":"normal","text":"{slime noises}"},
+"005":{"name":"Sky","expression":"normal","text":"It’s okay, buddy, he didn’t mean it."},
+"006":{"name":"Ravi","expression":"normal","text":"{groans}"}}

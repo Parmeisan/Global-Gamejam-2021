@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/map/pawns/RobiPawnAnim.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/map/pawns/PawnAnim.gd" type="Script" id=2]
+[ext_resource path="res://src/combat/battlers/Battler.gd" type="Script" id=3]
+[ext_resource path="res://src/combat/battlers/Battler.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/combat/battlers/jobs/RobiJob.tres" type="Resource" id=5]
+[ext_resource path="res://src/slimes/Slime.gd" type="Script" id=6]
+
+[node name="YellowSlime" type="Node2D" groups=[
+"save",
+]]
+visible = false
+script = ExtResource( 6 )
+pawn_anim_path = NodePath("RobiPawnAnim")
+growth = ExtResource( 5 )
+colour = 2
+
+[node name="Battler" type="Position2D" parent="." instance=ExtResource( 4 )]
+script = ExtResource( 3 )
+
+[node name="RobiPawnAnim" type="Position2D" parent="." instance=ExtResource( 1 )]
+visible = false
+scale = Vector2( 0.328641, 0.328641 )
+z_index = 50
+script = ExtResource( 2 )

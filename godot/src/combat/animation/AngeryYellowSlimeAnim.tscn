@@ -1,0 +1,35 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/main/utils/RectExtents.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/sprites/battlers/Angery_Yellow.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/battlers/shadow.png" type="Texture" id=3]
+[ext_resource path="res://assets/animations/death.anim" type="Animation" id=4]
+[ext_resource path="res://assets/animations/attack.anim" type="Animation" id=5]
+[ext_resource path="res://assets/animations/take_damage.anim" type="Animation" id=6]
+[ext_resource path="res://src/combat/animation/BattlerAnim.gd" type="Script" id=7]
+[ext_resource path="res://src/main/utils/RectExtents.gd" type="Script" id=8]
+
+[node name="AngeryYellowSlimeAnim" type="Position2D"]
+script = ExtResource( 7 )
+
+[node name="shadow" type="Sprite" parent="."]
+position = Vector2( 0.136375, -0.935276 )
+scale = Vector2( 0.727239, 0.870552 )
+texture = ExtResource( 3 )
+
+[node name="body" type="Sprite" parent="."]
+position = Vector2( 5.30737, -108.186 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/attack = ExtResource( 5 )
+anims/death = ExtResource( 4 )
+anims/take_damage = ExtResource( 6 )
+
+[node name="RectExtents" type="Node2D" parent="." instance=ExtResource( 1 )]
+position = Vector2( -0.444458, -106.667 )
+script = ExtResource( 8 )
+size = Vector2( 190.889, 234.667 )
+color = Color( 1, 0.054902, 0.654902, 1 )
+offset = Vector2( 4, 0 )

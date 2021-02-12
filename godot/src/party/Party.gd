@@ -6,10 +6,9 @@
 extends Node2D
 class_name Party
 
-export var PARTY_SIZE: int = 3
+export var PARTY_SIZE: int = 4
 
 var inventory = Inventory.new()
-
 
 func get_active_members():
 	# Returns the first unlocked children until the party is filled
@@ -27,3 +26,10 @@ func get_unlocked_characters() -> Array:
 		if member.visible:
 			has_unlocked.append(member)
 	return has_unlocked
+
+
+func get_party_member(i):
+	return get_unlocked_characters()[i]
+
+func get_size():
+	return get_unlocked_characters().size()

@@ -4,6 +4,13 @@
 extends Position2D
 
 class_name Battler
+#-HELP:
+# How to add an enemy:
+# Duplicate any node from Enemies
+# Make editable, make local
+# Change icon, turn order, stats, etc
+# Save as scene
+# Update combat weights, difficulties in Data
 
 signal died(battler)
 
@@ -29,7 +36,10 @@ export var turn_order_icon: Texture
 
 func _ready() -> void:
 	var direction: Vector2 = Vector2(-1.0, 0.0) if party_member else Vector2(1.0, 0.0)
-	target_global_position = $TargetAnchor.global_position + direction * TARGET_OFFSET_DISTANCE
+	# FIXME I don't know if this will work, but I kept getting this error without the if:
+	# get_global_transform: Condition "!is_inside_tree()" is true.  Returned: get_transform()
+	if $TargetAnchor.is_inside_tree():
+		target_global_position = $TargetAnchor.global_position + direction * TARGET_OFFSET_DISTANCE
 	selectable = true
 
 

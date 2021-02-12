@@ -35,6 +35,8 @@ func request_move(pawn: PawnActor, direction: Vector2) -> Vector2:
 	# If not, returns Vector2(0, 0)
 	var cell_start: Vector2 = world_to_map(pawn.position)
 	var cell_target: Vector2 = cell_start + direction
+	
+	
 
 	var cell_target_type: int = get_cellv(cell_target)
 	if cell_target_type == CELL_TYPES.EMPTY or cell_target_type == CELL_TYPES.OBJECT:

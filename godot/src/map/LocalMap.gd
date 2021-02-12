@@ -7,14 +7,20 @@ class_name LocalMap
 signal enemies_encountered(formation)
 signal dialogue_finished
 
+export (int) var map_difficulty
+
 onready var dialogue_box = $MapInterface/DialogueBox
 onready var grid = $GameBoard
-
 
 func _ready() -> void:
 	assert(dialogue_box)
 	for action in get_tree().get_nodes_in_group("map_action"):
 		(action as MapAction).initialize(self)
+	# Disappeared things should stay that way
+	for i in range(0, Data.disappeared.size()):
+		var obj = Data.disappeared[i]
+		if grid.has_node(obj):
+			grid.get_node(obj).visible = false
 
 
 func spawn_party(party) -> void:
@@ -22,7 +28,7 @@ func spawn_party(party) -> void:
 
 
 func start_encounter(formation) -> void:
-	emit_signal("enemies_encountered", formation.instance())
+	emit_signal("enemies_encountered", formation)#formation.instance())
 
 
 func play_dialogue(data):

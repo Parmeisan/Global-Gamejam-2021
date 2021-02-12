@@ -1,0 +1,38 @@
+{ "001":{
+	"_comment":"#[Open on Sky walking into Area 1. Ravi is hanging around somewhere there and will stay; Usir is standing a few paces from the entrance and will leave after the intro.]",
+	"name":"Usir",
+	"expression":"normal",
+	"text":"Hah, you finally made it!"
+}, "002": {
+	"name":"Sky",
+	"expression":"normal",
+	"text":"Come on, Usir. You didn't think I'd chicken out on a dare, did you?"
+},"003":{
+	"name":"Usir",
+	"expression":"normal",
+	"text":"Hey, Ravi over there almost did."
+},"004":{
+	"name":"Ravi",
+	"expression":"normal",
+	"text":" Yeah, because you decided it was a great idea to break into a run-down factory from the lost civilization!"
+},"005":{
+	"name":"Ravi",
+	"expression":"normal",
+	"text":" With weird slimes going around and rumours about monsters!"
+},"006":{
+	"name":"Ravi",
+	"expression":"normal",
+	"text":" That's not being chicken, that's being sensible!"
+},"007":{
+	"name":"Usir",
+	"expression":"normal",
+	"text":"Which is another word for being chicken."
+},"008":{
+	"name":"Sky",
+	"expression":"normal",
+	"text":"You know he's always like this! And YOU'RE always pushing people around."
+},"009":{
+	"name":"Usir",
+	"expression":"normal",
+	"text":"Whatever. I'm gonna go deeper in and get the best loot. See you later, losers!"
+}}
