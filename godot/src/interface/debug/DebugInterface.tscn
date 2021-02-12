@@ -3,6 +3,8 @@
 [ext_resource path="res://src/interface/debug/DebugInterface.gd" type="Script" id=1]
 [ext_resource path="res://src/main/save/GameSaver.tscn" type="PackedScene" id=2]
 
+
+
 [node name="DebugInterface" type="Panel"]
 margin_right = 400.0
 margin_bottom = 180.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/party/Party.gd" type="Script" id=1]
 [ext_resource path="res://src/party/PartyMember.tscn" type="PackedScene" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://src/map/pawns/SkyPawnAnim.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/combat/battlers/jobs/RobiJob.tres" type="Resource" id=10]
 [ext_resource path="res://assets/sprites/battlers/Scale_Monster.png" type="Texture" id=11]
-[ext_resource path="res://src/slimes/Slime.gd" type="Script" id=12]
 [ext_resource path="res://src/map/pawns/RobiPawnAnim.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/combat/battlers/actions/Capture.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/sprites/icons/capture.png" type="Texture" id=16]
@@ -51,24 +50,6 @@ script = ExtResource( 8 )
 
 [node name="GodettePawnAnim" parent="Godette" instance=ExtResource( 9 )]
 scale = Vector2( 0.5, 0.5 )
-
-[node name="BlueSlime" parent="." instance=ExtResource( 2 )]
-visible = false
-script = ExtResource( 12 )
-pawn_anim_path = NodePath("Anim")
-growth = ExtResource( 10 )
-colour = 1
-
-[node name="Anim" parent="BlueSlime" instance=ExtResource( 14 )]
-
-[node name="YellowSlime" parent="." instance=ExtResource( 2 )]
-visible = false
-script = ExtResource( 12 )
-pawn_anim_path = NodePath("Anim")
-growth = ExtResource( 10 )
-colour = 2
-
-[node name="Anim" parent="YellowSlime" instance=ExtResource( 14 )]
 
 [node name="Robi4" parent="." instance=ExtResource( 2 )]
 visible = false
@@ -123,8 +104,6 @@ script = ExtResource( 8 )
 [editable path="Godette/Battler"]
 
 [editable path="Godette/Battler/Actions/Flee"]
-
-[editable path="BlueSlime"]
 
 [editable path="Robi4"]
 

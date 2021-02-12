@@ -112,6 +112,7 @@ func merge(game, s : Slime):
 func is_primary():
 	# a primary has exactly one ability at 1 and both others at 0
 	var s_total = 0
+	#print("Abilities is size %s" %[ABILITIES.size()])
 	for a in range(0, ABILITIES.size()):
 		s_total += ability_tiers[a]
 	return s_total == 1

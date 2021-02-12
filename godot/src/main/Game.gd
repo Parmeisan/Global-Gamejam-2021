@@ -13,6 +13,8 @@ onready var game_over_interface := $GameOverInterface
 onready var gui := $GUI
 onready var monster_list := $MonsterCollection
 
+export(Script) var game_save
+
 var transitioning = false
 var combat_arena: CombatArena
 var script_manager
@@ -41,6 +43,43 @@ func _ready():
 	introTimer.connect("timeout", self, "enter_game") 
 	add_child(introTimer)
 	introTimer.start()
+
+func save_game():
+	var save = game_save.new()
+
+	save.flags = Data.flags
+	save.disappeared = Data.disappeared
+	save.character_position = local_map.grid.pawns.leader.position
+	
+	save.slimes = monster_list.slimes.duplicate(7)
+	save.greys = monster_list.greys
+	save.allowed_greys = monster_list.allowed_greys
+	
+	var error = ResourceSaver.save("res://src/saves/save01.tres", save)
+	print("Attempting to save: " +  str(error))
+	
+func load_game() -> bool:
+	print("attempting to load")
+	var temp = Directory.new()
+	if not temp.file_exists("res://src/saves/save01.tres"):
+		print("It doesn't exist")
+		return false
+	var saved_game = load("res://src/saves/save01.tres")
+	if not verify_save():
+		return false
+	Data.flags = saved_game.flags
+	Data.disappeared = saved_game.disappeared
+	
+	monster_list.slimes = saved_game.slimes.duplicate(7)
+	monster_list.greys = saved_game.greys
+	monster_list.allowed_greys = saved_game.allowed_greys
+	
+	local_map.grid.pawns.leader.position = saved_game.character_position
+	
+	return true
+
+func verify_save():
+	return true
 
 func switch_maps(new_map):
 	local_map = new_map
@@ -234,3 +273,9 @@ func _on_toggle_encounters():
 func _process(_delta):
 	if(Input.is_action_just_released("ui_quicksave")):
 		Data.saveCSV("saves/", "slimes", ".csv", monster_list.slimes)
+	if(Input.is_action_just_pressed("save")):
+		print("Pressed save")
+		save_game()
+	if(Input.is_action_just_pressed("load")):
+		print("Pressed load")
+		load_game()

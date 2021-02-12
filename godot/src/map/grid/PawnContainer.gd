@@ -10,6 +10,7 @@ const Follower = preload("res://src/map/pawns/PawnFollower.tscn")
 
 var party_members := []
 var party
+var leader
 
 
 func spawn_party(game_board, party: Object) -> void:
@@ -24,7 +25,14 @@ func spawn_party(game_board, party: Object) -> void:
 func spawn_pawn(
 	party_member: PartyMember, game_board: GameBoard, pawn_previous: Object, is_leader: bool = false
 ) -> Object:
-	var new_pawn: PawnActor = Leader.instance() if is_leader else Follower.instance()
+		#var new_pawn: PawnActor = Leader.instance() if is_leader else Follower.instance()
+	var new_pawn: PawnActor
+	if(is_leader):
+		new_pawn = Leader.instance()
+		leader = new_pawn
+	else:
+		new_pawn = Follower.instance()	
+	
 	new_pawn.name = party_member.name
 	new_pawn.position = game_board.spawning_point.position
 	new_pawn.z_index = 55
