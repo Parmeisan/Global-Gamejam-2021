@@ -82,24 +82,31 @@ func is_in_party():
 	return party_slot >= 0
 
 
-func merge(game, s : Slime):
+func duplicate_slime(game):
 	var result = game.create_slime(colour)
+	for a in range(0, ABILITIES.size()):
+		result.ability_tiers[a] = ability_tiers[a]
+	result.battler.display_name = battler.display_name
+	result.update_colour(result.get_colour_from_abilities())
+	result.party_slot = party_slot
+	#TODO
+	#for m in range(0, stats.size()):
+	#	merged_boosts[m] += s.stats[m]
+	return result
+
+func merge(game, s : Slime):
+	var result = duplicate_slime(game)
 	var colours = 0 # If you get to 3, this is invalid
 	for a in range(0, ABILITIES.size()):
-		#ability_tiers[a] += s.ability_tiers[a]
-		result.ability_tiers[a] = ability_tiers[a] + s.ability_tiers[a]
+		result.ability_tiers[a] += s.ability_tiers[a]
 		if result.ability_tiers[a] > 1:
 			colours += 1
 		if result.ability_tiers[a] > NUM_TIERS: # Anything above max is invalid
 			return false
 	if colours > 2:
 		return false
-	result.battler.display_name = battler.display_name
 	result.update_colour(result.get_colour_from_abilities())
 	result.party_slot = min(party_slot, s.party_slot)
-	#TODO
-	#for m in range(0, stats.size()):
-	#	merged_boosts[m] += s.stats[m]
 	return result
 
 func is_primary():

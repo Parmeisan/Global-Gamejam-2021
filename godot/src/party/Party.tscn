@@ -38,7 +38,6 @@ turn_order_icon = ExtResource( 4 )
 
 [node name="Capture" parent="Godette/Battler/Actions" index="1" instance=ExtResource( 15 )]
 icon = ExtResource( 16 )
-description = null
 
 [node name="Flee" parent="Godette/Battler/Actions" index="2" instance=ExtResource( 27 )]
 icon = ExtResource( 28 )
