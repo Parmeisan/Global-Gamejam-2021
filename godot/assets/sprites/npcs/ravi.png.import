@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ravi.png-864f57d1c31b086a96895277e99afe30.stex"
+path="res://.import/Ravi.png-dea4a8e0c99b593ca9c79ce875145f5b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/npcs/ravi.png"
-dest_files=[ "res://.import/ravi.png-864f57d1c31b086a96895277e99afe30.stex" ]
+source_file="res://assets/sprites/npcs/Ravi.png"
+dest_files=[ "res://.import/Ravi.png-dea4a8e0c99b593ca9c79ce875145f5b.stex" ]
 
 [params]
 

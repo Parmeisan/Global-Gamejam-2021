@@ -106,21 +106,8 @@ func flag_changed(fl, val):
 			"SLIME2":
 				unlock_slime(2)
 
-#func create_slime(i):
-#	var slime : Slime
-#	#slime = $Party.get_node(Data.COLOURS[i] + "Slime").duplicate()
-#	#slime = load(Slime.slime_scene % Data.COLOURS[i]).instance()
-#	slime.set_data(i)
-#	slime.init_party_stuff()
-#	return slime
-	#slime = load(slime_scene % Data.COLOURS[c])
-	#slime = slime_scenes[c]
-
 func create_slime(c):
-	var slime: Slime = Slime.new()
-	slime.set_data(c)
-	slime.init_party_stuff()
-	return slime
+	return Slime.new(c)
 
 func unlock_slime(i):
 	var slime = create_slime(i)
@@ -132,19 +119,12 @@ func unlock_slime(i):
 	if (slot < party.PARTY_SIZE - 2): # Sky takes up a slot but we still start at 0
 		slime.add_to_party(slot)
 
-func set_party():
-	var p = monster_list.get_party_list()
-	Util.deleteExtraChildren(party, 1)
-	for s in range(0, p.size()):
-		party.add_child(p[s])
-
 #func enter_battle(formation: Formation):
 func enter_battle(formation: Array):
 	# Plays the combat transition animation and initializes the combat scene
 	if transitioning:
 		return
 
-	set_party()
 	gui.hide()
 	monster_list.hide_overlay()
 	music_player.play_battle_theme()
@@ -163,7 +143,11 @@ func enter_battle(formation: Array):
 	combat_arena.connect(
 		"capture_reward", self, "_on_CombatArena_capture_reward", [combat_arena]
 	)
-	combat_arena.initialize(formation, party.get_active_members())
+	var active_party = party.get_active_members()
+	for s in monster_list.get_party_list():
+		active_party.append(s.clone(self))
+	
+	combat_arena.initialize(formation, active_party)
 
 	yield(transition.fade_from_color(), "completed")
 	transitioning = false

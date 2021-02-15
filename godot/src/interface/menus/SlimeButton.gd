@@ -7,7 +7,7 @@ func _pressed():
 	if get_name() in ["De-Party"]:
 		#var pm = Util.getParent(self, "PartyMember")
 		# Can't do that, it has a generated name like @PartyMember@43
-		var pm = get_parent().get_parent()
+		var pm = get_parent().get_parent().get_parent()
 		monster_list.selected_1ST = int(pm.get_node("InstanceID").text)
 	if get_name() in ["AddPartyMember", "De-Party"]:
 		monster_list.doAction(get_name())

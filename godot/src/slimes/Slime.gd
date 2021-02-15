@@ -40,17 +40,13 @@ const battle_anims = [preload("res://src/combat/animation/RedSlimeAnim.tscn"),
 					preload("res://src/combat/animation/GreenSlimeAnim.tscn")]
 const growth_curve = preload("res://src/combat/battlers/jobs/SlimeJob.tres")
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	set_data(colour)
+	pass
 
-func set_data(c):
+func _init(c):
 	update_colour(c)
 	if not battler.display_name:
 		battler.display_name = Data.generate_slime_name()
-	growth = growth_curve
-	pawn_anim_path = "Anim"
-	initialize_pm()
 	ability_tiers = []
 	for a in range(0, ABILITIES.size()):
 		if a == colour:
@@ -61,10 +57,11 @@ func set_data(c):
 func update_colour(c):
 	colour = c
 	battler = battlers[colour].instance()
+	growth = growth_curve
+	pawn_anim_path = "Anim"
 	sprite_large = Data.getTexture(battler_path, Data.COLOURS[colour] + "_Slime", battler_ext)
 	sprite_small = Data.getTexture(battler_path, Data.COLOURS[colour] + "_Slime_128", battler_ext)
-
-func init_party_stuff():
+	initialize_pm()
 	battler._ready()
 	battler.initialize()
 	visible = true
@@ -81,13 +78,11 @@ func remove_from_party():
 func is_in_party():
 	return party_slot >= 0
 
-
-func duplicate_slime(game):
-	var result = game.create_slime(colour)
+func clone(game):
+	var result = get_script().new(colour)#game.create_slime(colour)
 	for a in range(0, ABILITIES.size()):
 		result.ability_tiers[a] = ability_tiers[a]
 	result.battler.display_name = battler.display_name
-	result.update_colour(result.get_colour_from_abilities())
 	result.party_slot = party_slot
 	#TODO
 	#for m in range(0, stats.size()):
@@ -95,7 +90,12 @@ func duplicate_slime(game):
 	return result
 
 func merge(game, s : Slime):
-	var result = duplicate_slime(game)
+	# I used to start this function with a clone(), but since battler
+	# gets cleared out when the colour changes (we must instance a new
+	# e.g. OrangeSlime.tscn), forcing update of all variables kept there,
+	# and we have to recalc the abilities and XP and everything anyway,
+	# I think it best to just explicitly recalculate absolutely everything
+	var result = get_script().new(colour)
 	var colours = 0 # If you get to 3, this is invalid
 	for a in range(0, ABILITIES.size()):
 		result.ability_tiers[a] += s.ability_tiers[a]
@@ -106,7 +106,11 @@ func merge(game, s : Slime):
 	if colours > 2:
 		return false
 	result.update_colour(result.get_colour_from_abilities())
-	result.party_slot = min(party_slot, s.party_slot)
+	result.battler.display_name = battler.display_name # battler just got cleared
+	var slot = party_slot
+	if slot == -1 or (s.party_slot >= 0 and s.party_slot < slot):
+		slot = s.party_slot
+	result.party_slot = slot
 	return result
 
 func is_primary():

@@ -24,14 +24,14 @@ func execute(targets):
 				else:
 					monster_collection.add_grey(0)
 			else:
-				var slime: Slime = Slime.new()
+				var colour
 				if "Red" in enemy_type:
-					slime.set_data(0)
+					colour = 0
 				elif "Blue" in enemy_type:
-					slime.set_data(1)
+					colour = 1
 				elif "Yellow" in enemy_type:
-					slime.set_data(2)
-				slime.init_party_stuff()
+					colour = 2
+				var slime: Slime = Slime.new(colour)
 				
 				# Purely aesthetic - turn the target happy
 				var battle_anim = target.get_node("Skin")

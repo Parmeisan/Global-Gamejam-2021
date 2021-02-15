@@ -62,9 +62,12 @@ func get_slimes_filtered(wants_party : bool, wants_enhanced : bool, wants_colour
 	pass # gives me a chance to evaluate arr during debugging
 	return arr
 func get_slime_by_id(id):
-	for s in slimes:
-		if s.get_instance_id() == id:
-			return s
+	#for s in slimes:
+	#	if s.get_instance_id() == id:
+	#		return s
+	for s in range(slimes.size()):
+		if slimes[s].get_instance_id() == id:
+			return slimes[s]
 	return null
 
 # Main functions
@@ -212,10 +215,12 @@ func doAction(action : String):#btn : TextureRect):
 		"AddPartyMember":
 			if checkPartyPossible():
 				s1.party_slot = get_party_list().size()
+				reset()
 			#else
 			#	game.script_manager.load_and_run({})
 		"De-Party":
 			s1.party_slot = NONE
+			reset()
 		"Merge":
 			if checkMergePossible():
 				var m = s1.merge(game, s2)
@@ -223,7 +228,9 @@ func doAction(action : String):#btn : TextureRect):
 				slimes.erase(s1)
 				slimes.insert(posn, m)
 				slimes.erase(s2)
-	reset()
+				selected_1ST = m.get_instance_id()
+				selected_2ND = NONE
+				reload()
 
 func ascend(i):
 	Data.setSlime(i, false)
