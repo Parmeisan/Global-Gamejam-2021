@@ -47,7 +47,7 @@ func _reward_to_battlers() -> Array:
 
 	var exp_per_survivor = int(ceil(float(experience_earned) / float(len(survived))))
 	var leveled_up = []
-	# TODO: restore experience gain
+	# TODO: Figure out why this throws an error and fix it
 #	for member in survived:
 #		var level = member.stats.level
 #		member.experience += exp_per_survivor

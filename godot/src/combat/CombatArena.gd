@@ -94,6 +94,15 @@ func ready_field(formation: Array, party_members: Array):
 		self.party.append(battler)
 		# safely attach the interface to the AI in case player input is needed
 		battler.ai.set("interface", interface)
+		# Tiered skills?
+		# It works!
+		if i > 0:
+			var s : Slime = party_members[i]
+			print(party_member.ability_tiers[s.ABILITIES.RED])
+			var skill_node = battler.get_node("Actions")
+			var flee : CombatAction = preload("res://src/combat/battlers/actions/Flee.tscn").instance()
+			skill_node.add_child(flee)
+		
 
 func battle_end():
 	emit_signal("battle_ends")

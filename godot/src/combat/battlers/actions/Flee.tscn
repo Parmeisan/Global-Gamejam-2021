@@ -2,5 +2,5 @@
 
 [ext_resource path="res://src/combat/battlers/actions/Flee.gd" type="Script" id=1]
 
-[node name="BattleAction" type="Node"]
+[node name="Flee" type="Node"]
 script = ExtResource( 1 )
