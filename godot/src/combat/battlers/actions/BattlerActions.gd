@@ -5,9 +5,11 @@ const skill_action_scene = preload("res://src/combat/battlers/actions/SkillActio
 
 func initialize(skills: Array) -> void:
 	for skill in skills:
-		var new_skill = skill_action_scene.instance()
-		new_skill.skill = skill
-		add_child(new_skill)
+	#	var new_skill = skill_action_scene.instance()
+	#	new_skill.skill = skill
+	#	add_child(new_skill)
+		add_child(skill)
+	
 
 
 func get_actions():

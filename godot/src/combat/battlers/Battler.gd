@@ -45,10 +45,12 @@ func _ready() -> void:
 
 func initialize():
 	skin.initialize()
-	actions.initialize(skills.get_children())
+	update_actions()
 	stats = stats.copy()
 	stats.connect("health_depleted", self, "_on_health_depleted")
 
+func update_actions():
+	actions.initialize(skills.get_children())
 
 func is_able_to_play() -> bool:
 	# Returns true if the battler can perform an action

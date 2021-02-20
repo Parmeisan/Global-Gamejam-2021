@@ -1,5 +1,10 @@
 extends CombatAction
 
+func _ready():
+	icon = load("res://assets/sprites/icons/flee.png")
+	description = "Flee"
+	needs_target = false
+
 func execute(targets):
 	assert(initialized)
 	if actor.party_member and not targets:

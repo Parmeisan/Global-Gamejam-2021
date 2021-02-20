@@ -80,11 +80,12 @@ func ready_field(formation: Array, party_members: Array):
 		count += 1
 
 	var party_spawn_positions = $SpawnPositions/Party
+	var game = Util.getParent(self, "Game")
 	for i in len(party_members):
 		# TODO move this into a battler factory and pass already copied info into the scene
 		var party_member = party_members[i]
 		var spawn_point = party_spawn_positions.get_child(i)
-		var battler: Battler = party_member.get_battler_copy()
+		var battler: Battler = party_member.get_battler_copy(game)
 		battler.position = spawn_point.position
 		battler.name = party_member.name
 		battler.set_meta("party_member", party_member)
@@ -94,6 +95,7 @@ func ready_field(formation: Array, party_members: Array):
 		self.party.append(battler)
 		# safely attach the interface to the AI in case player input is needed
 		battler.ai.set("interface", interface)
+		
 
 func battle_end():
 	emit_signal("battle_ends")
@@ -112,7 +114,7 @@ func battle_end():
 func play_turn():
 	var battler: Battler = get_active_battler()
 	var targets: Array
-	var action: CombatAction
+	var action
 
 	while not battler.is_able_to_play():
 		turn_queue.skip_turn()

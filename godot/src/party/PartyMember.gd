@@ -39,7 +39,7 @@ func update_stats(before_stats: CharacterStats):
 	battler.stats = stats
 
 
-func get_battler_copy():
+func get_battler_copy(game): #used in child function
 	# Returns a copy of the battler to add to the CombatArena
 	# at the start of a battle
 	return battler.duplicate()
