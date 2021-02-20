@@ -25,20 +25,8 @@ var artifact_boosts : CharacterStats # Can be equipped & unequipped
 var battler_path = "assets/sprites/battlers/"
 var battler_ext = ".png"
 
-#const battler = "res://src/combat/battlers/enemies/slimes/%sSlimeAlly.tscn"
-const battlers = [preload("res://src/combat/battlers/enemies/slimes/RedSlimeAlly.tscn"),
-					 preload("res://src/combat/battlers/enemies/slimes/BlueSlimeAlly.tscn"),
-				   preload("res://src/combat/battlers/enemies/slimes/YellowSlimeAlly.tscn"),
-				   preload("res://src/combat/battlers/enemies/slimes/PurpleSlimeAlly.tscn"),
-				   preload("res://src/combat/battlers/enemies/slimes/OrangeSlimeAlly.tscn"),
-					preload("res://src/combat/battlers/enemies/slimes/GreenSlimeAlly.tscn")]
-const battle_anims = [preload("res://src/combat/animation/RedSlimeAnim.tscn"),
-					 preload("res://src/combat/animation/BlueSlimeAnim.tscn"),
-				   preload("res://src/combat/animation/YellowSlimeAnim.tscn"),
-				   preload("res://src/combat/animation/PurpleSlimeAnim.tscn"),
-				   preload("res://src/combat/animation/OrangeSlimeAnim.tscn"),
-					preload("res://src/combat/animation/GreenSlimeAnim.tscn")]
 const growth_curve = preload("res://src/combat/battlers/jobs/SlimeJob.tres")
+const skills_all = [preload("res://src/combat/battlers/actions/Flee.tscn")]
 
 func _ready():
 	pass
@@ -53,18 +41,39 @@ func _init(c):
 			ability_tiers.append(1)
 		else:
 			ability_tiers.append(0)
+	update_skills()
 
 func update_colour(c):
 	colour = c
-	battler = battlers[colour].instance()
+	var colour_text = Data.COLOURS[colour]
+	var new_slime_resource = "res://src/combat/battlers/enemies/slimes/%sSlimeAlly.tscn" % colour_text
+	battler = load(new_slime_resource).instance()
 	growth = growth_curve
 	pawn_anim_path = "Anim"
-	sprite_large = Data.getTexture(battler_path, Data.COLOURS[colour] + "_Slime", battler_ext)
-	sprite_small = Data.getTexture(battler_path, Data.COLOURS[colour] + "_Slime_128", battler_ext)
+	sprite_large = Data.getTexture(battler_path, colour_text + "_Slime", battler_ext)
+	sprite_small = Data.getTexture(battler_path, colour_text + "_Slime_128", battler_ext)
 	initialize_pm()
 	battler._ready()
 	battler.initialize()
 	visible = true
+
+func update_skills():
+	var skill_node = battler.get_node("Actions")
+	Util.deleteExtraChildren(skill_node, 1)
+	for sk in skills_all:
+		var action : CombatAction = sk.instance()
+		skill_node.add_child(action)
+	var red_tier = ability_tiers[ABILITIES.RED]
+	for a in range(red_tier):
+	#	if a <= skills_red.size():
+	#		var action = TierAbilityRed.new(skills_red[a])
+	#		skill_node.add_child(action)
+		#var action : TierAbility = TierAbility.new(ABILITIES.RED, a, red_tier)
+		var action : TierAbility
+		action = load("res://src/combat/battlers/actions/TierAbility.tscn").instance()
+		action.init(ABILITIES.RED, a, red_tier) # Set each ability at the strength owned
+		skill_node.add_child(action)
+	battler.update_actions() # Skills learned by level
 
 func get_name():
 	return battler.display_name
@@ -78,10 +87,14 @@ func remove_from_party():
 func is_in_party():
 	return party_slot >= 0
 
+func get_battler_copy(game):
+	return clone(game).battler
+
 func clone(game):
 	var result = get_script().new(colour)#game.create_slime(colour)
 	for a in range(0, ABILITIES.size()):
 		result.ability_tiers[a] = ability_tiers[a]
+	result.update_skills()
 	result.battler.display_name = battler.display_name
 	result.party_slot = party_slot
 	#TODO
@@ -112,6 +125,11 @@ func merge(game, s : Slime):
 		slot = s.party_slot
 	result.party_slot = slot
 	return result
+
+func get_battle_anim():
+	var colour_text = Data.COLOURS[colour]
+	var new_anim_resource = "res://src/combat/animation/%sSlimeAnim.tscn" % colour_text
+	return load(new_anim_resource).instance()
 
 func is_primary():
 	# a primary has exactly one ability at 1 and both others at 0

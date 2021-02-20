@@ -36,7 +36,7 @@ func execute(targets):
 				# Purely aesthetic - turn the target happy
 				var battle_anim = target.get_node("Skin")
 				Util.deleteExtraChildren(battle_anim, 2)
-				battle_anim.add_child(slime.battle_anims[slime.colour].instance())
+				battle_anim.add_child(slime.get_battle_anim())
 				
 				monster_collection.add_slime(slime)
 			

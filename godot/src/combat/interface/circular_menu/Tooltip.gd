@@ -5,7 +5,7 @@ onready var background = get_node("Background")
 export var tooltip_margin: int = 25
 
 
-func initialize(button: Control, action: CombatAction) -> void:
+func initialize(button: Control, action) -> void:
 	label.text = action.name
 	label.connect('draw', self, '_resize_background')
 	update_position(button)

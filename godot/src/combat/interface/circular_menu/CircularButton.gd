@@ -12,7 +12,7 @@ var target_position: Vector2
 var unfocused_scale: Vector2
 
 
-func initialize(action: CombatAction, target_position: Vector2) -> void:
+func initialize(action, target_position: Vector2) -> void:
 	# Places the Button on the screen, where the appear tween animation should end
 	# Disables the button if the action isn't usable, for example
 	# if the battler doesn't have enough mana

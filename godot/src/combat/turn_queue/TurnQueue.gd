@@ -17,7 +17,7 @@ func initialize():
 	emit_signal('queue_changed', get_battlers(), active_battler)
 
 
-func play_turn(action: CombatAction, targets: Array):
+func play_turn(action, targets: Array):
 	if not last_action_canceled:
 		yield(active_battler.skin.move_forward(), "completed")
 	action.initialize(active_battler)

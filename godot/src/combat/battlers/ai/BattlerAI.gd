@@ -9,6 +9,6 @@ func choose_action(actor: Battler, battlers: Array = []):
 	pass
 
 
-func choose_target(actor: Battler, action: CombatAction, battlers: Array = []):
+func choose_target(actor: Battler, action, battlers: Array = []):
 	# Chooses a target to perform an action on
 	pass

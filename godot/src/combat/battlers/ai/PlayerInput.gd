@@ -10,7 +10,7 @@ func choose_action(actor: Battler, battlers: Array = []):
 	return yield(interface, "action_selected")
 
 
-func choose_target(actor: Battler, action: CombatAction, battlers: Array = []):
+func choose_target(actor: Battler, action, battlers: Array = []):
 	# Chooses a target to perform an action on
 	interface.select_targets(battlers)
 	return yield(interface, "targets_selected")
