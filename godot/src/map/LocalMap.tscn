@@ -103,7 +103,14 @@ facing = {
 shape = SubResource( 1 )
 
 [node name="Dialogue" parent="GameBoard/Pawns/Ravi-green/Actions" index="0" instance=ExtResource( 11 )]
-dialogue_file_path = "res://src/dialogue/data/ravi-dia1.json"
+
+[node name="Fight" type="Node" parent="GameBoard/Pawns/Ravi-green"]
+
+[node name="Dialogue" parent="GameBoard/Pawns/Ravi-green/Fight" instance=ExtResource( 11 )]
+
+[node name="Decline" type="Node" parent="GameBoard/Pawns/Ravi-green"]
+
+[node name="Dialogue" parent="GameBoard/Pawns/Ravi-green/Decline" instance=ExtResource( 11 )]
 
 [node name="Sprite2" type="Sprite" parent="GameBoard/Pawns/Ravi-green"]
 position = Vector2( -5.07617, 4.09045 )
@@ -372,5 +379,9 @@ visible = false
 [editable path="GameBoard/Pawns/LoneGreenSlime"]
 
 [editable path="GameBoard/Pawns/TransitionTo2"]
+
+[editable path="GameBoard/Unused/DialogueCombatPawn"]
+
+[editable path="GameBoard/Unused/EncounterPawn"]
 
 [editable path="GameBoard/Unused/DialoguePawn"]

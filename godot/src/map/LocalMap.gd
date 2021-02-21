@@ -31,6 +31,6 @@ func start_encounter(formation) -> void:
 	emit_signal("enemies_encountered", formation)#formation.instance())
 
 
-func play_dialogue(data):
-	dialogue_box.start(data)
+func play_dialogue(data, obj):
+	dialogue_box.start(data, obj)
 	yield(dialogue_box, "dialogue_ended")

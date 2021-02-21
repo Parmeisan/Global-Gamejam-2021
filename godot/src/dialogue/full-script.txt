@@ -2,7 +2,7 @@ MC - Sky -
 R - Ravi -
 D - Diana -
 U - Usir -
-S0 - Basic Slime -
+S0 - Red Slime -
 S1 - Fang Monster - 
 S2 - Eye Monster - 
 S3 - Scale Monster - 
@@ -36,6 +36,26 @@ POI-Eyeballs
 [Interacting with the eyeballs, both the ones up top and the ones at the bottom of the area]
 (Eyeballs growing out of moss and mould...)
 (I'm not complaining about how gross the school washroom is ever again.)
+
+Ravi-green
+[Overworld dialogue when you approach Ravi]
+R: You got one of those slimes to follow you around?
+MC: Yeah! I think this one's special, it's more friendly than the others. Wonder if I could take it home.
+S0: {slime noises}
+MC: Wait, do you have one too?
+R: Yeah... they're kind of gross, but I guess if some of them are friendly, it's good to have them join you for protection.
+R: Mine's been fighting every other slime it sees to get stronger.
+S0: {slime noises}
+MC: What's that, buddy?
+MC: Wait, you want to get stronger too?
+R: Um...
+R: If yours wants to fight mine, maybe they'll be happy... I don't know if this is a good idea.
+[Choice: Fight/Decline]
+[If Fight:]
+MC: Might as well try! Come on!
+[Ravi fight occurs.
+[If Decline:]
+MC: Maybe later. C'mon, buddy, let's fight some of the other slimes first.
 
 ============ Area 2 ============
 

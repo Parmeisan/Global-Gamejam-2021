@@ -94,17 +94,21 @@ func _on_body_exited(body: PhysicsBody2D) -> void:
 
 
 func start_interaction() -> void:
-	# Pauses the game and play each action under the $Actions node
+	# Pauses the game and play each action under the $Actions node **(1)
 	# Actions that transition to another scene (e.g. StartCombatAction) may unpause
 	# the game themselves
 	# PawnInteractive processes even when the game is paused, but not
 	# PawnLeader, the player-controlled pawn
+	# **(1): Some pawns may have a sort of "state" situation where there is
+	# more than one node which defines possible actions to play.  The default
+	# is always $Actions, but then you may for example have a dialogue choice
+	# or a battle won or lost which sets "actions" to $Yes, $No, $Won, $Lost, etc
 	dialogue_balloon.hide()
 	get_tree().paused = true
-	var actions = $Actions.get_children()
+	var todo = actions.get_children()
 	# An interactive pawn should have some interaction
-	assert(actions != [])
-	for action in actions:
+	assert(todo != [])
+	for action in todo:
 		action.interact()
 		#yield(action, "finished")
 	emit_signal("interaction_finished", self)

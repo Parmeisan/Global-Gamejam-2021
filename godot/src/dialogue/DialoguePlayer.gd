@@ -7,12 +7,14 @@ signal finished
 var title : String = ""
 var text : String = ""
 var expression : String
+var box
 
 var _conversation : Array
 var _index_current : int = 0
 
 func _ready(): 
 	#sfxPlayer.pause_mode = Node.PAUSE_MODE_PROCESS
+	box = get_parent()
 	pass
 
 func start(dialogue_dict):
@@ -41,24 +43,29 @@ func next():
 			arg_3 = _conversation[_index_current].text
 		else: 
 			arg_3 = ''
-		if type == 'jump':
-			_index_current = int(arg_1) - 1
-		if type == 'itemcheck':
-			var item = arg_1
-			var then = arg_2
-			var el = arg_3
-			if Data.flags[item] == true: 
-				_index_current = int(then) - 1
-			else:
-				_index_current = int(el) - 1
-		if type == 'raise':
-			var item = arg_1
-			Data.setFlagValue(item, true)
-			_index_current
-		if type == 'lower':
-			var item = arg_1
-			Data.setFlagValue(item, false)
-			_index_current
+		match type:
+			'jump':
+				_index_current = int(arg_1) - 1
+			'itemcheck':
+				var item = arg_1
+				var then = arg_2
+				var el = arg_3
+				if Data.flags[item] == true: 
+					_index_current = int(then) - 1
+				else:
+					_index_current = int(el) - 1
+			'raise':
+				var item = arg_1
+				Data.setFlagValue(item, true)
+				_index_current
+			'lower':
+				var item = arg_1
+				Data.setFlagValue(item, false)
+				_index_current
+			'options':
+				var opts : Array
+				opts = _conversation[_index_current].options.split("/")
+				box.set_options(opts)
 			
 	assert(_index_current <= _conversation.size())
 	_update()
