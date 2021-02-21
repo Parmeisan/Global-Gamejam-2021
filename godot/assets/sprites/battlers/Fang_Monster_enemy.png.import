@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/merge_icon.png-c0a230070e09e765f2bde380dc570743.stex"
+path="res://.import/Fang_Monster_enemy.png-9dee1564698af708d0e7c0527356b518.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/icons/merge_icon.png"
-dest_files=[ "res://.import/merge_icon.png-c0a230070e09e765f2bde380dc570743.stex" ]
+source_file="res://assets/sprites/battlers/Fang_Monster_enemy.png"
+dest_files=[ "res://.import/Fang_Monster_enemy.png-9dee1564698af708d0e7c0527356b518.stex" ]
 
 [params]
 

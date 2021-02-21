@@ -23,7 +23,7 @@ func execute(targets):
 					monster_collection.add_grey(2)
 				else:
 					monster_collection.add_grey(0)
-			else:
+			elif "Slime" in enemy_type:
 				var colour
 				if "Red" in enemy_type:
 					colour = 0
@@ -39,6 +39,8 @@ func execute(targets):
 				battle_anim.add_child(slime.get_battle_anim())
 				
 				monster_collection.add_slime(slime)
+			else:
+				pass # TODO: Inform the user you can't capture this - or make this option unavailable to start with
 			
 			target.take_damage(hit)
 		yield(actor.get_tree().create_timer(1.0), "timeout")

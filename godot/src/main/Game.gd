@@ -120,7 +120,7 @@ func unlock_slime(i):
 		slime.add_to_party(slot)
 
 #func enter_battle(formation: Formation):
-func enter_battle(formation: Array):
+func enter_battle(formation: Array, pawn : PawnInteractive = null):
 	# Plays the combat transition animation and initializes the combat scene
 	if transitioning:
 		return
@@ -135,8 +135,8 @@ func enter_battle(formation: Array):
 	remove_child(local_map)
 	combat_arena = combat_arena_scene.instance()
 	add_child(combat_arena)
-	combat_arena.connect("victory", self, "_on_CombatArena_player_victory")
-	combat_arena.connect("game_over", self, "_on_CombatArena_game_over")
+	combat_arena.connect("victory", self, "_on_CombatArena_player_victory", [pawn])
+	combat_arena.connect("defeat", self, "_on_CombatArena_player_defeat", [pawn])
 	combat_arena.connect(
 		"battle_completed", self, "_on_CombatArena_battle_completed", [combat_arena]
 	)
@@ -222,18 +222,28 @@ func _on_CombatArena_battle_completed(arena):
 	music_player.stop()
 
 
-func _on_CombatArena_player_victory():
-	music_player.play_victory_fanfare()
-
 func _on_CombatArena_capture_reward():
 	pass
 
-func _on_CombatArena_game_over() -> void:
-	transitioning = true
-	yield(transition.fade_to_color(), "completed")
-	game_over_interface.display(GameOverInterface.Reason.PARTY_DEFEATED)
-	yield(transition.fade_from_color(), "completed")
-	transitioning = false
+func _on_CombatArena_player_victory(pawn : PawnInteractive):
+	music_player.play_victory_fanfare()
+	if pawn:
+		pawn.update_state("Won")
+
+func _on_CombatArena_player_defeat(pawn : PawnInteractive) -> void:
+	# We don't want a complete game over
+	combat_arena.rewards.on_defeated()
+	if pawn:
+		pawn.update_state("Lost")
+	_on_CombatArena_battle_completed(combat_arena)
+	# TODO: Set everyone's HP to 1
+	
+	
+#	transitioning = true
+#	yield(transition.fade_to_color(), "completed")
+#	game_over_interface.display(GameOverInterface.Reason.PARTY_DEFEATED)
+#	yield(transition.fade_from_color(), "completed")
+#	transitioning = false
 
 
 func _on_GameOverInterface_restart_requested():

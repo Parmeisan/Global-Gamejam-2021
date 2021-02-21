@@ -79,6 +79,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/dialogue/DialoguePlayer.gd"
 }, {
+"base": "MapAction",
+"class": "DisappearAction",
+"language": "GDScript",
+"path": "res://src/map/Disappear.gd"
+}, {
 "base": "Node",
 "class": "Drops",
 "language": "GDScript",
@@ -319,6 +324,7 @@ _global_script_class_icons={
 "DialogueAction": "",
 "DialogueBox": "",
 "DialoguePlayer": "",
+"DisappearAction": "",
 "Drops": "",
 "Equipment": "",
 "Formation": "",

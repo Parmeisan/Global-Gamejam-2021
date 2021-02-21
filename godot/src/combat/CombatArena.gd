@@ -20,7 +20,7 @@ signal battle_ends
 signal battle_completed
 signal capture_reward
 signal victory
-signal game_over
+signal defeat
 
 
 #func initialize(formation: Formation, party: Array):
@@ -108,8 +108,7 @@ func battle_end():
 		yield(rewards.on_battle_completed(), "completed")
 		emit_signal("battle_completed")
 	else:
-		emit_signal("game_over")
-
+		emit_signal("defeat")
 
 func play_turn():
 	var battler: Battler = get_active_battler()

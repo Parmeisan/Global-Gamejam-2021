@@ -43,8 +43,9 @@ func set_options(options : Array):
 
 func _on_Option_pressed(option) -> void:
 	Util.deleteExtraChildren($Panel/Columns, legit_children)
+	button_finished.grab_focus()
 	_on_DialoguePlayer_finished()
-	acting_pawn.actions = acting_pawn.get_node(option)
+	acting_pawn.update_state(option)
 	acting_pawn.start_interaction()
 
 func _on_ButtonNext_pressed() -> void:

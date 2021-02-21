@@ -78,3 +78,10 @@ func on_flee():
 	# End combat condition when the party flees
 	experience_earned /= 2
 	on_battle_completed()
+
+func on_defeated():
+	experience_earned = 0
+	$Panel.visible = true
+	$Panel/Label.text = "Battle Lost"
+	yield(get_tree().create_timer(2.0), "timeout")
+	$Panel.visible = false

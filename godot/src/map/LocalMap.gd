@@ -27,8 +27,8 @@ func spawn_party(party) -> void:
 	grid.pawns.spawn_party(grid, party)
 
 
-func start_encounter(formation) -> void:
-	emit_signal("enemies_encountered", formation)#formation.instance())
+func start_encounter(formation, pawn = null) -> void:
+	emit_signal("enemies_encountered", formation, pawn)#formation.instance())
 
 
 func play_dialogue(data, obj):

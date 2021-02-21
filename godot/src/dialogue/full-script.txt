@@ -56,6 +56,12 @@ MC: Might as well try! Come on!
 [Ravi fight occurs.
 [If Decline:]
 MC: Maybe later. C'mon, buddy, let's fight some of the other slimes first.
+[If Lost:]
+R: Do you want to try again?
+[Choice: Fight/Decline]
+[If Won:]
+R: Wow, your slime is so strong! You should take this artifact I found and go see how Diana is doing.
++ARTIFACT0
 
 ============ Area 2 ============
 

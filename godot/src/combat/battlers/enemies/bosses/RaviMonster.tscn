@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/combat/battlers/Battler.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/combat/battlers/enemies/bosses/RaviMonster.tres" type="Resource" id=2]
+[ext_resource path="res://src/combat/battlers/enemies/bosses/RaviMonsterAnim.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/combat/battlers/ai/RandomAI.gd" type="Script" id=4]
+[ext_resource path="res://assets/sprites/battlers/Fang_Monster.png" type="Texture" id=5]
+
+
+[node name="RedSlime" groups=[
+"enemies",
+] instance=ExtResource( 1 )]
+stats = ExtResource( 2 )
+turn_order_icon = ExtResource( 5 )
+
+[node name="Anim" parent="Skin" index="2" instance=ExtResource( 3 )]
+
+[node name="Drops" parent="." index="5"]
+experience = 100
+
+[node name="AI" parent="." index="6"]
+script = ExtResource( 4 )

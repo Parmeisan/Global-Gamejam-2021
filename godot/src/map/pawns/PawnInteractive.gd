@@ -110,8 +110,14 @@ func start_interaction() -> void:
 	assert(todo != [])
 	for action in todo:
 		action.interact()
-		#yield(action, "finished")
+		# FIXME Whyyy am I not getting the finished signal from Disappeared scripts?
+		if action.get_class() != "DisappearAction":
+			yield(action, "finished")
 	emit_signal("interaction_finished", self)
 	if vanish_on_interaction:
 		queue_free()
 	get_tree().paused = false
+
+func update_state(state):
+	actions = get_node(state)
+	
