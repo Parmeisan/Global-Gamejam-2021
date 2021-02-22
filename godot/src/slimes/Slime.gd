@@ -122,11 +122,11 @@ func clone(game):
 	var result = get_script().new(colour)#game.create_slime(colour)
 	for a in range(0, ABILITIES.size()):
 		result.ability_tiers[a] = ability_tiers[a]
-	result.update_skills()
 	result.battler.display_name = battler.display_name
 	result.party_slot = party_slot
 	result.equipped_artifact = equipped_artifact
 	result.update_visuals(result.colour)
+	result.update_skills()
 	#TODO
 	#for m in range(0, stats.size()):
 	#	merged_boosts[m] += s.stats[m]
