@@ -105,6 +105,12 @@ func flag_changed(fl, val):
 				unlock_slime(1)
 			"SLIME2":
 				unlock_slime(2)
+			"ARTIFACT0":
+				unlock_artifact(0)
+			"ARTIFACT0":
+				unlock_artifact(1)
+			"ARTIFACT0":
+				unlock_artifact(2)
 
 func create_slime(c):
 	return Slime.new(c)
@@ -118,6 +124,9 @@ func unlock_slime(i):
 	var slot = monster_list.get_party_list().size()
 	if (slot < party.PARTY_SIZE - 2): # Sky takes up a slot but we still start at 0
 		slime.add_to_party(slot)
+
+func unlock_artifact(i):
+	monster_list.add_artifact(i)
 
 #func enter_battle(formation: Formation):
 func enter_battle(formation: Array, pawn : PawnInteractive = null):
@@ -203,7 +212,6 @@ func get_random_enemy_group():
 		#print("Enemy type %s name %s" % [enc_type, Data.generate_slime_name()])
 		enemy_array.append($Enemies.get_child(enc_type))
 		diff -= Data.combat_diffs[enc_type]
-	#var node_arr = [$Enemies/RedSlime, $Enemies/RedSlime, $Enemies/RedSlime, $Enemies/RedSlime]
 	return enemy_array
 
 func _on_CombatArena_battle_completed(arena):

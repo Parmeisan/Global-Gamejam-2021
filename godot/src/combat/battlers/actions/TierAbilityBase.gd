@@ -5,9 +5,6 @@ var action
 var tier
 var skills = []
 
-enum ACTIONS { FIREBALL = 0, ZAP }
-var fireball_scaling = [ 0.6, 0.65, 0.70, 0.75, 0.8 ]
-
 func fillSkills():
 	pass # This should be overridden in the child class
 

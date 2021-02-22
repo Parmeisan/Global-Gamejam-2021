@@ -99,14 +99,14 @@ facing = {
 [node name="CollisionShape2D" parent="GameBoard/Pawns/Ravi-green" index="3"]
 shape = SubResource( 1 )
 
+[node name="Dialogue" parent="GameBoard/Pawns/Ravi-green/Actions" index="0" instance=ExtResource( 11 )]
+
 [node name="Sprite" type="Sprite" parent="GameBoard/Pawns/Ravi-green"]
 position = Vector2( -5.076, -64 )
 scale = Vector2( 0.5, 0.5 )
 z_index = 51
 texture = ExtResource( 17 )
 offset = Vector2( 0, -64 )
-
-[node name="Dialogue" parent="GameBoard/Pawns/Ravi-green/Actions" index="0" instance=ExtResource( 11 )]
 
 [node name="Fight" type="Node" parent="GameBoard/Pawns/Ravi-green"]
 
@@ -145,8 +145,7 @@ shape = SubResource( 2 )
 [node name="Dialogue" parent="GameBoard/Pawns/FriendlyRed/Actions" index="0" instance=ExtResource( 11 )]
 dialogue_file_path = "res://src/dialogue/data/gud_boi_red.json"
 
-[node name="Disappear" type="Node" parent="GameBoard/Pawns/FriendlyRed/Actions" index="1" instance=ExtResource( 13 )]
-script = ExtResource( 24 )
+[node name="Disappear" parent="GameBoard/Pawns/FriendlyRed/Actions" index="1" instance=ExtResource( 13 )]
 
 [node name="Sprite" type="Sprite" parent="GameBoard/Pawns/FriendlyRed"]
 position = Vector2( 0, -16 )

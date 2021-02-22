@@ -5,7 +5,7 @@
 [ext_resource path="res://src/items/Potion.tres" type="Resource" id=3]
 [ext_resource path="res://src/items/Ether.tres" type="Resource" id=4]
 [ext_resource path="res://src/quest/objectives/QuestSlayObjective.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/combat/battlers/enemies/porcupine/PorcupineBattler.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/combat/battlers/enemies/slimes/RedSlimeBattler.tscn" type="PackedScene" id=6]
 
 
 

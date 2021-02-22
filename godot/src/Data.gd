@@ -136,7 +136,6 @@ func getFileAccessTime(fname):
 var curr_combat_chance = 0.0
 const max_combat_chance = 15.0
 const combat_chance_inc = 0.75
-#const combat_types = [ "LoneRedSlime", "LoneBlueSlime", "LoneGreenSlime", "ThreeReds", "OneRedTwoBlues", "OneOfEach" ]
 var encounters_on = true
 
 var RNG = RandomNumberGenerator.new()
@@ -175,21 +174,6 @@ func setStartingWeights():
 func addSlimeToRandom(i):
 	combat_weights[locked_start + i] = locked_weights[i] * DEBUG_MULTIPLIER
 	prep_random()
-#func setRedSlime():
-#	var adding = 5
-#	setStartingWeights() # I don't want to be able to accidentally add red twice
-#	combat_weights.append(adding)
-#	weight_total += adding
-#func setBlueSlime():
-#	var adding = 7.5
-#	setRedSlime()
-#	combat_weights.append(adding)
-#	weight_total += adding
-#func setYellowSlime():
-#	var adding = 10
-#	setBlueSlime()
-#	combat_weights.append(adding)
-#	weight_total += adding
 
 
 # Flags & flag interface functions

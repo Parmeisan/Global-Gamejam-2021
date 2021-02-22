@@ -1,18 +1,22 @@
 extends CanvasLayer
-
 class_name MonsterCollection
 
-signal monster_collection_menu_summoned()
-signal toggle_encounters()
-const NONE = -1
-
+# Variables to be saved
 var slimes = [] # Enhanced & Primaries
 var greys = [0, 0, 0] # Number owned of each grey difficulty
-var allowed_greys = range(0, 3)
+var artifacts = [ null, null, null ]
+
+# Calculated Variables
+var game
 var selected_1ST = NONE # Some actions require 2 choices, e.g. merging
 var selected_2ND = NONE
 var prev_result = NONE
 
+# Constants
+signal monster_collection_menu_summoned()
+signal toggle_encounters()
+const NONE = -1
+var allowed_greys = range(0, 3)
 onready var grpParty = $Background/Columns/Col1/Party
 onready var grpCollection = $Background/Columns/Col2/Collection/GridContainer
 onready var grpArtifacts = $Background/Columns/Col1/Artifacts
@@ -23,13 +27,21 @@ onready var grpReds = $Background/Columns/Col3/Primaries/PrimCols/Reds
 onready var grpBlues = $Background/Columns/Col3/Primaries/PrimCols/Blues
 onready var grpYellows = $Background/Columns/Col3/Primaries/PrimCols/Yellows
 var selected = Data.getTexture("assets/theme/button/", "selected", ".png")
-var game
 
-# Array interface functions
+# Artifact interface functions
+func add_artifact(a):
+	var artifact = Artifact.new(ARTIFACTS[a])
+	artifacts[a] = artifact
+func get_artifact_by_id(id):
+	for a in range(artifacts.size()):
+		if artifacts[a]:
+			if artifacts[a].get_instance_id() == id:
+				return artifacts[a]
+	return null
+# Slime Array interface functions
 func add_slime(new_slime: Slime) -> void:
 	slimes.resize(slimes.size() + 1)
 	slimes[slimes.size() - 1] = new_slime
-	
 func remove_slime(target_pos: int) -> Slime:
 	var rv = slimes[target_pos]
 	slimes.remove(target_pos)
@@ -37,6 +49,7 @@ func remove_slime(target_pos: int) -> Slime:
 func get_slime(target_pos: int) -> Slime:
 	var rv = slimes[target_pos]
 	return rv
+# Greys
 func add_grey(g: int) -> void:
 	assert(g in allowed_greys)
 	greys[g] += 1
@@ -44,6 +57,7 @@ func remove_grey(g: int) -> void:
 	assert(g in allowed_greys)
 	assert(greys[g] >= 1)
 	greys[g] -= 1
+# Filters
 func get_primary_list(colour : int):
 	return get_slimes_filtered(false, false, colour)
 func get_enhanced_list():
@@ -69,6 +83,11 @@ func get_slime_by_id(id):
 		if slimes[s].get_instance_id() == id:
 			return slimes[s]
 	return null
+
+func is_slime(id):
+	return true if get_slime_by_id(id) else false
+func is_artifact(id):
+	return true if get_artifact_by_id(id) else false
 
 # Main functions
 func _ready():
@@ -113,7 +132,7 @@ func reload():
 		var stats = t.get_node("Stats")
 		labelCell(stats, 0, s.get_name())
 		labelCell(stats, 1, "Level: " + str(s.stats.level))
-		labelCell(stats, 2, "Strength: " + str(s.stats.strength))
+		labelCell(stats, 2, "Strength: " + str(s.get_strength()))
 		displayAbilityTracks(t.get_node("Abilities"), s, true)
 		b.get_node("PartyContainer/Icons").visible = true
 		t.get_node("Image").rect_position.x = 0 # Overlap with favourite
@@ -123,13 +142,19 @@ func reload():
 	add.visible = checkPartyPossible()
 	# Artifacts --------------------------------------------------------------------
 	Util.deleteExtraChildren(grpArtifacts, 3)
-	for i in range(0, 3):
-		if Data.hasArtifact(i):
-			var t = grpArtifacts.get_node("ArtifactMember/ArtifactContainer").duplicate()
-			t.get_child(0).texture = Data.getTexture(artifact_path, ARTIFACTS[i], artifact_ext)
-			labelCell(t, 1, ARTIFACTS[i])
-			t.visible = true
-			grpArtifacts.add_child(t)
+	for a in artifacts:
+		if a:
+			var b = grpArtifacts.get_node("ArtifactMember").duplicate()
+			handleButton(b, a)
+			var t = b.get_node("ArtifactContainer")
+			t.get_child(0).texture = Data.getTexture(artifact_path, a.name, artifact_ext)
+			labelCell(t, 1, a.name)
+			var assgn = ""
+			if a.is_assigned():
+				assgn = a.slime.get_name()
+			labelCell(t, 2, assgn)
+			b.visible = true
+			grpArtifacts.add_child(b)
 	# Collection (enhanced) --------------------------------------------------------
 	Util.deleteExtraChildren(grpCollection, 1)
 	for s in get_enhanced_list():
@@ -186,12 +211,12 @@ func displayAbilityTracks(abilities, slime, show_none):
 				ab_node.visible = true
 				abilities.add_child(ab_node)
 
-func handleButton(button, slime):
-	# Every button's first child is a label with instance ID of corresponding slime
-	labelCell(button, 0, slime.get_instance_id())
+func handleButton(button, obj):
+	# Every button's first child is a label with instance ID of corresponding slime (or artifact)
+	labelCell(button, 0, obj.get_instance_id())
 	# If this slime is selected, the button should reflect that
-	var sel = slime.get_instance_id() in [selected_1ST, selected_2ND]
-	button.texture_pressed = selected
+	var sel = obj.get_instance_id() in [selected_1ST, selected_2ND]
+	#button.texture_pressed = selected
 	button.toggle_mode = sel
 	button.pressed = sel
 
@@ -211,6 +236,7 @@ func clickButton(button):
 func doAction(action : String):#btn : TextureRect):
 	var s1 = get_slime_by_id(selected_1ST)
 	var s2 = get_slime_by_id(selected_2ND)
+	var a1 = get_artifact_by_id(selected_1ST)
 	match action:
 		"AddPartyMember":
 			if checkPartyPossible():
@@ -220,6 +246,9 @@ func doAction(action : String):#btn : TextureRect):
 			#	game.script_manager.load_and_run({})
 		"De-Party":
 			s1.party_slot = NONE
+			reset()
+		"Unassign":
+			a1.unassign()
 			reset()
 		"Merge":
 			if checkMergePossible():
@@ -232,25 +261,35 @@ func doAction(action : String):#btn : TextureRect):
 				selected_2ND = NONE
 				reload()
 
-func ascend(i):
-	Data.setSlime(i, false)
-	Data.setArtifact(i, false)
-	Data.setMonster(i, true)
+func ascend(s, a):
+	var slime = get_slime_by_id(selected_1ST)
+	var artifact = get_artifact_by_id(selected_2ND)
+	artifact.assign(slime)
+	slime.ascend(artifact)
+	#Data.setSlime(i, false)
+	#Data.setArtifact(i, false)
+	#Data.setMonster(i, true)
+	reset()
 
 func checkAscendPossible():
-	return selected_1ST != NONE
-	#var poss = false
-	#for i in range(0, 3):
-	#	if Data.hasSlime(i) and Data.hasArtifact(i) and not Data.hasMonster(i):
-	#		poss = true
-	#return poss
+	var s = selected_1ST
+	var a = selected_2ND
+	if a == NONE or s == NONE:
+		return false
+	elif is_slime(s) and is_artifact(a):
+		return not get_artifact_by_id(a).is_assigned()
+	elif is_slime(a) and is_artifact(s):
+		# Not the expected order, and things will be easier if we can assume the order
+		selected_1ST = a
+		selected_2ND = s
+		return not get_artifact_by_id(s).is_assigned()
+	return false
 func checkMergePossible():
 	var s1 = selected_1ST
 	var s2 = selected_2ND
 	if s1 == NONE or s2 == NONE:
 		return false
-	return true
-	#return (Data.hasSlime(0) or Data.hasMonster(0)) and slimes.size() > 0
+	return is_slime(s1) and is_slime(s2)
 	
 	
 func checkPartyPossible():
@@ -263,11 +302,10 @@ func checkPartyPossible():
 
 
 func _on_AscendButton_button_down():
-	for i in range(0, 3):
-		if Data.hasSlime(i) and Data.hasArtifact(i) and not Data.hasMonster(i):
-			ascend(i)
-			reload()
-			break
+	#for i in range(0, 3):
+	#	if Data.hasSlime(i) and Data.hasArtifact(i) and not Data.hasMonster(i):
+	if checkAscendPossible():
+		ascend(selected_1ST, selected_2ND)
 
 #func merge():
 #	if checkMergePossible():

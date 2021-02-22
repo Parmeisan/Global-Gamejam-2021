@@ -1,30 +1,28 @@
 extends PartyMember
 class_name Slime
 
-#export var stats: Resource
-#export var hp: int # Starting values
-#export var mp: int
-#export var xp: int
-
+# Variables that need to be saved
 export(int, "Red", "Blue", "Yellow") onready var colour
-var sprite_large : Texture
-var sprite_small : Texture
+var ability_tiers = []
 var current_xp = 0
 var favourite : bool = false
-var party_slot : int = -1
+var party_slot : int = NONE
+var equipped_artifact : Artifact = null
 
+# Variables that can be calculated
+var sprite_large : Texture
+var sprite_small : Texture
+var artifact_boosts : CharacterStats # Can be equipped & unequipped
+
+# Constants
+const NONE = -1
 enum ABILITIES { RED=0, BLUE, YELLOW }
 enum COLOURS { RED=0, BLUE, YELLOW, PURPLE, ORANGE, GREEN }
+enum ARTIFACTS { FANG=0, EYE, SCALE }
+const artifact_names = [ "Fang", "Eye", "Scale" ]
 const NUM_TIERS = 4
-var ability_tiers = []
-# Stats are all of these combined: (maybe, I need to test the system)
-#var stats : CharacterStats           # Determined solely by XP/level
-var artifact_boosts : CharacterStats # Can be equipped & unequipped
-#var merged_boosts : CharacterStats   # Bonus each time a merge is done
-
 var battler_path = "assets/sprites/battlers/"
 var battler_ext = ".png"
-
 const growth_curve = preload("res://src/combat/battlers/jobs/SlimeJob.tres")
 const skills_all = [preload("res://src/combat/battlers/actions/Flee.tscn")]
 
@@ -32,9 +30,7 @@ func _ready():
 	pass
 
 func _init(c):
-	update_colour(c)
-	if not battler.display_name:
-		battler.display_name = Data.generate_slime_name()
+	update_visuals(c)
 	ability_tiers = []
 	for a in range(0, ABILITIES.size()):
 		if a == colour:
@@ -43,18 +39,32 @@ func _init(c):
 			ability_tiers.append(0)
 	update_skills()
 
-func update_colour(c):
+func get_class():
+	return "Slime"
+
+func get_name():
+	if not battler or not battler.display_name:
+		return Data.generate_slime_name()
+	else:
+		return battler.display_name
+
+func update_visuals(c):
 	colour = c
 	var colour_text = Data.COLOURS[colour]
-	var new_slime_resource = "res://src/combat/battlers/enemies/slimes/%sSlimeAlly.tscn" % colour_text
+	var new_slime_resource = "res://src/combat/battlers/enemies/AllyTemplate.tscn"
+	var my_name = get_name() # save name so we can reassign it
 	battler = load(new_slime_resource).instance()
 	growth = growth_curve
 	pawn_anim_path = "Anim"
-	sprite_large = Data.getTexture(battler_path, colour_text + "_Slime", battler_ext)
-	sprite_small = Data.getTexture(battler_path, colour_text + "_Slime_128", battler_ext)
+	var file_name = "%s_%s" % [colour_text, get_evolution_string()]
+	sprite_large = Data.getTexture(battler_path, file_name, battler_ext)
+	sprite_small = Data.getTexture(battler_path, file_name + "_128", battler_ext)
 	initialize_pm()
+	battler.get_node("Skin/AllyAnim/body").texture = sprite_large
+	battler.turn_order_icon = sprite_small
 	battler._ready()
 	battler.initialize()
+	battler.display_name = my_name
 	visible = true
 
 func update_skills():
@@ -75,10 +85,18 @@ func update_skills():
 		skill_node.add_child(action)
 	battler.update_actions() # Skills learned by level
 
-func get_name():
-	return battler.display_name
 func get_colour():
 	return Data.COLOURS[colour]
+func is_evolved():
+	if equipped_artifact:
+		return true
+	return false
+	#return not equipped_artifact == null
+func get_evolution_string():
+	if is_evolved():
+		return "%sMonster" % equipped_artifact.name
+	else:
+		return "Slime"
 
 func add_to_party(slot : int):
 	party_slot = slot
@@ -88,7 +106,17 @@ func is_in_party():
 	return party_slot >= 0
 
 func get_battler_copy(game):
-	return clone(game).battler
+	# Used for the turn order.  So here is where we add the artifact stats
+	var b = clone(game).battler
+	if is_evolved():
+		b.stats.max_health += equipped_artifact.stats.max_health
+		b.stats.max_mana += equipped_artifact.stats.max_mana
+		b.stats.health += equipped_artifact.stats.max_health # FIXME
+		b.stats.mana += equipped_artifact.stats.max_mana
+		b.stats.strength += equipped_artifact.stats.strength
+		b.stats.defense += equipped_artifact.stats.defense
+		b.stats.speed += equipped_artifact.stats.speed
+	return b
 
 func clone(game):
 	var result = get_script().new(colour)#game.create_slime(colour)
@@ -97,6 +125,8 @@ func clone(game):
 	result.update_skills()
 	result.battler.display_name = battler.display_name
 	result.party_slot = party_slot
+	result.equipped_artifact = equipped_artifact
+	result.update_visuals(result.colour)
 	#TODO
 	#for m in range(0, stats.size()):
 	#	merged_boosts[m] += s.stats[m]
@@ -118,7 +148,7 @@ func merge(game, s : Slime):
 			return false
 	if colours > 2:
 		return false
-	result.update_colour(result.get_colour_from_abilities())
+	result.update_visuals(result.get_colour_from_abilities())
 	result.battler.display_name = battler.display_name # battler just got cleared
 	var slot = party_slot
 	if slot == -1 or (s.party_slot >= 0 and s.party_slot < slot):
@@ -126,9 +156,16 @@ func merge(game, s : Slime):
 	result.party_slot = slot
 	return result
 
+func ascend(a):
+	equipped_artifact = a
+	update_visuals(colour)
+func descend():
+	equipped_artifact = null
+	update_visuals(colour)
+
 func get_battle_anim():
 	var colour_text = Data.COLOURS[colour]
-	var new_anim_resource = "res://src/combat/animation/%sSlimeAnim.tscn" % colour_text
+	var new_anim_resource = "res://src/combat/animation/%s%sAnim.tscn" % [colour_text, get_evolution_string()]
 	return load(new_anim_resource).instance()
 
 func is_primary():
@@ -158,3 +195,10 @@ func get_colour_from_abilities():
 			return s
 	return -1
 	
+
+# Stat interface functions - often these are taken from the Battler though, see get_battler_copy()
+func get_strength():
+	var result = stats.strength
+	if is_evolved():
+		result += equipped_artifact.stats.strength
+	return result
