@@ -10,14 +10,14 @@
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyDuo02.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyDuo01.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyTrio01.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/combat/battlers/jobs/GreyJobSingle.tres" type="Resource" id=11]
 [ext_resource path="res://src/combat/battlers/enemies/bosses/RaviMonster.tscn" type="PackedScene" id=12]
-[ext_resource path="res://src/combat/battlers/jobs/Grey01Job.tres" type="Resource" id=13]
 
 [node name="Enemies" type="Node2D"]
 
 [node name="GreyStance01" parent="." instance=ExtResource( 7 )]
 scale = Vector2( 0.9, 0.9 )
-stats = ExtResource( 13 )
+stats = ExtResource( 11 )
 
 [node name="Drops" parent="GreyStance01" index="5"]
 experience = 4

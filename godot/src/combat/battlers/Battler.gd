@@ -70,6 +70,11 @@ func set_selectable(value):
 
 
 func take_damage(hit):
+	var attack = hit.damage
+	# Defense halves the damage up to its value
+	# e.g. a=5, d=10, hit is 2.5.  a=10, def=5, hit is 7.5
+	var dmg = (min(attack, stats.defense) / 2.0) + max(0, attack - stats.defense)
+	hit.damage = dmg
 	stats.take_damage(hit)
 	# prevent playing both stagger and death animation if health <= 0
 	if stats.health > 0:
@@ -93,8 +98,5 @@ func has_point(point: Vector2):
 
 
 # For enemies only (this stuff is in PartyMember for everyone else)
-const growth_curve = preload("res://src/combat/battlers/jobs/Grey01Job.tres")
-const level_lookup = [ 0, 4, 24, 69, 149, 274, 454, 699, 1019, 1424, 1924, 2528, 3248, 4093, 5073, 6198, 7478, 8923, 10543, 12348, 14348 ]
-var enemy_level : int
-func set_level(level : int):
-	stats = growth_curve.create_stats(level_lookup[level])
+func set_level(growth_curve, level : int):
+	stats = growth_curve.create_stats(growth_curve.level_lookup[level])

@@ -167,7 +167,9 @@ var grey_weights = [ 35, 35, 35, 25, 25, 35, 0, 0, 0 ]
 var locked_start = 6
 const DEBUG_MULTIPLIER = 200
 var locked_weights = [ 10, 20, 30 ]
-var combat_diffs = [ 1, 1, 1, 2, 2, 3, 2, 3, 4 ] # How much does it count toward the fight difficulty
+var combat_diffs = [ 1, 1, 1, 2, 2, 3, 2, 2, 2 ] # How much does it count toward the fight difficulty
+var combat_jobs = ["GreyJobSingle", "GreyJobSingle", "GreyJobSingle", "GreyJobDuo", "GreyJobDuo",
+	"GreyJobTrio", "SlimeJob", "SlimeJob", "SlimeJob" ]
 func setStartingWeights():
 	combat_weights = grey_weights.duplicate()
 	prep_random()
