@@ -31,6 +31,7 @@ func _ready():
 
 func _init(c):
 	update_visuals(c)
+	_set_experience(1)
 	ability_tiers = []
 	for a in range(0, ABILITIES.size()):
 		if a == colour:
@@ -125,8 +126,11 @@ func clone(game):
 	result.battler.display_name = battler.display_name
 	result.party_slot = party_slot
 	result.equipped_artifact = equipped_artifact
+	result.experience = experience
+	result.stats = growth.create_stats(result.experience)
 	result.update_visuals(result.colour)
 	result.update_skills()
+	result.battler.parent = battler.parent
 	#TODO
 	#for m in range(0, stats.size()):
 	#	merged_boosts[m] += s.stats[m]
@@ -150,6 +154,8 @@ func merge(game, s : Slime):
 		return false
 	result.update_visuals(result.get_colour_from_abilities())
 	result.battler.display_name = battler.display_name # battler just got cleared
+	result.experience = experience + s.experience
+	result.stats = growth.create_stats(result.experience)
 	var slot = party_slot
 	if slot == -1 or (s.party_slot >= 0 and s.party_slot < slot):
 		slot = s.party_slot

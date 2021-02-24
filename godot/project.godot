@@ -149,7 +149,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/items/Item.gd"
 }, {
-"base": "Node",
+"base": "CombatAction",
 "class": "LearnedSkill",
 "language": "GDScript",
 "path": "res://src/combat/battlers/skills/LearnedSkill.gd"

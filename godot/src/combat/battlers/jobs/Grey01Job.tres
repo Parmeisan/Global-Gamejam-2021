@@ -9,7 +9,7 @@
 
 [resource]
 script = ExtResource( 1 )
-level_lookup = [ 0, 4, 24, 69, 149, 274, 454, 699, 1019, 1424, 1924, 2528, 3248, 4093, 5073, 6198, 7478, 8923, 10543, 12348, 14348 ]
+level_lookup = [ 5, 25, 70, 150, 275, 455, 700, 1020, 1425, 1925, 2530, 3250, 4095, 5075, 6200, 7480, 8925, 10545, 12350, 14350 ]
 max_health_curve = ExtResource( 6 )
 max_mana_curve = ExtResource( 5 )
 strength_curve = ExtResource( 3 )

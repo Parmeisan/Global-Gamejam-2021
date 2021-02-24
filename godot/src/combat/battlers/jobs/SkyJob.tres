@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://src/combat/battlers/stats/GrowthStats.gd" type="Script" id=1]
+[ext_resource path="res://src/combat/battlers/jobs/Sky_Defense_Curve.tres" type="Curve" id=2]
+[ext_resource path="res://src/combat/battlers/jobs/Sky_Strength_Curve.tres" type="Curve" id=3]
+[ext_resource path="res://src/combat/battlers/jobs/Sky_Speed_Curve.tres" type="Curve" id=4]
+[ext_resource path="res://src/combat/battlers/jobs/Sky_MP_Curve.tres" type="Curve" id=5]
+[ext_resource path="res://src/combat/battlers/jobs/Sky_HP_Curve.tres" type="Curve" id=6]
+
+[resource]
+script = ExtResource( 1 )
+level_lookup = [ 0, 4, 24, 69, 149, 274, 454, 699, 1019, 1424, 1924, 2528, 3248, 4093, 5073, 6198, 7478, 8923, 10543, 12348, 14348 ]
+max_health_curve = ExtResource( 6 )
+max_mana_curve = ExtResource( 5 )
+strength_curve = ExtResource( 3 )
+defense_curve = ExtResource( 2 )
+speed_curve = ExtResource( 4 )

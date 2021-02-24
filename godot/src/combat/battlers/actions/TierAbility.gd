@@ -31,7 +31,7 @@ func execute(targets):
 	match colour:
 		COLOURS.RED:
 			if action == RED.FIREBALL:
-				attack_strength *= fireball_scaling[tier]
+				attack_strength *= 30#fireball_scaling[tier]
 	
 	if actor.party_member and not targets:
 		return false

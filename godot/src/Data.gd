@@ -151,7 +151,7 @@ var syll2 = ['', '', '', 'gl', 'r', 'rl', 'rg', 'lr']
 func generate_slime_name():
 	var slime_name = ""
 	RNG.randomize()
-	var syllables = RNG.randi_range(2, 6)
+	var syllables = RNG.randi_range(3, 5)
 	for s in range(0, syllables):
 		var s1 = RNG.randi_range(0, syll1.size() - 1)
 		var s2 = RNG.randi_range(0, syll2.size() - 1)

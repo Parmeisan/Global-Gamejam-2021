@@ -45,6 +45,8 @@ func execute(targets):
 			target.take_damage(hit)
 		yield(actor.get_tree().create_timer(1.0), "timeout")
 		yield(return_to_start_position(), "completed")
+		var combat_arena = target.get_parent().get_parent()
+		combat_arena.rewards.on_flee()
 	return true
 	
 #func temp() -> void:

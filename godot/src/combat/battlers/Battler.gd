@@ -25,6 +25,7 @@ onready var skills = $Skills
 onready var ai = $AI
 
 var target_global_position: Vector2
+var parent : int # Instance ID
 
 var selected: bool = false setget set_selected
 var selectable: bool = false setget set_selectable
@@ -89,3 +90,11 @@ func appear():
 
 func has_point(point: Vector2):
 	return skin.battler_anim.extents.has_point(point)
+
+
+# For enemies only (this stuff is in PartyMember for everyone else)
+const growth_curve = preload("res://src/combat/battlers/jobs/Grey01Job.tres")
+const level_lookup = [ 0, 4, 24, 69, 149, 274, 454, 699, 1019, 1424, 1924, 2528, 3248, 4093, 5073, 6198, 7478, 8923, 10543, 12348, 14348 ]
+var enemy_level : int
+func set_level(level : int):
+	stats = growth_curve.create_stats(level_lookup[level])

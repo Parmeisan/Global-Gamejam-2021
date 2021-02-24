@@ -26,6 +26,7 @@ func initialize_pm():
 	assert(growth)
 	stats = growth.create_stats(experience)
 	battler.stats = stats
+	battler.parent = self.get_instance_id()
 
 
 func update_stats(before_stats: CharacterStats):
@@ -42,7 +43,9 @@ func update_stats(before_stats: CharacterStats):
 func get_battler_copy(game): #used in child function
 	# Returns a copy of the battler to add to the CombatArena
 	# at the start of a battle
-	return battler.duplicate()
+	var b = battler.duplicate()
+	b.parent = battler.parent
+	return b
 
 
 func get_pawn_anim():

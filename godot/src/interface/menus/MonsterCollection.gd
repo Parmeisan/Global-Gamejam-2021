@@ -131,7 +131,7 @@ func reload():
 		t.get_node("Image").texture = s.sprite_small
 		var stats = t.get_node("Stats")
 		labelCell(stats, 0, s.get_name())
-		labelCell(stats, 1, "Level: " + str(s.stats.level))
+		labelCell(stats, 1, "Level: %s, XP: %s" % [str(s.stats.level), s.experience])
 		labelCell(stats, 2, "Strength: " + str(s.get_strength()))
 		displayAbilityTracks(t.get_node("Abilities"), s, true)
 		b.get_node("PartyContainer/Icons").visible = true

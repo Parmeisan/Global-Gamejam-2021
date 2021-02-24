@@ -1,0 +1,6 @@
+[gd_resource type="Curve" format=2]
+
+[resource]
+min_value = 15.0
+max_value = 60.0
+_data = [ Vector2( 0, 15 ), 0.0, 81.0, 0, 0, Vector2( 0.25, 30 ), 46.3077, 46.3077, 0, 0, Vector2( 1, 60 ), 14.2979, 0.0, 0, 0 ]

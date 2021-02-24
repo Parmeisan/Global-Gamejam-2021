@@ -1,24 +1,16 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://src/party/Party.gd" type="Script" id=1]
 [ext_resource path="res://src/party/PartyMember.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/combat/battlers/jobs/GodetteJob.tres" type="Resource" id=3]
+[ext_resource path="res://src/combat/battlers/jobs/SkyJob.tres" type="Resource" id=3]
 [ext_resource path="res://assets/sprites/battlers/godette_portrait_256.png" type="Texture" id=4]
 [ext_resource path="res://src/combat/animation/GodetteAnim.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/combat/battlers/skills/LearnedSkill.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/combat/battlers/skills/Lollislash.tres" type="Resource" id=7]
+[ext_resource path="res://src/combat/battlers/actions/Heal.gd" type="Script" id=6]
+[ext_resource path="res://assets/sprites/abilities/heal.png" type="Texture" id=7]
 [ext_resource path="res://src/combat/battlers/ai/PlayerInput.gd" type="Script" id=8]
 [ext_resource path="res://src/map/pawns/SkyPawnAnim.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/combat/battlers/jobs/RobiJob.tres" type="Resource" id=10]
-[ext_resource path="res://assets/sprites/battlers/Scale_Monster.png" type="Texture" id=11]
-[ext_resource path="res://src/map/pawns/RobiPawnAnim.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/combat/battlers/actions/Capture.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/sprites/icons/capture.png" type="Texture" id=16]
-[ext_resource path="res://src/combat/animation/GreenMonsterAnim.tscn" type="PackedScene" id=19]
-[ext_resource path="res://src/combat/animation/RedMonsterAnim.tscn" type="PackedScene" id=20]
-[ext_resource path="res://src/combat/animation/BlueMonsterAnim.tscn" type="PackedScene" id=21]
-[ext_resource path="res://assets/sprites/battlers/Fang_Monster.png" type="Texture" id=24]
-[ext_resource path="res://assets/sprites/battlers/Eye_Monster.png" type="Texture" id=26]
 [ext_resource path="res://src/combat/battlers/actions/Flee.tscn" type="PackedScene" id=27]
 [ext_resource path="res://assets/sprites/icons/flee.png" type="Texture" id=28]
 
@@ -42,8 +34,10 @@ icon = ExtResource( 16 )
 icon = ExtResource( 28 )
 needs_target = false
 
-[node name="LolliSlash" parent="Godette/Battler/Skills" index="0" instance=ExtResource( 6 )]
-skill = ExtResource( 7 )
+[node name="Heal" type="Node" parent="Godette/Battler/Skills" index="0"]
+script = ExtResource( 6 )
+icon = ExtResource( 7 )
+level = 2
 
 [node name="AI" parent="Godette/Battler" index="6"]
 script = ExtResource( 8 )
@@ -51,68 +45,8 @@ script = ExtResource( 8 )
 [node name="GodettePawnAnim" parent="Godette" instance=ExtResource( 9 )]
 scale = Vector2( 0.5, 0.5 )
 
-[node name="Robi4" parent="." instance=ExtResource( 2 )]
-visible = false
-pawn_anim_path = NodePath("RobiPawnAnim")
-growth = ExtResource( 10 )
-
-[node name="Battler" parent="Robi4" index="0"]
-party_member = true
-turn_order_icon = ExtResource( 24 )
-
-[node name="RedMonsterAnim" parent="Robi4/Battler/Skin" index="2" instance=ExtResource( 20 )]
-
-[node name="AI" parent="Robi4/Battler" index="6"]
-script = ExtResource( 8 )
-
-[node name="RobiPawnAnim" parent="Robi4" instance=ExtResource( 14 )]
-
-[node name="Robi5" parent="." instance=ExtResource( 2 )]
-visible = false
-pawn_anim_path = NodePath("RobiPawnAnim")
-growth = ExtResource( 10 )
-
-[node name="Battler" parent="Robi5" index="0"]
-party_member = true
-turn_order_icon = ExtResource( 26 )
-
-[node name="BlueMonsterAnim" parent="Robi5/Battler/Skin" index="2" instance=ExtResource( 21 )]
-
-[node name="AI" parent="Robi5/Battler" index="6"]
-script = ExtResource( 8 )
-
-[node name="RobiPawnAnim" parent="Robi5" instance=ExtResource( 14 )]
-
-[node name="Robi6" parent="." instance=ExtResource( 2 )]
-visible = false
-pawn_anim_path = NodePath("RobiPawnAnim")
-growth = ExtResource( 10 )
-
-[node name="Battler" parent="Robi6" index="0"]
-party_member = true
-turn_order_icon = ExtResource( 11 )
-
-[node name="GreenMonsterAnim" parent="Robi6/Battler/Skin" index="2" instance=ExtResource( 19 )]
-
-[node name="AI" parent="Robi6/Battler" index="6"]
-script = ExtResource( 8 )
-
-[node name="RobiPawnAnim" parent="Robi6" instance=ExtResource( 14 )]
-
 [editable path="Godette"]
 
 [editable path="Godette/Battler"]
 
 [editable path="Godette/Battler/Actions/Flee"]
-
-[editable path="Robi4"]
-
-[editable path="Robi4/Battler"]
-
-[editable path="Robi5"]
-
-[editable path="Robi5/Battler"]
-
-[editable path="Robi6"]
-
-[editable path="Robi6/Battler"]
