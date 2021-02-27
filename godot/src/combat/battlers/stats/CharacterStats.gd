@@ -2,7 +2,6 @@
 # See the child class GrowthStats.gd for stats growth curves
 # and lookup tables
 extends Resource
-
 class_name CharacterStats
 
 signal health_changed(new_health, old_health)
@@ -19,7 +18,6 @@ export var max_mana: int = 0 setget set_max_mana, _get_max_mana
 export var strength: int = 1 setget , _get_strength
 export var defense: int = 1 setget , _get_defense
 export var speed: int = 1 setget , _get_speed
-export var flavour: String = "" setget set_flavour, get_flavour
 var is_alive: bool setget , _is_alive
 var level: int
 
@@ -27,6 +25,10 @@ func reset():
 	health = self.max_health
 	mana = self.max_mana
 
+# TODO: - stats and modifiers
+# crit_chance
+# crit_percent (some percentage of attack, addtl to attack but bypasses defense)
+# dodge_chance
 
 func copy() -> CharacterStats:
 	# Perform a more accurate duplication, as normally Resource duplication
@@ -73,11 +75,14 @@ func set_max_mana(value: int):
 	max_mana = max(0, value)
 
 
-func add_modifier(id: int, modifier):
+#func add_modifier(id: int, modifier):
+#	modifiers[id] = modifier
+#func remove_modifier(id: int):
+#	modifiers.erase(id)
+
+func add_modifier(id: String, modifier):
 	modifiers[id] = modifier
-
-
-func remove_modifier(id: int):
+func remove_modifier(id: String):
 	modifiers.erase(id)
 
 
@@ -98,22 +103,23 @@ func _get_max_mana() -> int:
 
 
 func _get_strength() -> int:
-	return strength
+	var result = strength
+	for m in modifiers:
+		result += m.strength
+	return result
 
 
 func _get_defense() -> int:
-	return defense
-
+	var result = defense
+	for m in modifiers:
+		result += m.defense
+	return result
 
 func _get_speed() -> int:
-	return speed
-
+	var result = speed
+	for m in modifiers:
+		result += m.speed
+	return result
 
 func _get_level() -> int:
 	return level
-
-func get_flavour() -> String:
-	return flavour
-
-func set_flavour(flavour_in: String) -> void:
-	flavour = flavour_in

@@ -22,6 +22,17 @@ func create_stats(experience: int) -> CharacterStats:
 	stats.reset()  # give stats full hp and mana on level up
 	return stats
 
+static func create_stats_simple(hp, def, att, sp, mp) -> CharacterStats:
+	# Creates and returns a CharacterStats Resource with stats
+	var stats := CharacterStats.new()
+	stats.max_health = hp
+	stats.max_mana = mp
+	stats.strength = att
+	stats.defense = def
+	stats.speed = sp
+	stats.reset()  # give stats full hp and mana on level up
+	return stats
+
 
 func get_level(value: int) -> int:
 	var max_level: int = len(level_lookup)

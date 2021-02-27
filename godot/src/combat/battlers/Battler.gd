@@ -70,11 +70,13 @@ func set_selectable(value):
 
 
 func take_damage(hit):
-	var attack = hit.damage
+	var att = hit.damage
+	var def = stats._get_defense()
 	# Defense halves the damage up to its value
 	# e.g. a=5, d=10, hit is 2.5.  a=10, def=5, hit is 7.5
-	var dmg = (min(attack, stats.defense) / 2.0) + max(0, attack - stats.defense)
-	hit.damage = dmg
+	var dmg = (min(att, def) / 2.0) + max(0, att - def)
+	var crit = hit.crit_damage # Bypasses defense
+	hit.damage = dmg + crit
 	stats.take_damage(hit)
 	# prevent playing both stagger and death animation if health <= 0
 	if stats.health > 0:

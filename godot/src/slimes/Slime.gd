@@ -71,10 +71,14 @@ func update_visuals(c):
 func update_skills():
 	var skill_node = battler.get_node("Actions")
 	Util.deleteExtraChildren(skill_node, 1)
-	for sk in skills_all:
+	for sk in skills_all: # Skills that everyone has
 		var action : CombatAction = sk.instance()
 		skill_node.add_child(action)
 	var red_tier = ability_tiers[ABILITIES.RED]
+	# TODO: This is set up for exactly 1 action at each tier,
+	# but not all tiers will have new skills and some will replace skills
+	# This should read from a config file of some sort
+	# TODO: Read from the same config file to add passive bonuses to things like crit chance
 	for a in range(red_tier):
 	#	if a <= skills_red.size():
 	#		var action = TierAbilityRed.new(skills_red[a])

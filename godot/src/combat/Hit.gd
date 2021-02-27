@@ -3,8 +3,13 @@
 class_name Hit
 
 var damage = 0
+var crit_damage = 0
 # var effect : StatusEffect = StatusEffect.new()
 
-
-func _init(strength: int, additional_damage: int = 0) -> void:
+func _init(actor, additional_damage: int = 0) -> void:
+	var strength = actor.stats.strength
+	
 	damage = strength + additional_damage
+
+func add_crit(strength : int, percent_of_attack : float):
+	crit_damage = floor(float(strength) * percent_of_attack / 100.0)
