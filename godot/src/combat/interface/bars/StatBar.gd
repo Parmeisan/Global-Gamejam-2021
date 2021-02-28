@@ -41,7 +41,6 @@ func _connect_value_signals(battler: Battler) -> void:
 func _on_value_changed(new_value, old_value) -> void:
 	self.value = new_value
 
-
 func _on_value_depleted() -> void:
 	if HIDE_ON_DEPLETED:
 		hide()

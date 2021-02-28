@@ -70,6 +70,9 @@ func set_selectable(value):
 
 func _on_health_depleted():
 	selectable = false
+	stats.died()
+	clear_effects(effect_icons)
+	emit_signal("health_depleted")
 	yield(skin.play_death(), "completed")
 	emit_signal("died", self)
 
@@ -91,15 +94,21 @@ const VARS = [ "health", "defense", "strength", "speed", "mana",
 	"crit_chance", "crit_dmg", "miss_chance", "dodge_chance" ]
 var stat_modifiers = {}
 var stat_multipliers = {}
+var effect_icons = {}
 
-func add_effect(arr, uid, stats):
-	arr[uid] = stats
+signal effects_changed()
+func add_effect(arr, uid, val):
+	arr[uid] = val
+	update_icons(arr)
 func remove_effect(arr, uid):
 	arr.erase(uid)
-	#for e in arr:
-	#	if e.uid == uid:
-	#		e.
-	
+	update_icons(arr)
+func clear_effects(arr):
+	arr.clear()
+	update_icons(arr)
+func update_icons(arr):
+	if arr == effect_icons:
+		emit_signal("effects_changed", arr)
 
 var remember_ai
 func temporary_ai(temp):

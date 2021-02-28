@@ -4,14 +4,11 @@
 [ext_resource path="res://src/combat/interface/bars/manabar/ManaBar.gd" type="Script" id=2]
 [ext_resource path="res://src/combat/interface/bars/manabar/fill.png" type="Texture" id=3]
 
-
-[node name="HookableManaBar" index="0" instance=ExtResource( 1 )]
+[node name="HookableManaBar" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-HIDE_ON_DEPLETED = false
+HIDE_ON_DEPLETED = true
 
 [node name="TextureProgress" parent="Column" index="0"]
+margin_top = 9.0
+margin_bottom = 37.0
 texture_progress = ExtResource( 3 )
-
-[node name="LifeLabel" parent="Column" index="1"]
-margin_bottom = 52.0
-

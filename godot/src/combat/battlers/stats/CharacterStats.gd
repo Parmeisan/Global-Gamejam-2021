@@ -22,11 +22,19 @@ export var crit_chance: int = 0
 export var crit_dmg: int = 0
 export var miss_chance: int = 0
 export var dodge_chance: int = 0
-var is_alive: bool
+var is_alive: bool = true
 
 func reset():
 	health = self.max_health
 	mana = self.max_mana
+func died():
+	health = 0 # This should always be the case, but just to be safe
+	update_mana(-mana) # Set this to 0 so that the mana bar disappears
+					   # Mana should be some fixed value on rez anyway (0? full? 10%?)
+
+func rezzed():
+	health = self.max_health * 0.10
+	mana = self.max_mana * 0.10
 
 func copy() -> CharacterStats:
 	# Perform a more accurate duplication, as normally Resource duplication

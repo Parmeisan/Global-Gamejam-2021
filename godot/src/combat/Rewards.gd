@@ -50,6 +50,8 @@ func _reward_to_battlers() -> Array:
 			var level = battler.stats.level
 			pm.experience += exp_per_survivor
 			pm.update_stats(battler.stats)
+			pm.battler.stats.health = battler.stats.health
+			pm.battler.stats.mana = battler.stats.mana
 		else:
 			pm.battler.stats.health = 1
 

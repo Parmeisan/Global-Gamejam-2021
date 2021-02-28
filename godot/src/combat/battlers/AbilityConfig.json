@@ -53,7 +53,7 @@
 		"name": "Berserk",
 		"icon": "berserk.png",
 		"user_text": "For your next 3 turns you attack randomly, but attack value is doubled",
-		"ability": { "Red3": 1, "Red4": 1, "Red5": 1 },
+		"ability": { "Red1": 1, "Red4": 1, "Red5": 1 },
 		"num_targets": 0,
 		"actor_effect": "ENRAGED",
 		"mp_cost": 3

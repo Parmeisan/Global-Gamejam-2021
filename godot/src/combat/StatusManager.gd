@@ -41,12 +41,11 @@ func add_effect(b : Battler, uid : String):
 		var stats = create_flat_modifier()
 		stats = update_stats(stats, effect.flat_modifier)
 		b.add_effect(b.stat_modifiers, uid, stats)
-		#b.stat_modifiers[uid] = stats
 	if effect.has("multiplier"):
 		var stats = create_multiplier()
 		stats = update_stats(stats, effect.multiplier)
-		#b.stat_multipliers[uid] = stats
 		b.add_effect(b.stat_multipliers, uid, stats)
+	b.add_effect(b.effect_icons, uid, effect)
 	if effect.has("ai"):
 		b.temporary_ai(effect.ai)
 
@@ -70,6 +69,7 @@ func turn_ended(b):
 func remove_effect(b : Battler, uid : String):
 	b.remove_effect(b.stat_modifiers, uid)
 	b.remove_effect(b.stat_multipliers, uid)
+	b.remove_effect(b.effect_icons, uid)
 	if effect_templates[uid].has("ai"):
 		b.reset_ai(arena.get_node("CombatInterface"))
 	active_effects[b].erase(uid)
