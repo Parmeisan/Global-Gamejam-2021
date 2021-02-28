@@ -46,14 +46,14 @@ tile_data = PoolIntArray( -65534, 1, 0, -65533, 1, 0, -65532, 1, 0, -65531, 1, 0
 script = ExtResource( 4 )
 
 [node name="SpawningPoint" parent="GameBoard" instance=ExtResource( 5 )]
-position = Vector2( 350, 75 )
+position = Vector2( 354, 34 )
 
 [node name="Pawns" type="YSort" parent="GameBoard"]
 script = ExtResource( 6 )
 party_scene = ExtResource( 7 )
 
 [node name="Diana-blue" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
-position = Vector2( 672.758, 284.555 )
+position = Vector2( 672.758, 261.555 )
 facing = {
 "down": true,
 "left": true,
@@ -143,7 +143,7 @@ script = ExtResource( 10 )
 texture = ExtResource( 9 )
 
 [node name="TransitionPawn1" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
-position = Vector2( 320.208, 33.1228 )
+position = Vector2( 288.208, 33.1228 )
 
 [node name="ToMap1" parent="GameBoard/Pawns/TransitionPawn1/Actions" index="0" instance=ExtResource( 17 )]
 target_map = "res://src/map/LocalMap.tscn"

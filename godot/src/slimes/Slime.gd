@@ -74,19 +74,15 @@ func update_skills():
 	for sk in skills_all: # Skills that everyone has
 		var action : CombatAction = sk.instance()
 		skill_node.add_child(action)
-	var red_tier = ability_tiers[ABILITIES.RED]
-	# TODO: This is set up for exactly 1 action at each tier,
-	# but not all tiers will have new skills and some will replace skills
-	# This should read from a config file of some sort
-	# TODO: Read from the same config file to add passive bonuses to things like crit chance
-	for a in range(red_tier):
-	#	if a <= skills_red.size():
-	#		var action = TierAbilityRed.new(skills_red[a])
-	#		skill_node.add_child(action)
-		#var action : TierAbility = TierAbility.new(ABILITIES.RED, a, red_tier)
+	# Abilities by tier
+	var dict = Data.getDict("src/combat/battlers/AbilityConfig.json")
+	for a in TierAbility.get_slime_abilities(dict, battler):
+	#var red_tier = ability_tiers[ABILITIES.RED]
+	#for a in range(red_tier):
 		var action : TierAbility
 		action = load("res://src/combat/battlers/actions/TierAbility.tscn").instance()
-		action.init(ABILITIES.RED, a, red_tier) # Set each ability at the strength owned
+		action.init(a)
+		#action.init(ABILITIES.RED, a, red_tier) # Set each ability at the strength owned
 		skill_node.add_child(action)
 	battler.update_actions() # Skills learned by level
 

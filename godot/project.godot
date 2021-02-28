@@ -300,24 +300,14 @@ _global_script_classes=[ {
 "path": "res://src/combat/interface/bars/StatBar.gd"
 }, {
 "base": "Node",
-"class": "StatusEffects",
+"class": "StatusManager",
 "language": "GDScript",
-"path": "res://src/combat/battlers/stats/Status.gd"
+"path": "res://src/combat/StatusManager.gd"
 }, {
 "base": "CombatAction",
 "class": "TierAbility",
 "language": "GDScript",
 "path": "res://src/combat/battlers/actions/TierAbility.gd"
-}, {
-"base": "CombatAction",
-"class": "TierAbilityBase",
-"language": "GDScript",
-"path": "res://src/combat/battlers/actions/TierAbilityBase.gd"
-}, {
-"base": "TierAbilityBase",
-"class": "TierAbilityRed",
-"language": "GDScript",
-"path": "res://src/combat/battlers/actions/TierAbilityRed.gd"
 }, {
 "base": "YSort",
 "class": "TurnQueue",
@@ -383,10 +373,8 @@ _global_script_class_icons={
 "Slime": "",
 "StartCombatAction": "",
 "StatBar": "",
-"StatusEffects": "",
+"StatusManager": "",
 "TierAbility": "",
-"TierAbilityBase": "",
-"TierAbilityRed": "",
 "TurnQueue": ""
 }
 

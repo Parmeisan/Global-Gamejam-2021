@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/merge_icon.png-c0a230070e09e765f2bde380dc570743.stex"
+path="res://.import/wild.png-299517aa4f71e9a4664837460e6199c9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/icons/merge_icon.png"
-dest_files=[ "res://.import/merge_icon.png-c0a230070e09e765f2bde380dc570743.stex" ]
+source_file="res://assets/sprites/abilities/wild.png"
+dest_files=[ "res://.import/wild.png-299517aa4f71e9a4664837460e6199c9.stex" ]
 
 [params]
 

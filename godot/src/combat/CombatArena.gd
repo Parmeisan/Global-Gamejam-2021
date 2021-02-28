@@ -11,6 +11,7 @@ onready var rewards = $Rewards
 var active: bool = false
 var party: Array = []
 var initial_formation: Formation
+var status_manager : StatusManager
 
 # TODO: Refactor and clean up this script
 # sent when the battler is starting to end (before battle_completed)
@@ -27,6 +28,7 @@ signal defeat
 func initialize(formation: Array, party: Array):
 	#FIXME initial_formation = formation
 	ready_field(formation, party)
+	status_manager = StatusManager.new()
 
 	# reparent the enemy battlers into the turn queue
 	var battlers = turn_queue.get_battlers()
@@ -36,6 +38,7 @@ func initialize(formation: Array, party: Array):
 	interface.initialize(self, turn_queue, battlers)
 	rewards.initialize(battlers)
 	turn_queue.initialize()
+	status_manager.start_combat(battlers, self)
 
 
 func battle_start():
@@ -126,7 +129,11 @@ func play_turn():
 		return
 
 	action = yield(battler.ai.choose_action(battler, opponents), "completed")
-	if action.needs_target:
+	if not action.is_possible():
+		print("not possible")
+		action = yield(battler.ai.choose_action(battler, opponents), "completed")
+	
+	if action.num_targets > 0:
 		targets = yield(battler.ai.choose_target(battler, action, opponents), "completed")
 	else:
 		targets = opponents
@@ -136,6 +143,7 @@ func play_turn():
 		yield(turn_queue.play_turn(action, targets), "completed")
 	if active:
 		play_turn()
+	status_manager.turn_ended(battler)
 
 
 func get_active_battler() -> Battler:

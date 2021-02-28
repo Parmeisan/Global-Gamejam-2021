@@ -1,5 +1,16 @@
 extends Node
 
+
+static func getDict(f):
+	var file = File.new()
+	var json
+	if file.open("%s" % [f], file.READ) == OK:
+		json = parse_json(file.get_as_text())
+	else:
+		print("Error reading file %s" % [f])
+	file.close()
+	return json
+
 static func fillProps(folder, tab):
 	var file = File.new()
 	var dict
@@ -145,6 +156,8 @@ func prep_random():
 	for w in range(0, Data.combat_weights.size()):
 		weight_total += Data.combat_weights[w]
 	RNG.randomize()
+func roll_100():
+	return Data.RNG.randi_range(1, 100)
 
 var syll1 = ['b','b','b','d','d','f','g','k','k','k','l','m','m','p','q','r','r','t','v','w','x','x','z','z']
 var syll2 = ['', '', '', 'gl', 'r', 'rl', 'rg', 'lr']
@@ -163,7 +176,7 @@ func generate_slime_name():
 
 # Combat weights start spread out between greys, but change over time
 var combat_weights = []
-var grey_weights = [ 35, 35, 35, 25, 25, 35, 0, 0, 0 ]
+var grey_weights = [ 40, 40, 40, 10, 10, 10, 0, 0, 0 ]
 var locked_start = 6
 const DEBUG_MULTIPLIER = 200
 var locked_weights = [ 10, 20, 30 ]

@@ -330,7 +330,7 @@ position = Vector2( 1692.03, 1055.37 )
 [node name="TransitionTo2" parent="GameBoard/Pawns/TransitionTo2/Actions" index="0" instance=ExtResource( 15 )]
 target_map = "res://src/map/LocalMap2.tscn"
 spawn_x = 350
-spawn_y = 75
+spawn_y = 35
 
 [node name="Sprite" type="Sprite" parent="GameBoard/Pawns/TransitionTo2"]
 texture = ExtResource( 23 )
