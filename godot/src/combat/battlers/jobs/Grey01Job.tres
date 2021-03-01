@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://src/combat/battlers/stats/GrowthStats.gd" type="Script" id=1]
+[ext_resource path="res://src/combat/battlers/jobs/SlimeGrey_Defense_Curve.tres" type="Curve" id=2]
+[ext_resource path="res://src/combat/battlers/jobs/SlimeGrey_Strength_Curve.tres" type="Curve" id=3]
+[ext_resource path="res://src/combat/battlers/jobs/SlimeGrey_Speed_Curve.tres" type="Curve" id=4]
+[ext_resource path="res://src/combat/battlers/jobs/SlimeGrey_MP_Curve.tres" type="Curve" id=5]
+[ext_resource path="res://src/combat/battlers/jobs/SlimeGrey2_HP_Curve.tres" type="Curve" id=6]
+
+[resource]
+script = ExtResource( 1 )
+level_lookup = [ 5, 25, 70, 150, 275, 455, 700, 1020, 1425, 1925, 2530, 3250, 4095, 5075, 6200, 7480, 8925, 10545, 12350, 14350 ]
+max_health_curve = ExtResource( 6 )
+max_mana_curve = ExtResource( 5 )
+strength_curve = ExtResource( 3 )
+defense_curve = ExtResource( 2 )
+speed_curve = ExtResource( 4 )

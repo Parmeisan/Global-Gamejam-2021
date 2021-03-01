@@ -1,5 +1,16 @@
 extends Node
 
+
+static func getDict(f):
+	var file = File.new()
+	var json
+	if file.open("%s" % [f], file.READ) == OK:
+		json = parse_json(file.get_as_text())
+	else:
+		print("Error reading file %s" % [f])
+	file.close()
+	return json
+
 static func fillProps(folder, tab):
 	var file = File.new()
 	var dict
@@ -145,13 +156,15 @@ func prep_random():
 	for w in range(0, Data.combat_weights.size()):
 		weight_total += Data.combat_weights[w]
 	RNG.randomize()
+func roll_100():
+	return Data.RNG.randi_range(1, 100)
 
 var syll1 = ['b','b','b','d','d','f','g','k','k','k','l','m','m','p','q','r','r','t','v','w','x','x','z','z']
 var syll2 = ['', '', '', 'gl', 'r', 'rl', 'rg', 'lr']
 func generate_slime_name():
 	var slime_name = ""
 	RNG.randomize()
-	var syllables = RNG.randi_range(2, 6)
+	var syllables = RNG.randi_range(3, 5)
 	for s in range(0, syllables):
 		var s1 = RNG.randi_range(0, syll1.size() - 1)
 		var s2 = RNG.randi_range(0, syll2.size() - 1)
@@ -163,11 +176,13 @@ func generate_slime_name():
 
 # Combat weights start spread out between greys, but change over time
 var combat_weights = []
-var grey_weights = [ 35, 35, 35, 25, 25, 35, 0, 0, 0 ]
+var grey_weights = [ 40, 40, 40, 10, 10, 10, 0, 0, 0 ]
 var locked_start = 6
 const DEBUG_MULTIPLIER = 200
 var locked_weights = [ 10, 20, 30 ]
-var combat_diffs = [ 1, 1, 1, 2, 2, 3, 2, 3, 4 ] # How much does it count toward the fight difficulty
+var combat_diffs = [ 1, 1, 1, 2, 2, 3, 2, 2, 2 ] # How much does it count toward the fight difficulty
+var combat_jobs = ["GreyJobSingle", "GreyJobSingle", "GreyJobSingle", "GreyJobDuo", "GreyJobDuo",
+	"GreyJobTrio", "SlimeJob", "SlimeJob", "SlimeJob" ]
 func setStartingWeights():
 	combat_weights = grey_weights.duplicate()
 	prep_random()

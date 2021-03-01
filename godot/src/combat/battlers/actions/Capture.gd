@@ -8,7 +8,8 @@ func execute(targets):
 	for target in targets:
 		yield(actor.skin.move_to(target), "completed")
 		if target.stats.health < 1000:#10:#FIXME For testing
-			var hit = Hit.new(1000)
+			var hit = Hit.new(actor)
+			hit.add_flat_bonus(1000)
 			#var combat_arena = target.get_parent().get_parent()
 			#combat_arena.capture_reward()
 			#target.drops.get_children().push_back({'item': 'Slime.tres', 'amount': '1'})
@@ -42,9 +43,11 @@ func execute(targets):
 			else:
 				pass # TODO: Inform the user you can't capture this - or make this option unavailable to start with
 			
-			target.take_damage(hit)
+			target.take_damage(self, hit)
 		yield(actor.get_tree().create_timer(1.0), "timeout")
 		yield(return_to_start_position(), "completed")
+		var combat_arena = target.get_parent().get_parent()
+		combat_arena.rewards.on_flee()
 	return true
 	
 #func temp() -> void:

@@ -1,0 +1,147 @@
+[
+	{
+		"uid": "CRIT1",
+		"type": "passive",
+		"name": "Ferocious I",
+		"user_text": "Every attack has a 5% chance to crit (+25% damage, bypasses defense)",
+		"passive": { "Red1": 1, "Red2": 1 },
+		"flat_modifier": { "crit_chance": 5, "crit_dmg": 0.25 },
+    		"icon": "",
+		"label": ""
+	},
+	{
+		"uid": "CRIT2",
+		"type": "passive",
+		"name": "Ferocious II",
+		"user_text": "Every attack has a 15% chance to crit (+50% damage, bypasses defense)",
+		"passive": { "Red3": 1, "Red4": 1 },
+		"flat_modifier": { "crit_chance": 15, "crit_dmg": 0.5 },
+    		"icon": "",
+		"label": ""
+	},
+	{
+		"uid": "CRIT3",
+		"type": "passive",
+		"name": "Ferocious III",
+		"user_text": "Every attack has a 25% chance to crit (+100% damage, bypasses defense)",
+		"passive": { "Red5": 1 },
+		"flat_modifier": { "crit_chance": 25, "crit_dmg": 1.0 },
+    		"icon": "",
+		"label": ""
+	},
+	{
+		"uid": "WILDATT",
+		"type": "ability",
+		"name": "Wild Attack",
+		"icon": "wild.png",
+		"user_text": "Attack with a 5% chance to miss, but 4x the crit chance",
+		"ability": { "Red1": 1, "Red2": 1, "Red3": 1, "Red4": 1, "Red5": 1 },
+		"attack": "yes",
+		"num_targets": 1,
+		"actor_effect": "WILDEFF",
+		"mp_cost": 2
+	},
+	{
+		"uid": "WILDEFF",
+		"type": "effect",
+		"duration": 1,
+		"multiplier": { "crit_chance": 4 },
+		"flat_modifier": { "miss_chance": 5 }
+	},
+	{
+		"uid": "BURNBABY",
+		"type": "ability",
+		"name": "Flame Wreath",
+		"icon": "wreath.png",
+		"user_text": "Uses your turn, sets the enemy on fire: at the start of their next 4 turns they take 40% attack dmg",
+		"ability": { "Red2": 1, "Red3": 1 },
+		"num_targets": 1,
+		"attack": "no",
+		"target_effect": "BURNING_40",
+		"mp_cost": 4
+	},
+	{
+		"uid": "BURNPASSIVE",
+		"type": "passive",
+		"name": "Wreathed",
+		"user_text": "Enemies now take 20% attack damage for 4 turns after *any* of your attacks",
+		"passive": { "Red4": 1, "Red5": 1 },
+		"target_effect": "BURNING_20"
+	},
+	{
+		"uid": "BURNBABYBURN",
+		"type": "ability",
+		"name": "Flame Shroud",
+		"icon": "wreath.png",
+		"user_text": "Uses your turn, sets the enemy on fire: at the start of their next 4 turns they take 60% attack dmg",
+		"ability": { "Red4": 1, "Red5": 1 },
+		"num_targets": 1,
+		"attack": "no",
+		"target_effect": "BURNING_60",
+		"mp_cost": 4
+	},
+	{
+		"uid": "BURNING_20",
+		"type": "effect",
+		"icon": "burning.png",
+		"dot": 0.2,
+		"duration": 4,
+		"label": "Burning"
+	},
+	{
+		"uid": "BURNING_40",
+		"type": "effect",
+		"icon": "burning.png",
+		"dot": 0.4,
+		"duration": 4,
+		"label": "Burning"
+	},
+	{
+		"uid": "BURNING_60",
+		"type": "effect",
+		"icon": "burning.png",
+		"dot": 0.6,
+		"duration": 4,
+		"label": "Burning"
+	},
+	{
+		"uid": "BERSERK",
+		"type": "ability",
+		"name": "Berserk",
+		"icon": "berserk.png",
+		"user_text": "For your next 3 turns you attack randomly, but attack value is doubled",
+		"ability": { "Red3": 1, "Red4": 1, "Red5": 1 },
+		"num_targets": 0,
+		"actor_effect": "ENRAGED",
+		"mp_cost": 3
+	},
+	{
+		"uid": "ENRAGED",
+		"type": "effect",
+		"multiplier": { "strength": 2 },
+		"icon": "enraged.png",
+		"duration": 4,
+		"ai": "RandomAI",
+		"label": "Enraged"
+	},
+	{
+		"uid": "TERMOR",
+		"type": "ability",
+		"name": "Tremor",
+		"icon": "quake.png",
+		"user_text": "Selected enemy has attack and defense reduced by 25%",
+		"ability": { "Blue1": 1, "Blue2": 1, "Blue3": 1, "Blue4": 1, "Blue5": 1 },
+		"attack": "no",
+		"num_targets": 1,
+		"target_effect": "SHAKEN",
+		"mp_cost": 2
+	},
+	{
+		"uid": "SHAKEN",
+		"type": "effect",
+		"icon": "shaken.png",
+		"multiplier": { "strength": 0.75, "defense": 0.75 },
+		"duration": 4,
+		"label": "Shaken"
+	}
+]

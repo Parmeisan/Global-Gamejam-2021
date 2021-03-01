@@ -3,7 +3,7 @@ extends CombatAction
 func _ready():
 	icon = load("res://assets/sprites/icons/flee.png")
 	description = "Flee"
-	needs_target = false
+	num_targets = 0
 
 func execute(targets):
 	assert(initialized)

@@ -200,6 +200,7 @@ func get_random_enemy_group():
 	var diff = Data.RNG.randi_range(min_diff, Data.map_difficulty)
 	print("Random encounter of difficulty %s!" % diff)
 	while diff > 0:
+		var enc_level = 1
 		var enc_type = 0
 		var enc_rnd = Data.RNG.randf_range(0.0, Data.weight_total)
 		var enc_check = 0.0
@@ -207,11 +208,22 @@ func get_random_enemy_group():
 			enc_check += Data.combat_weights[w]
 			if enc_rnd > enc_check:
 				enc_type += 1
-		if Data.combat_diffs[enc_type] > diff:
+		
+		# Consider increasing the level of this enemy
+		var chosen_enemy = $Enemies.get_child(enc_type)
+		var job = load("res://src/combat/battlers/jobs/%s.tres" % Data.combat_jobs[enc_type])
+		var calculated_diff = Data.combat_diffs[enc_type]
+		var remaining = diff - calculated_diff
+		if remaining < 0:
 			enc_type -= 1 # Can still go over the max, but not by too much
+		elif remaining >= 2:
+			# Random level between this and the remaining difficulty (capped at map diff)
+			enc_level = Data.RNG.randi_range(1, min(remaining, Data.map_difficulty))
+			calculated_diff *= enc_level
+		chosen_enemy.set_level(job, enc_level)
 		#print("Enemy type %s name %s" % [enc_type, Data.generate_slime_name()])
-		enemy_array.append($Enemies.get_child(enc_type))
-		diff -= Data.combat_diffs[enc_type]
+		enemy_array.append(chosen_enemy)
+		diff -= calculated_diff
 	return enemy_array
 
 func _on_CombatArena_battle_completed(arena):

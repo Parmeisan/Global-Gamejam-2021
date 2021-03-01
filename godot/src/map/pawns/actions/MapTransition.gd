@@ -32,6 +32,9 @@ func interact():
 	
 	
 	#ysort.rebuild_party()
+	emit_signal("finished")
+
+func get_class(): return "MapTransition"
 
 #func _ready():
 #	var game_node = Util.getParent(self, "Game")

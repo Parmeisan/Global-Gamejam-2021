@@ -94,6 +94,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/combat/battlers/Drops.gd"
 }, {
+"base": "Control",
+"class": "EffectsBar",
+"language": "GDScript",
+"path": "res://src/combat/interface/bars/EffectsBar.gd"
+}, {
 "base": "Item",
 "class": "Equipment",
 "language": "GDScript",
@@ -149,7 +154,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/items/Item.gd"
 }, {
-"base": "Node",
+"base": "CombatAction",
 "class": "LearnedSkill",
 "language": "GDScript",
 "path": "res://src/combat/battlers/skills/LearnedSkill.gd"
@@ -299,20 +304,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/combat/interface/bars/StatBar.gd"
 }, {
+"base": "Node",
+"class": "StatusManager",
+"language": "GDScript",
+"path": "res://src/combat/StatusManager.gd"
+}, {
 "base": "CombatAction",
 "class": "TierAbility",
 "language": "GDScript",
 "path": "res://src/combat/battlers/actions/TierAbility.gd"
-}, {
-"base": "CombatAction",
-"class": "TierAbilityBase",
-"language": "GDScript",
-"path": "res://src/combat/battlers/actions/TierAbilityBase.gd"
-}, {
-"base": "TierAbilityBase",
-"class": "TierAbilityRed",
-"language": "GDScript",
-"path": "res://src/combat/battlers/actions/TierAbilityRed.gd"
 }, {
 "base": "YSort",
 "class": "TurnQueue",
@@ -337,6 +337,7 @@ _global_script_class_icons={
 "DialoguePlayer": "",
 "DisappearAction": "",
 "Drops": "",
+"EffectsBar": "",
 "Equipment": "",
 "Formation": "",
 "GUI": "",
@@ -378,9 +379,8 @@ _global_script_class_icons={
 "Slime": "",
 "StartCombatAction": "",
 "StatBar": "",
+"StatusManager": "",
 "TierAbility": "",
-"TierAbilityBase": "",
-"TierAbilityRed": "",
 "TurnQueue": ""
 }
 

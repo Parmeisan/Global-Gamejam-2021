@@ -20,9 +20,10 @@ func execute(targets):
 	actor.stats.mana -= skill.mana_cost
 	randomize()
 	if randf() < skill.success_chance:
-		var hit = Hit.new(actor.stats.strength, skill.base_damage)
+		var hit = Hit.new(actor)
+		hit.add_flat_bonus(skill.base_damage)
 		for target in targets:
-			target.take_damage(hit)
+			target.take_damage(self, hit)
 	else:
 		skill.emit_signal("missed", "Miss!")
 		pass

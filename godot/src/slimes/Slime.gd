@@ -31,6 +31,7 @@ func _ready():
 
 func _init(c):
 	update_visuals(c)
+	_set_experience(1)
 	ability_tiers = []
 	for a in range(0, ABILITIES.size()):
 		if a == colour:
@@ -70,18 +71,17 @@ func update_visuals(c):
 func update_skills():
 	var skill_node = battler.get_node("Actions")
 	Util.deleteExtraChildren(skill_node, 1)
-	for sk in skills_all:
+	for sk in skills_all: # Skills that everyone has
 		var action : CombatAction = sk.instance()
 		skill_node.add_child(action)
-	var red_tier = ability_tiers[ABILITIES.RED]
-	for a in range(red_tier):
-	#	if a <= skills_red.size():
-	#		var action = TierAbilityRed.new(skills_red[a])
-	#		skill_node.add_child(action)
-		#var action : TierAbility = TierAbility.new(ABILITIES.RED, a, red_tier)
+	# Abilities by tier
+	for a in TierAbility.get_slime_abilities(battler):
+	#var red_tier = ability_tiers[ABILITIES.RED]
+	#for a in range(red_tier):
 		var action : TierAbility
 		action = load("res://src/combat/battlers/actions/TierAbility.tscn").instance()
-		action.init(ABILITIES.RED, a, red_tier) # Set each ability at the strength owned
+		action.init(a)
+		#action.init(ABILITIES.RED, a, red_tier) # Set each ability at the strength owned
 		skill_node.add_child(action)
 	battler.update_actions() # Skills learned by level
 
@@ -107,26 +107,34 @@ func is_in_party():
 
 func get_battler_copy(game):
 	# Used for the turn order.  So here is where we add the artifact stats
+	var hp = battler.stats.health
+	var mp = battler.stats.mana
 	var b = clone(game).battler
+	b.stats.health = hp
+	b.stats.mana = mp
 	if is_evolved():
 		b.stats.max_health += equipped_artifact.stats.max_health
 		b.stats.max_mana += equipped_artifact.stats.max_mana
-		b.stats.health += equipped_artifact.stats.max_health # FIXME
-		b.stats.mana += equipped_artifact.stats.max_mana
 		b.stats.strength += equipped_artifact.stats.strength
 		b.stats.defense += equipped_artifact.stats.defense
 		b.stats.speed += equipped_artifact.stats.speed
 	return b
 
 func clone(game):
+	var st = battler.stats
 	var result = get_script().new(colour)#game.create_slime(colour)
 	for a in range(0, ABILITIES.size()):
 		result.ability_tiers[a] = ability_tiers[a]
 	result.battler.display_name = battler.display_name
 	result.party_slot = party_slot
 	result.equipped_artifact = equipped_artifact
+	result.experience = experience
+	result.battler.stats = st.duplicate() # before, so it does PM init
 	result.update_visuals(result.colour)
+	result.battler.stats.health = st.health # and after, since that updates stats
+	result.battler.stats.mana = st.mana
 	result.update_skills()
+	result.battler.parent = battler.parent
 	#TODO
 	#for m in range(0, stats.size()):
 	#	merged_boosts[m] += s.stats[m]
@@ -150,6 +158,8 @@ func merge(game, s : Slime):
 		return false
 	result.update_visuals(result.get_colour_from_abilities())
 	result.battler.display_name = battler.display_name # battler just got cleared
+	result.experience = experience + s.experience
+	result.battler.stats = growth.create_stats(result.experience)
 	var slot = party_slot
 	if slot == -1 or (s.party_slot >= 0 and s.party_slot < slot):
 		slot = s.party_slot
@@ -195,10 +205,3 @@ func get_colour_from_abilities():
 			return s
 	return -1
 	
-
-# Stat interface functions - often these are taken from the Battler though, see get_battler_copy()
-func get_strength():
-	var result = stats.strength
-	if is_evolved():
-		result += equipped_artifact.stats.strength
-	return result

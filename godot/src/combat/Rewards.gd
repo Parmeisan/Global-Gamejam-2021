@@ -34,27 +34,27 @@ func _add_reward(battler: Battler):
 		rewards.append({'item': drop.item, 'amount': amount})
 
 
-# TODO: party shouldn't be Battlers but the actual party
 func _reward_to_battlers() -> Array:
 	# Rewards the surviving party members with experience points
-
-# 	# @returns Array of Battlers who have leveled up
-	var survived = []
-	for member in party:
-		if not member.stats.is_alive:
-			continue
-		survived.append(member)
-
-	var exp_per_survivor = int(ceil(float(experience_earned) / float(len(survived))))
+	# @returns Array of Battlers who have leveled up
+	var exp_per_survivor = experience_earned # Used to divide by survivors, but meh
 	var leveled_up = []
-	# TODO: Figure out why this throws an error and fix it
-#	for member in survived:
-#		var level = member.stats.level
-#		member.experience += exp_per_survivor
-#		var pm = member.get_meta("party_member")
-#		pm.update_stats(member.stats)
-#		if level != member.stats.level:
-#			leveled_up.append(member)
+	
+	for battler in party:
+		# At this point we need to associate the battler duplicates back
+		# with their original party member, ie PartyMember or Slime
+		var pm = instance_from_id(battler.parent)
+		pm.battler.stats.health = battler.stats.health
+		# And also keep track of who survives
+		if battler._is_alive():
+			var level = battler.stats.level
+			pm.experience += exp_per_survivor
+			pm.update_stats(battler.stats)
+			pm.battler.stats.health = battler.stats.health
+			pm.battler.stats.mana = battler.stats.mana
+		else:
+			pm.battler.stats.health = 1
+
 	return leveled_up
 
 
