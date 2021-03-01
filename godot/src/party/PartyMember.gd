@@ -76,7 +76,3 @@ func load(save_game: Resource):
 	stats.health = data['health']
 	stats.mana = data['mana']
 
-
-# Stat interface functions
-func get_strength():
-	return stats.strength

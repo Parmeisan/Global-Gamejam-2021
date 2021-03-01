@@ -21,5 +21,5 @@ func _init(actor) -> void:
 func add_flat_bonus(additional_damage: int = 0):
 	damage += additional_damage
 	
-func multiply_bonus(multiplier: int = 1):
+func multiply_bonus(multiplier: float = 1.0):
 	damage *= multiplier

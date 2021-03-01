@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lollislash.png-112482d7a81ba838fc95b5c2bbb2264d.stex"
+path="res://.import/wreath.png-ce31d7d20af9146ea78b90970488229e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/icons/lollislash.png"
-dest_files=[ "res://.import/lollislash.png-112482d7a81ba838fc95b5c2bbb2264d.stex" ]
+source_file="res://assets/sprites/abilities/wreath.png"
+dest_files=[ "res://.import/wreath.png-ce31d7d20af9146ea78b90970488229e.stex" ]
 
 [params]
 

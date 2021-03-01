@@ -32,7 +32,7 @@ func start_combat(battlers, arena):
 				add_effect(b, effect_templates[e].uid)
 
 # and may be added at any time during a turn
-func add_effect(b : Battler, uid : String):
+func add_effect(b : Battler, uid : String, attacker : Battler = null):
 	assert(effect_templates.has(uid))
 	var effect = effect_templates[uid]
 	active_effects[b].append(effect)
@@ -45,6 +45,8 @@ func add_effect(b : Battler, uid : String):
 		var stats = create_multiplier()
 		stats = update_stats(stats, effect.multiplier)
 		b.add_effect(b.stat_multipliers, uid, stats)
+	if effect.has("dot"):
+		b.add_effect(b.ongoing_damage, uid, attacker)
 	b.add_effect(b.effect_icons, uid, effect)
 	if effect.has("ai"):
 		b.temporary_ai(effect.ai)
@@ -73,6 +75,18 @@ func remove_effect(b : Battler, uid : String):
 	if effect_templates[uid].has("ai"):
 		b.reset_ai(arena.get_node("CombatInterface"))
 	active_effects[b].erase(uid)
+	
+# some effects go off before the turn begins
+func turn_started(b):
+	for effect in active_effects[b]:
+		if effect.has("dot"):
+			var ongoing = b.ongoing_damage[effect.uid]
+			#var attacker = ongoing.duplicate()
+			#attacker.stats.strength *= effect.dot # Multiplier for this damage
+			var hit = Hit.new(ongoing)#attacker)
+			hit.multiply_bonus(effect.dot)
+			b.take_damage(null, hit)
+
 
 func end_combat(battlers):
 	for b in battlers:

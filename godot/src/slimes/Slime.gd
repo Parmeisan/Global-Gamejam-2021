@@ -75,8 +75,7 @@ func update_skills():
 		var action : CombatAction = sk.instance()
 		skill_node.add_child(action)
 	# Abilities by tier
-	var dict = Data.getDict("src/combat/battlers/AbilityConfig.json")
-	for a in TierAbility.get_slime_abilities(dict, battler):
+	for a in TierAbility.get_slime_abilities(battler):
 	#var red_tier = ability_tiers[ABILITIES.RED]
 	#for a in range(red_tier):
 		var action : TierAbility

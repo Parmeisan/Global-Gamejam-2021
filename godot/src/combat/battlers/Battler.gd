@@ -94,6 +94,7 @@ const VARS = [ "health", "defense", "strength", "speed", "mana",
 	"crit_chance", "crit_dmg", "miss_chance", "dodge_chance" ]
 var stat_modifiers = {}
 var stat_multipliers = {}
+var ongoing_damage = {}
 var effect_icons = {}
 
 signal effects_changed()
@@ -167,7 +168,8 @@ func heal(amount: int):
 
 func take_damage(skill, hit):
 	if Data.roll_100() <= get_dodge_chance():
-		skill.emit_signal("missed", "Miss!")
+		if skill:
+			skill.emit_signal("missed", "Miss!")
 	else:
 		var att = hit.damage
 		var def = get_defense()

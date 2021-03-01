@@ -128,6 +128,7 @@ func play_turn():
 		battle_end()
 		return
 
+	status_manager.turn_started(battler)
 	action = yield(battler.ai.choose_action(battler, opponents), "completed")
 	if not action.is_possible():
 		print("not possible")

@@ -16,4 +16,5 @@ func _on_effects_changed(effects) -> void:
 	for e in effects:
 		if effects[e].has("icon"):
 			eff.get_node("Icon").texture = Data.getTexture(ICON_PATH, effects[e].icon, "")
+			eff.hint_tooltip = effects[e].label
 			grid.add_child(eff)
