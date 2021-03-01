@@ -11,7 +11,7 @@ export var pawn_anim_path: NodePath
 export var growth: Resource
 
 export var experience: int setget _set_experience
-var stats: Resource
+#var stats: Resource
 
 onready var battler: Battler = $Battler
 onready var SAVE_KEY: String = "party_member_" + name
@@ -24,8 +24,7 @@ func _ready():
 func initialize_pm():
 	assert(pawn_anim_path)
 	assert(growth)
-	stats = growth.create_stats(experience)
-	battler.stats = stats
+	battler.stats = growth.create_stats(experience)
 	battler.parent = self.get_instance_id()
 
 
@@ -35,9 +34,8 @@ func update_stats(before_stats: CharacterStats):
 	var before_level = before_stats.level
 	var after_level = growth.get_level(experience)
 	if before_level != after_level:
-		stats = growth.create_stats(experience)
+		battler.stats = growth.create_stats(experience)
 		emit_signal("level_changed", after_level, before_level)
-	battler.stats = stats
 
 
 func get_battler_copy(game): #used in child function
@@ -58,21 +56,21 @@ func _set_experience(value: int):
 	if value == null:
 		return
 	experience = max(0, value)
-	if stats:
-		update_stats(stats)
+	if battler.stats:
+		update_stats(battler.stats)
 
 
 func save(save_game: Resource):
 	save_game.data[SAVE_KEY] = {
 		'experience': experience,
-		'health': stats.health,
-		'mana': stats.mana,
+		'health': battler.stats.health,
+		'mana': battler.stats.mana,
 	}
 
 
 func load(save_game: Resource):
 	var data: Dictionary = save_game.data[SAVE_KEY]
 	experience = data['experience']
-	stats.health = data['health']
-	stats.mana = data['mana']
+	battler.stats.health = data['health']
+	battler.stats.mana = data['mana']
 

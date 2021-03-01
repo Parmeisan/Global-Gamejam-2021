@@ -123,5 +123,25 @@
 		"duration": 4,
 		"ai": "RandomAI",
 		"label": "Enraged"
+	},
+	{
+		"uid": "TERMOR",
+		"type": "ability",
+		"name": "Tremor",
+		"icon": "quake.png",
+		"user_text": "Selected enemy has attack and defense reduced by 25%",
+		"ability": { "Blue1": 1, "Blue2": 1, "Blue3": 1, "Blue4": 1, "Blue5": 1 },
+		"attack": "no",
+		"num_targets": 1,
+		"target_effect": "SHAKEN",
+		"mp_cost": 2
+	},
+	{
+		"uid": "SHAKEN",
+		"type": "effect",
+		"icon": "shaken.png",
+		"multiplier": { "strength": 0.75, "defense": 0.75 },
+		"duration": 4,
+		"label": "Shaken"
 	}
 ]

@@ -28,10 +28,10 @@ func is_possible():
 func execute(targets):
 	assert(initialized)
 	return do_attack(self, actor, targets, action)
-	
+
+
 static func do_attack(source, actor, targets, action):
 	var arena = Util.getParent(source, "CombatArena")
-	
 	if actor.party_member and not targets:
 		return false
 

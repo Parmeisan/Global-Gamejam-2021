@@ -13,15 +13,15 @@ var level: int
 var health: int
 var mana: int
 # If adding a stat, look at StatusManager and Battler too!
-export var max_health: int = 1
-export var defense: int = 1
-export var strength: int = 1
-export var speed: int = 1
-export var max_mana: int = 0
-export var crit_chance: int = 0
-export var crit_dmg: int = 0
-export var miss_chance: int = 0
-export var dodge_chance: int = 0
+export var max_health: float = 1 # These are float so that multiplier stats can be like 0.75
+export var defense: float = 1
+export var strength: float = 1
+export var speed: float = 1
+export var max_mana: float = 0
+export var crit_chance: float = 0
+export var crit_dmg: float = 0
+export var miss_chance: float = 0
+export var dodge_chance: float = 0
 var is_alive: bool = true
 
 func reset():

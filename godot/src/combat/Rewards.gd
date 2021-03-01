@@ -46,7 +46,7 @@ func _reward_to_battlers() -> Array:
 		var pm = instance_from_id(battler.parent)
 		pm.battler.stats.health = battler.stats.health
 		# And also keep track of who survives
-		if battler.stats.is_alive:
+		if battler._is_alive():
 			var level = battler.stats.level
 			pm.experience += exp_per_survivor
 			pm.update_stats(battler.stats)

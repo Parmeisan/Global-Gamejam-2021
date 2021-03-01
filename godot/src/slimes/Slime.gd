@@ -107,18 +107,21 @@ func is_in_party():
 
 func get_battler_copy(game):
 	# Used for the turn order.  So here is where we add the artifact stats
+	var hp = battler.stats.health
+	var mp = battler.stats.mana
 	var b = clone(game).battler
+	b.stats.health = hp
+	b.stats.mana = mp
 	if is_evolved():
 		b.stats.max_health += equipped_artifact.stats.max_health
 		b.stats.max_mana += equipped_artifact.stats.max_mana
-		b.stats.health += equipped_artifact.stats.max_health # FIXME
-		b.stats.mana += equipped_artifact.stats.max_mana
 		b.stats.strength += equipped_artifact.stats.strength
 		b.stats.defense += equipped_artifact.stats.defense
 		b.stats.speed += equipped_artifact.stats.speed
 	return b
 
 func clone(game):
+	var st = battler.stats
 	var result = get_script().new(colour)#game.create_slime(colour)
 	for a in range(0, ABILITIES.size()):
 		result.ability_tiers[a] = ability_tiers[a]
@@ -126,8 +129,10 @@ func clone(game):
 	result.party_slot = party_slot
 	result.equipped_artifact = equipped_artifact
 	result.experience = experience
-	result.stats = growth.create_stats(result.experience)
+	result.battler.stats = st.duplicate() # before, so it does PM init
 	result.update_visuals(result.colour)
+	result.battler.stats.health = st.health # and after, since that updates stats
+	result.battler.stats.mana = st.mana
 	result.update_skills()
 	result.battler.parent = battler.parent
 	#TODO
@@ -154,7 +159,7 @@ func merge(game, s : Slime):
 	result.update_visuals(result.get_colour_from_abilities())
 	result.battler.display_name = battler.display_name # battler just got cleared
 	result.experience = experience + s.experience
-	result.stats = growth.create_stats(result.experience)
+	result.battler.stats = growth.create_stats(result.experience)
 	var slot = party_slot
 	if slot == -1 or (s.party_slot >= 0 and s.party_slot < slot):
 		slot = s.party_slot
@@ -200,10 +205,3 @@ func get_colour_from_abilities():
 			return s
 	return -1
 	
-
-# Stat interface functions - often these are taken from the Battler though, see get_battler_copy()
-func get_strength():
-	var result = stats.strength
-	if is_evolved():
-		result += equipped_artifact.stats.strength
-	return result

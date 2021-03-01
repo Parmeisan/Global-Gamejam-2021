@@ -34,7 +34,7 @@ func start_combat(battlers, arena):
 # and may be added at any time during a turn
 func add_effect(b : Battler, uid : String, attacker : Battler = null):
 	assert(effect_templates.has(uid))
-	var effect = effect_templates[uid]
+	var effect = effect_templates[uid].duplicate()
 	active_effects[b].append(effect)
 	# Alter stats
 	if effect.has("flat_modifier"):
