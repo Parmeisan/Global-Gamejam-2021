@@ -1,5 +1,17 @@
 [
 	{
+		"uid": "HEAL",
+		"class": "Sky",
+		"type": "ability",
+		"name": "Heal",
+		"icon": "heal.png",
+		"user_text": "",
+		"ability": { "Sky": 0 },
+		"target_hp": { "flat": 1, "mult": 0.1 },
+		"num_targets": 1,
+		"mp_cost": 2
+	},
+	{
 		"uid": "CRIT1",
 		"type": "passive",
 		"name": "Ferocious I",
@@ -125,7 +137,7 @@
 		"label": "Enraged"
 	},
 	{
-		"uid": "TERMOR",
+		"uid": "TREMOR",
 		"type": "ability",
 		"name": "Tremor",
 		"icon": "quake.png",

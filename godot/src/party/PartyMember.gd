@@ -56,7 +56,7 @@ func _set_experience(value: int):
 	if value == null:
 		return
 	experience = max(0, value)
-	if battler.stats:
+	if battler and battler.stats:
 		update_stats(battler.stats)
 
 

@@ -53,7 +53,8 @@ func _reward_to_battlers() -> Array:
 			pm.battler.stats.health = battler.stats.health
 			pm.battler.stats.mana = battler.stats.mana
 		else:
-			pm.battler.stats.health = 1
+			#if pm.get_class() != "Slime":
+			pm.battler.stats.ressurect()#.stats.health = 1
 
 	return leveled_up
 

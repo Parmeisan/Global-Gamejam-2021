@@ -16,6 +16,7 @@ signal died(battler)
 
 export var TARGET_OFFSET_DISTANCE: float = 120.0
 
+#var stats: CharacterStats
 export var stats: Resource
 onready var drops := $Drops
 onready var skin = $Skin
@@ -46,6 +47,7 @@ func _ready() -> void:
 
 func initialize():
 	skin.initialize()
+	#stats = load("res://src/combat/battlers/stats/DefaultStats.tres")
 	update_actions()
 	stats = stats.copy()
 	stats.connect("health_depleted", self, "_on_health_depleted")

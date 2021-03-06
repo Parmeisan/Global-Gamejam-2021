@@ -31,6 +31,9 @@ func start_combat(battlers, arena):
 			if has_passive(b, effect_templates[e]):
 				add_effect(b, effect_templates[e].uid)
 
+func has_passive(b : Battler, effect : Dictionary):
+	return TierAbility.has_ability("passive", b, effect)
+
 # and may be added at any time during a turn
 func add_effect(b : Battler, uid : String, attacker : Battler = null):
 	assert(effect_templates.has(uid))
@@ -93,59 +96,6 @@ func end_combat(battlers):
 		active_effects[b] = {}
 		b.stat_modifiers = {}
 		b.stat_multipliers = {}
-
-
-func has_passive(b : Battler, effect : Dictionary):
-	return has_record("passive", b, effect)
-	
-static func has_record(type : String, b : Battler, effect : Dictionary):
-	if not effect.type == type:
-		return false
-	var appl = effect.get(type)
-	# The passive is applicable if it appears anywhere in the definition of "applicable"
-	for pid in appl:
-		if pid == "level": # by level
-			if b.stats.level() >= appl[pid]:
-				return true
-		
-		var pm = instance_from_id(b.parent)
-		if pm and pm.get_class() == "Slime": # by contains colour and tier
-			var tier = int(pid.right(1))
-			var c_name = pid.substr(0, pid.length() - 1)
-			var c_idx = Data.COLOURS.find(c_name) 
-			if c_idx >= 0:
-				if pm.ability_tiers[c_idx] == tier:
-					return true
-			else:
-				print("Invalid colour/tier definition: ", pid)
-	return false
-
-#Name,Modified_Stat,Mod_Type,Modified_Value
-#Shaken,Strength,%Strength,75
-#Shaken,Defense,%Defense,75
-#Miss Turn
-#Alter AI
-#Take Damage (% of original hit)
-
-#func as_string():
-#	var string = ""
-#	for status in statuses_active.values():
-#		string += "%s.%s: %s" % [status['id'], status['name'], status['effect']]
-#	return string
-
-#var statuses_active = {}
-# Example status
-#const POISON = {
-#	'name': "Poison",
-#	'effect': {
-#		'periodic_damage': {
-#			'cycles': 5, 'stat': 'health', 'damage': 1,
-#		} } }
-#const INVINCIBLE = {
-#	'name': "Invincible",
-#	'effect': {'stat_modifier': {'add': {'defense': 1000, 'magic_defense': 1000}}}
-#}
-#
 
 func create_flat_modifier():
 	# A version of stats that modifies the character's actual stats

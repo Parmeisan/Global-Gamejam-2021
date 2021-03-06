@@ -32,7 +32,7 @@ func died():
 	update_mana(-mana) # Set this to 0 so that the mana bar disappears
 					   # Mana should be some fixed value on rez anyway (0? full? 10%?)
 
-func rezzed():
+func ressurect():
 	health = self.max_health * 0.10
 	mana = self.max_mana * 0.10
 
