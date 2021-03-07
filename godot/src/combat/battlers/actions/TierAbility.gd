@@ -13,7 +13,7 @@ func init(ability):
 		uses = ability.uses
 
 func is_possible():
-	if not action.mp_cost:
+	if not action.has("mp_cost"):
 		return true
 	return action.mp_cost <= actor.stats.mana
 
@@ -36,15 +36,23 @@ static func get_abilities(b : Battler, abil_type : String = "ability"):
 
 
 static func has_ability(type : String, b : Battler, effect : Dictionary):
+	var debug = false
+	if debug: print("checking %s %s" % [type, effect.uid])
 	if not effect.type == type:
 		return false
 	var pm = instance_from_id(b.parent)
-	if effect.has("class") and pm and effect.class != pm.get_class():
+	var matches_class = true
+	if pm and effect.has("class"):
+		if debug: print("my class: %s, skill class: %s" % [ pm.get_class(), effect.get("class")])
+		matches_class = (pm.get_class() == effect.get("class"))
+	if pm and matches_class:
+		if debug: print("matches so far")
 		var appl = effect.get(type)
 		# The ability is applicable if it appears anywhere in the definition of "applicable"
 		for pid in appl:
-			if pid == "level": # by level
+			if pid == "level" or pid == pm.get_class(): # by level
 				if b.stats.level >= appl[pid]:
+					if debug: print("matches level")
 					return true
 			
 			if pm.get_class() == "Slime": # by contains colour and tier
@@ -53,9 +61,10 @@ static func has_ability(type : String, b : Battler, effect : Dictionary):
 				var c_idx = Data.COLOURS.find(c_name) 
 				if c_idx >= 0:
 					if pm.ability_tiers[c_idx] == tier:
+						if debug: print("matches tier")
 						return true
 				else:
-					print("Invalid colour/tier definition: ", pid)
+					print("Invalid colour/tier definition for %s: %s" % [effect.uid, pid])
 	return false
 
 static func do_attack(source, actor, targets, action):
@@ -63,11 +72,13 @@ static func do_attack(source, actor, targets, action):
 	if actor.party_member and not targets:
 		return false
 
-	var passives = get_abilities(actor, "passive")#TEXT[TYPE.PASSIVE])
+	# Actor effects happen immediately
 	if action.has("mp_cost"):
 		actor.use_mana(action.mp_cost)
-	if action.has("actor_effect"):
-		arena.status_manager.add_effect(actor, action.actor_effect)
+	apply_effects("actor", arena, action, actor, actor)
+	update_health("actor", action, actor, actor)
+	#var passives = get_abilities(actor, "passive")#TEXT[TYPE.PASSIVE])
+	
 
 	var att = action.num_targets > 0
 	for target in targets:
@@ -76,16 +87,29 @@ static func do_attack(source, actor, targets, action):
 			if action.has("attack") and action.attack == "yes":
 				var hit = Hit.new(actor)
 				target.take_damage(source, hit)
-			apply_effects(arena, action, actor, target)
-			for passive in passives:
-				apply_effects(arena, passive, actor, target)
+		apply_effects("target", arena, action, actor, target)
+		update_health("target", action, actor, target)
+			#for passive in passives:
+			#	apply_effects(arena, passive, actor, target)
 			
 	yield(actor.get_tree().create_timer(1.0), "timeout") # THIS MUST ALWAYS HAPPEN
 	yield(actor.skin.return_to_start(), "completed") # Looks funny without this, too
 	
 	return true
 
-static func apply_effects(arena, action, actor, target):
-	if action.has("target_effect"):
-		arena.status_manager.add_effect(target, action.target_effect, actor)
+static func update_health(type, action, actor, target):
+	if action.has("%s_hp" % type):
+		var effects = action.get("%s_hp" % type)
+		var amount = 0
+		if effects.has("target_health"):
+			# I could call heal_fraction here, but then we see 2 numbers float by
+			amount += effects.target_health * target.get_max_health()
+		if effects.has("actor_health"):
+			amount += effects.actor_health * actor.get_max_health()
+		target.heal(amount)
+	
+
+static func apply_effects(type, arena, action, actor, target):
+	if action.has("%s_effect" % type):
+		arena.status_manager.add_effect(target, action.get("%s_effect" % type), actor)
 

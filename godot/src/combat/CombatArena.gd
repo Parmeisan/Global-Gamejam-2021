@@ -136,6 +136,8 @@ func play_turn():
 	
 	if action.num_targets > 0:
 		targets = yield(battler.ai.choose_target(battler, action, opponents), "completed")
+	elif action.num_targets < 0: # this means choose allies
+		targets = yield(battler.ai.choose_target(battler, action, get_allies()), "completed")
 	else:
 		targets = opponents
 	battler.selected = false
@@ -156,6 +158,12 @@ func get_targets() -> Array:
 		return turn_queue.get_monsters()
 	else:
 		return turn_queue.get_party()
+
+func get_allies() -> Array:
+	if get_active_battler().party_member:
+		return turn_queue.get_party()
+	else:
+		return turn_queue.get_monsters()
 
 
 func capture_reward():

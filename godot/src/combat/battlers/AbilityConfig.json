@@ -5,11 +5,33 @@
 		"type": "ability",
 		"name": "Heal",
 		"icon": "heal.png",
-		"user_text": "",
+		"user_text": "Heals an ally for 20% of their max health plus 10% of yours",
 		"ability": { "Sky": 0 },
-		"target_hp": { "flat": 1, "mult": 0.1 },
-		"num_targets": 1,
+		"attack": "no",
+		"target_hp": { "target_health": 0.2, "actor_health": 0.1 },
+		"num_targets": -1,
+		"mp_cost": 1
+	},
+	{
+		"uid": "BOOST",
+		"class": "Sky",
+		"type": "ability",
+		"name": "Encourage",
+		"icon": "encourage.png",
+		"user_text": "Moderately boosts an ally's strength, speed, and defense for 2 turns",
+		"ability": { "Sky": 2 },
+		"attack": "no",
+		"num_targets": -1,
+		"target_effect": "BOOSTED",
 		"mp_cost": 2
+	},
+	{
+		"uid": "BOOSTED",
+		"type": "effect",
+		"icon": "boosted.png",
+		"multiplier": { "strength": 1.1, "defense": 1.1, "speed": 1.1 },
+		"duration": 2,
+		"label": "Encouraged"
 	},
 	{
 		"uid": "CRIT1",
@@ -135,6 +157,25 @@
 		"duration": 4,
 		"ai": "RandomAI",
 		"label": "Enraged"
+	},
+	{
+		"uid": "ERUPT",
+		"type": "ability",
+		"name": "Eruption",
+		"icon": "explode.png",
+		"user_text": "Lose 10% HP but attack at 300% strength",
+		"ability": { "Red5": 1 },
+		"num_targets": 1,
+		"attack": "yes",
+		"actor_hp": { "actor_health": -0.1 },
+		"actor_effect": "ERUPT_EFFECT",
+		"mp_cost": 5
+	},
+	{
+		"uid": "ERUPT_EFFECT",
+		"type": "effect",
+		"multiplier": { "strength": 3.0 },
+		"duration": 1
 	},
 	{
 		"uid": "TREMOR",

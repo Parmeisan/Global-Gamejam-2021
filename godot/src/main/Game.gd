@@ -283,6 +283,7 @@ func _on_MonsterCollection_monster_collection_menu_summoned():
 
 func _on_toggle_encounters():
 	Data.encounters_on = !Data.encounters_on
+	print("Random encounters are ", "on" if Data.encounters_on else "off")
 
 func _process(_delta):
 	if(Input.is_action_just_released("ui_quicksave")):
