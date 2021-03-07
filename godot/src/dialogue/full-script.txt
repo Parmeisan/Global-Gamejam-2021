@@ -15,7 +15,6 @@ POI-Artifact1
 [Interacting with the sticking-out fang where the Fang artifact is hidden]
 (There's a weird thing under here!)
 (I can't get it loose, but I feel strangely... content now.  Did it do something?)
-+ARTIFACT0
 
 ??????????
 MC: Whoa!

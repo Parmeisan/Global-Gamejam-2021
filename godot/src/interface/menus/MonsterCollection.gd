@@ -93,7 +93,7 @@ func is_artifact(id):
 func _ready():
 	game = Util.getParent(self, "Game")
 	# FOR TESTING!
-	add_slime(game.create_slime(0))
+	#add_slime(game.create_slime(0))
 	#add_slime(game.create_slime(0))
 	#add_slime(game.create_slime(1))
 	#add_slime(game.create_slime(2))
