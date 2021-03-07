@@ -93,10 +93,10 @@ func is_artifact(id):
 func _ready():
 	game = Util.getParent(self, "Game")
 	# FOR TESTING!
-	add_slime(game.create_slime(0))
-	add_slime(game.create_slime(0))
-	add_slime(game.create_slime(1))
-	add_slime(game.create_slime(2))
+	#add_slime(game.create_slime(0))
+	#add_slime(game.create_slime(0))
+	#add_slime(game.create_slime(1))
+	#add_slime(game.create_slime(2))
 
 func _process(_delta):
 	if(Input.is_action_just_released("ui_select")):
@@ -289,7 +289,13 @@ func checkMergePossible():
 	var s2 = selected_2ND
 	if s1 == NONE or s2 == NONE:
 		return false
-	return is_slime(s1) and is_slime(s2)
+	if not is_slime(s1) or not is_slime(s2):
+		return false
+	s1 = get_slime_by_id(s1)
+	s2 = get_slime_by_id(s2)
+	if not s1.merge(game, s2):
+		return false
+	return true
 	
 	
 func checkPartyPossible():

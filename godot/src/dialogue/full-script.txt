@@ -9,14 +9,12 @@ S3 - Scale Monster -
 
 POI-Exit
 [Overworld dialogue when you try to leave out the back door]
-(No way, I can’t chicken out! Usir will lord it over me for years.)
+(No way, I can't chicken out! Usir will lord it over me for years.)
 
 POI-Artifact1
 [Interacting with the sticking-out fang where the Fang artifact is hidden]
-(Hey, this machine's busted. Maybe there's something I can get...)
-(There's this weird thing under here!)
-+ARTIFACT0
-(Wonder what I can do with this... Hey, the slime is looking at it like it wants it!)
+(There's a weird thing under here!)
+(I can't get it loose, but I feel strangely... content now.  Did it do something?)
 
 ??????????
 MC: Whoa!

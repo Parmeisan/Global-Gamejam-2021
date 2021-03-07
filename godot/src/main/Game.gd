@@ -84,6 +84,12 @@ func verify_save():
 func switch_maps(new_map):
 	local_map = new_map
 	local_map.connect("enemies_encountered", self, "enter_battle")
+
+func heal_all():
+	for m in party.get_active_members():
+		m.battler.stats.reset()#heal_fraction(1)
+	for s in monster_list.get_party_list():
+		s.battler.stats.reset()#heal_fraction(1)
 	
 
 var introTimer

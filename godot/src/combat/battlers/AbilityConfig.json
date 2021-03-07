@@ -73,7 +73,7 @@
 		"attack": "yes",
 		"num_targets": 1,
 		"actor_effect": "WILDEFF",
-		"mp_cost": 2
+		"mp_cost": 1
 	},
 	{
 		"uid": "WILDEFF",

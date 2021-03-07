@@ -20,7 +20,7 @@ enum ABILITIES { RED=0, BLUE, YELLOW }
 enum COLOURS { RED=0, BLUE, YELLOW, PURPLE, ORANGE, GREEN }
 enum ARTIFACTS { FANG=0, EYE, SCALE }
 const artifact_names = [ "Fang", "Eye", "Scale" ]
-const NUM_TIERS = 4
+const NUM_TIERS = 5
 var battler_path = "assets/sprites/battlers/"
 var battler_ext = ".png"
 const growth_curve = preload("res://src/combat/battlers/jobs/SlimeJob.tres")
@@ -147,7 +147,7 @@ func merge(game, s : Slime):
 	var result = get_script().new(colour)
 	var colours = 0 # If you get to 3, this is invalid
 	for a in range(0, ABILITIES.size()):
-		result.ability_tiers[a] += s.ability_tiers[a]
+		result.ability_tiers[a] = ability_tiers[a] + s.ability_tiers[a]
 		if result.ability_tiers[a] > 1:
 			colours += 1
 		if result.ability_tiers[a] > NUM_TIERS: # Anything above max is invalid
