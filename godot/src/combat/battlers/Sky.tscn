@@ -5,7 +5,7 @@
 [ext_resource path="res://src/combat/battlers/stats/DefaultStats.tres" type="Resource" id=4]
 [ext_resource path="res://src/combat/battlers/Battler.gd" type="Script" id=5]
 [ext_resource path="res://assets/animations/appear.anim" type="Animation" id=6]
-[ext_resource path="res://src/combat/battlers/jobs/SkyJob.tres" type="Resource" id=7]
+[ext_resource path="res://src/combat/battlers/jobs/GodetteJob.tres" type="Resource" id=7]
 [ext_resource path="res://assets/sprites/battlers/sky_portrait_128.png" type="Texture" id=8]
 [ext_resource path="res://src/combat/battlers/ai/BattlerAI.gd" type="Script" id=10]
 [ext_resource path="res://src/combat/battlers/actions/BattlerActions.gd" type="Script" id=11]
@@ -15,7 +15,7 @@
 [ext_resource path="res://src/combat/battlers/skills/Skills.tscn" type="PackedScene" id=15]
 [ext_resource path="res://src/combat/battlers/BattlerSkin.gd" type="Script" id=16]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "blink"
 loop = true
 tracks/0/type = "value"
@@ -31,7 +31,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1.2, 1.2, 1.2, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 resource_name = "idle"
 length = 0.001
 tracks/0/type = "value"
@@ -68,8 +68,8 @@ script = ExtResource( 16 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Battler/Skin"]
 anims/appear = ExtResource( 6 )
-anims/blink = SubResource( 3 )
-anims/idle = SubResource( 4 )
+anims/blink = SubResource( 1 )
+anims/idle = SubResource( 2 )
 
 [node name="SkyAnim2" parent="Battler/Skin" instance=ExtResource( 2 )]
 

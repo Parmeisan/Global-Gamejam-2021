@@ -44,3 +44,16 @@ hint_tooltip = "Effect Name"
 texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Column" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Reqd to extend StatBar" type="Node" parent="Column"]
+
+[node name="TextureProgress" type="Node" parent="Column"]
+
+[node name="LifeLabel" type="Node" parent="Column"]

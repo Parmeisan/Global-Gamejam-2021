@@ -154,7 +154,7 @@ margin_left = 308.0
 margin_right = 480.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 172, 0 )
-columns = 4
+columns = 5
 
 [node name="Icons" type="VBoxContainer" parent="Background/Columns/Col1/Party/PartyMember/PartyContainer"]
 margin_left = 484.0

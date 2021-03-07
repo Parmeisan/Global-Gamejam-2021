@@ -1,5 +1,4 @@
 extends MapAction
-
 class_name MapTransition
 
 export var target_map: String
@@ -28,11 +27,18 @@ func interact():
 	
 	var gb = new_map.get_node("GameBoard")
 	var ysort = gb.get_node("Pawns")
+	# turn off auto-interaction, spawn party, turn back on
+	#toggleAuto(false) # nvm, doesn't help, will just place further away
 	ysort.spawn_party(gb, game_node.get_node("Party"))
+	#toggleAuto(true)
 	
 	
 	#ysort.rebuild_party()
 	emit_signal("finished")
+
+func toggleAuto(val : bool):
+	for p in get_tree().get_nodes_in_group("transition_point"):
+		p.AUTO_START_INTERACTION = val
 
 func get_class(): return "MapTransition"
 

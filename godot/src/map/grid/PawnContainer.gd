@@ -17,7 +17,6 @@ func spawn_party(game_board, party: Object) -> void:
 	self.party = party
 	var pawn_previous = null
 	var party_size = Util.getParent(self, "Game").party.get_child_count()
-	print(party_size)
 	party_size = min(party_size, party.PARTY_SIZE - 1)
 	for index in range(party_size):
 		pawn_previous = spawn_pawn(party.get_child(index), game_board, pawn_previous, index == 0)

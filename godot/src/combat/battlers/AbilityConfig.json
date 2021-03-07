@@ -5,10 +5,10 @@
 		"type": "ability",
 		"name": "Heal",
 		"icon": "heal.png",
-		"user_text": "Heals an ally for 20% of their max health plus 10% of yours",
+		"user_text": "Heals an ally for 20% of their max health plus 15% of yours",
 		"ability": { "Sky": 0 },
 		"attack": "no",
-		"target_hp": { "target_health": 0.2, "actor_health": 0.1 },
+		"target_hp": { "target_health": 0.2, "actor_health": 0.15 },
 		"num_targets": -1,
 		"mp_cost": 1
 	},

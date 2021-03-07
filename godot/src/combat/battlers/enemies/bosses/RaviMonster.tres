@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource( 1 )
-max_health = 1.0
-defense = 1.0
-strength = 1.0
-speed = 1.0
+max_health = 200.0
+defense = 25.0
+strength = 25.0
+speed = 25.0
 max_mana = 0.0
-crit_chance = 0.0
-crit_dmg = 0.0
+crit_chance = 10.0
+crit_dmg = 1.5
 miss_chance = 0.0
 dodge_chance = 0.0

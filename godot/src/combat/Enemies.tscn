@@ -10,47 +10,53 @@
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyDuo02.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyDuo01.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/combat/battlers/enemies/greys/GreyTrio01.tscn" type="PackedScene" id=10]
-[ext_resource path="res://src/combat/battlers/jobs/GreyJobSingle.tres" type="Resource" id=11]
+[ext_resource path="res://assets/sprites/battlers/Angery_Yellow_128.png" type="Texture" id=11]
 [ext_resource path="res://src/combat/battlers/enemies/bosses/RaviMonster.tscn" type="PackedScene" id=12]
 
 [node name="Enemies" type="Node2D"]
 
 [node name="GreyStance01" parent="." instance=ExtResource( 7 )]
 scale = Vector2( 0.9, 0.9 )
-stats = ExtResource( 11 )
+stats = null
 
 [node name="Drops" parent="GreyStance01" index="5"]
 experience = 4
 
 [node name="GreyStance02" parent="." instance=ExtResource( 5 )]
 scale = Vector2( 0.9, 0.9 )
+stats = null
 
 [node name="Drops" parent="GreyStance02" index="5"]
 experience = 4
 
 [node name="GreyStance03" parent="." instance=ExtResource( 6 )]
 scale = Vector2( 0.9, 0.9 )
+stats = null
 
 [node name="Drops" parent="GreyStance03" index="5"]
 experience = 4
 
 [node name="GreyDuo01" parent="." instance=ExtResource( 9 )]
+stats = null
 
 [node name="Drops" parent="GreyDuo01" index="5"]
 experience = 8
 
 [node name="GreyDuo02" parent="." instance=ExtResource( 8 )]
+stats = null
 
 [node name="Drops" parent="GreyDuo02" index="5"]
 experience = 8
 
 [node name="GreyTrio01" parent="." instance=ExtResource( 10 )]
+stats = null
 
 [node name="Drops" parent="GreyTrio01" index="5"]
 experience = 12
 
 [node name="AngryRedSlime" parent="." instance=ExtResource( 1 )]
 scale = Vector2( 0.9, 0.9 )
+stats = null
 
 [node name="Drops" parent="AngryRedSlime" index="5"]
 experience = 10
@@ -58,7 +64,6 @@ experience = 10
 [node name="AngryBlueSlime" parent="." instance=ExtResource( 2 )]
 scale = Vector2( 0.9, 0.9 )
 stats = null
-turn_order_icon = null
 
 [node name="Drops" parent="AngryBlueSlime" index="5"]
 experience = 10
@@ -66,6 +71,7 @@ experience = 10
 [node name="AngryYellowSlime" parent="." instance=ExtResource( 3 )]
 scale = Vector2( 0.9, 0.9 )
 script = ExtResource( 4 )
+turn_order_icon = ExtResource( 11 )
 
 [node name="Drops" parent="AngryYellowSlime" index="5"]
 experience = 10
