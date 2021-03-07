@@ -93,7 +93,7 @@ func is_artifact(id):
 func _ready():
 	game = Util.getParent(self, "Game")
 	# FOR TESTING!
-	#add_slime(game.create_slime(0))
+	add_slime(game.create_slime(0))
 	#add_slime(game.create_slime(0))
 	#add_slime(game.create_slime(1))
 	#add_slime(game.create_slime(2))
@@ -132,7 +132,8 @@ func reload():
 		var stats = t.get_node("Stats")
 		labelCell(stats, 0, s.get_name())
 		labelCell(stats, 1, "Level: %s, XP: %s" % [str(s.battler.get_level()), s.experience])
-		labelCell(stats, 2, "Strength: " + str(s.battler.get_strength()))
+		#labelCell(stats, 2, "Strength: " + str(s.battler.get_strength()))
+		labelCell(stats, 2, "HP: " + str(s.battler.stats.health))
 		displayAbilityTracks(t.get_node("Abilities"), s, true)
 		b.get_node("PartyContainer/Icons").visible = true
 		t.get_node("Image").rect_position.x = 0 # Overlap with favourite
@@ -180,7 +181,7 @@ func reload():
 			handleButton(b, s)
 			var t = b.get_node("Member")
 			labelCell(t, 0, s.get_name().substr(0, 8))
-			labelCell(t, 1, s.current_xp)
+			labelCell(t, 1, s.get_experience())
 			t.get_node("FavFavourite").visible = s.favourite
 			t.get_node("FavNormal").visible = !s.favourite
 			b.visible = true
@@ -245,6 +246,8 @@ func doAction(action : String):#btn : TextureRect):
 			#else
 			#	game.script_manager.load_and_run({})
 		"De-Party":
+			if s1.equipped_artifact:
+				s1.equipped_artifact.unassign()
 			s1.party_slot = NONE
 			reset()
 		"Unassign":
@@ -265,10 +268,6 @@ func ascend(s, a):
 	var slime = get_slime_by_id(selected_1ST)
 	var artifact = get_artifact_by_id(selected_2ND)
 	artifact.assign(slime)
-	slime.ascend(artifact)
-	#Data.setSlime(i, false)
-	#Data.setArtifact(i, false)
-	#Data.setMonster(i, true)
 	reset()
 
 func checkAscendPossible():
@@ -293,7 +292,7 @@ func checkMergePossible():
 		return false
 	s1 = get_slime_by_id(s1)
 	s2 = get_slime_by_id(s2)
-	if not s1.merge(game, s2):
+	if not s1.merge(game, s2, true):
 		return false
 	return true
 	

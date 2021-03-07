@@ -12,6 +12,7 @@ func _init(n):
 
 func assign(s):
 	slime = s
+	slime.ascend(self)
 
 func unassign():
 	if slime:

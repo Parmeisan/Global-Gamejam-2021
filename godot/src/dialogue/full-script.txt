@@ -1,4 +1,4 @@
-MC - Sky - 	
+MC - Sky -
 R - Ravi -
 D - Diana -
 U - Usir -
@@ -15,6 +15,7 @@ POI-Artifact1
 [Interacting with the sticking-out fang where the Fang artifact is hidden]
 (There's a weird thing under here!)
 (I can't get it loose, but I feel strangely... content now.  Did it do something?)
++ARTIFACT0
 
 ??????????
 MC: Whoa!
@@ -72,12 +73,20 @@ R: The same thing happened to Diana. She befriended one and it started smiling a
 R: And then the two of them went further into the factory to train.
 MC: That sounds like her. Always up for adventure, huh?
 R: And then she made me do it too, for protection just in case!
-MC: That’s not a bad thing. We worry about you.
+MC: That's not a bad thing. We worry about you.
 R: If you're going further in, you should take the artifact.
 R: I don't really want it anyway, I just want to go home...
 +ARTIFACT0
 
 ============ Area 2 ============
+
+FriendlyBlue
+MC: Hey buddy, what's up with this guy? Why is he blue?
+S0: {excited slime noises}
+MC: He's friendly? You want to make friends?
+S0: {content slime noises}
+MC: Alright buddy, sure. He can join us.
++SLIME1
 
 Diana-blue
 [Overworld dialogue when you talk to Diana]
@@ -94,12 +103,6 @@ D: ...yes.
 MC: Okay. Sure.
 D: I think there's some other stuff over on the other side of the room if you need more stuff, though.
 MC: I'll check there.
-
-FriendlyBlue
-[After you capture a slime here and add it to your inventory]
-MC: Good job, buddy!
-S1: {satisfied monster noises}
-(So not only can my monster fight the other slimes, there are more special ones I can befriend. That's pretty cool!)
 
 POI-Artifact2
 [Interacting with the pile of eyes where the Eye artifact is hidden]
@@ -174,3 +177,10 @@ MC: Yeah! Cool, huh?
 (I didn't know that day what was going on.)
 (Where the slimes and the artifacts came from, or how they could become monsters when combined.)
 (But what the lost civilization left behind... That day, we started to uncover it again.
+
+
+
+
+
+
+x

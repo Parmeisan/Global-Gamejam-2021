@@ -4,7 +4,6 @@ class_name Slime
 # Variables that need to be saved
 export(int, "Red", "Blue", "Yellow") onready var colour
 var ability_tiers = []
-var current_xp = 0
 var favourite : bool = false
 var party_slot : int = NONE
 var equipped_artifact : Artifact = null
@@ -30,7 +29,7 @@ func _ready():
 	pass
 
 func _init(c):
-	update_visuals(c)
+	update_battler(c)
 	_set_experience(1)
 	ability_tiers = []
 	for a in range(0, ABILITIES.size()):
@@ -49,7 +48,8 @@ func get_name():
 	else:
 		return battler.display_name
 
-func update_visuals(c):
+func update_battler(c):
+	var old_xp = experience
 	colour = c
 	var colour_text = Data.COLOURS[colour]
 	var new_slime_resource = "res://src/combat/battlers/enemies/AllyTemplate.tscn"
@@ -66,6 +66,8 @@ func update_visuals(c):
 	battler._ready()
 	battler.initialize()
 	battler.display_name = my_name
+	if old_xp > 0:
+		_set_experience(old_xp)
 	visible = true
 
 func update_skills():
@@ -128,7 +130,7 @@ func clone(game):
 	result.equipped_artifact = equipped_artifact
 	result.experience = experience
 	result.battler.stats = st.duplicate() # before, so it does PM init
-	result.update_visuals(result.colour)
+	result.update_battler(result.colour)
 	result.battler.stats.health = st.health # and after, since that updates stats
 	result.battler.stats.mana = st.mana
 	result.update_skills()
@@ -138,7 +140,7 @@ func clone(game):
 	#	merged_boosts[m] += s.stats[m]
 	return result
 
-func merge(game, s : Slime):
+func merge(game, s : Slime, testonly : bool = false):
 	# I used to start this function with a clone(), but since battler
 	# gets cleared out when the colour changes (we must instance a new
 	# e.g. OrangeSlime.tscn), forcing update of all variables kept there,
@@ -154,10 +156,22 @@ func merge(game, s : Slime):
 			return false
 	if colours > 2:
 		return false
-	result.update_visuals(result.get_colour_from_abilities())
+	# Save artifact, unequip, update battler, and re-equip
+	var eq
+	if equipped_artifact and not testonly:
+		eq = equipped_artifact
+		eq.unassign()
+	elif s.equipped_artifact and not testonly:
+		eq = s.equipped_artifact
+		eq.unassign()
+	# Battler & re-equip
+	result.update_battler(result.get_colour_from_abilities())
 	result.battler.display_name = battler.display_name # battler just got cleared
 	result.experience = experience + s.experience
 	result.battler.stats = growth.create_stats(result.experience)
+	if eq:
+		eq.assign(result)
+	# Place in the party
 	var slot = party_slot
 	if slot == -1 or (s.party_slot >= 0 and s.party_slot < slot):
 		slot = s.party_slot
@@ -165,11 +179,36 @@ func merge(game, s : Slime):
 	return result
 
 func ascend(a):
-	equipped_artifact = a
-	update_visuals(colour)
+	if not equipped_artifact:
+		# Calculate before resetting stats
+		equipped_artifact = a
+		var max_hp = battler.stats.max_health + equipped_artifact.stats.max_health
+		var max_mp = battler.stats.max_mana + equipped_artifact.stats.max_mana
+		var hp_ratio : float = battler.stats.health / battler.stats.max_health
+		var mp_ratio : float = battler.stats.mana / battler.stats.max_mana
+		# Reset from base & then fix
+		update_battler(colour)
+		battler.stats.max_health = max_hp
+		battler.stats.max_mana = max_mp
+		battler.stats.health = hp_ratio * max_hp
+		battler.stats.mana = mp_ratio * max_mp
 func descend():
-	equipped_artifact = null
-	update_visuals(colour)
+	if equipped_artifact:
+		var b = battler.stats #temp for debugging
+		# Calculate before resetting stats
+		var max_hp = battler.stats.max_health - equipped_artifact.stats.max_health
+		var max_mp = battler.stats.max_mana - equipped_artifact.stats.max_mana
+		var hp = battler.stats.health / battler.stats.max_health
+		var mp = battler.stats.mana / battler.stats.max_mana
+		equipped_artifact = null
+		# Reset from base & then fix
+		update_battler(colour)
+		battler.stats.max_health = max_hp
+		battler.stats.max_mana = max_mp
+		hp *= battler.stats.max_health
+		mp *= battler.stats.max_mana
+		battler.stats.health = round(max(hp, 1))
+		battler.stats.mana = round(max(mp, 0))
 
 func get_battle_anim():
 	var colour_text = Data.COLOURS[colour]

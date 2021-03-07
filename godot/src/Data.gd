@@ -178,8 +178,8 @@ func generate_slime_name():
 var combat_weights = []
 var grey_weights = [ 40, 40, 40, 10, 10, 10, 0, 0, 0 ]
 var locked_start = 6
-const DEBUG_MULTIPLIER = 200
-var locked_weights = [ 10, 20, 30 ]
+const DEBUG_MULTIPLIER = 1#200
+var locked_weights = [ 20, 30, 40 ]
 var combat_diffs = [ 1, 1, 1, 2, 2, 3, 2, 2, 2 ] # How much does it count toward the fight difficulty
 var combat_jobs = ["GreyJobSingle", "GreyJobSingle", "GreyJobSingle", "GreyJobDuo", "GreyJobDuo",
 	"GreyJobTrio", "SlimeJob", "SlimeJob", "SlimeJob" ]

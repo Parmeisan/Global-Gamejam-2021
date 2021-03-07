@@ -45,20 +45,20 @@ func copy() -> CharacterStats:
 	copy.mana = mana
 	return copy
 
-func update_health(amount : int):
+func update_health(amount : int, min_health : int = 0):
 	var old_health = health
 	health += amount
-	health = max(0, health)
+	health = max(min_health, health)
 	health = min(health, max_health)
 	if health != old_health:
 		emit_signal("health_changed", health, old_health)
 		if health == 0:
 			emit_signal("health_depleted")
 
-func update_mana(amount: int):
+func update_mana(amount: int, min_mana : int = 0):
 	var old_mana = mana
 	mana += amount
-	mana = max(0, mana)
+	mana = max(min_mana, mana)
 	mana = min(mana, max_mana)
 	if mana != old_mana:
 		emit_signal("mana_changed", mana, old_mana)

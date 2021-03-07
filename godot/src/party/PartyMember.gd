@@ -59,6 +59,8 @@ func _set_experience(value: int):
 	if battler and battler.stats:
 		update_stats(battler.stats)
 
+func get_experience():
+	return experience
 
 func save(save_game: Resource):
 	save_game.data[SAVE_KEY] = {

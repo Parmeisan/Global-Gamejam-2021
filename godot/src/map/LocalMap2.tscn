@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/map/LocalMap.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/battlers/Blue_Slime.png" type="Texture" id=2]
 [ext_resource path="res://assets/tilesets/grid/grid_tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://src/map/grid/GameBoard.gd" type="Script" id=4]
 [ext_resource path="res://src/map/grid/SpawningPoint.tscn" type="PackedScene" id=5]
@@ -70,6 +71,28 @@ visible = false
 position = Vector2( 0, -64 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 18 )
+
+[node name="FriendlyBlue" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
+position = Vector2( 1433.85, 665.885 )
+facing = {
+"down": true,
+"left": true,
+"right": true,
+"up": true
+}
+
+[node name="QuestBubble" parent="GameBoard/Pawns/FriendlyBlue" index="1"]
+visible = false
+
+[node name="Dialogue" parent="GameBoard/Pawns/FriendlyBlue/Actions" index="0" instance=ExtResource( 11 )]
+
+[node name="Disappear" type="Node" parent="GameBoard/Pawns/FriendlyBlue/Actions" index="1"]
+script = ExtResource( 10 )
+
+[node name="Sprite" type="Sprite" parent="GameBoard/Pawns/FriendlyBlue"]
+position = Vector2( 0, -64 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
 
 [node name="POI-Machine" parent="GameBoard/Pawns" instance=ExtResource( 8 )]
 position = Vector2( 1567.61, 157.704 )
@@ -174,6 +197,8 @@ layer = 100
 visible = false
 
 [editable path="GameBoard/Pawns/Diana-blue"]
+
+[editable path="GameBoard/Pawns/FriendlyBlue"]
 
 [editable path="GameBoard/Pawns/POI-Machine"]
 

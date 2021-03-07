@@ -4,9 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-max_health = 100
-max_mana = 5
-strength = 8
-defense = 3
-speed = 2
-flavour = "Red"
+max_health = 500
+max_mana = 0
+strength = 15
+defense = 30
+speed = 0

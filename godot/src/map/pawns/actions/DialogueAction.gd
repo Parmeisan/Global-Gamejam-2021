@@ -4,16 +4,19 @@ class_name DialogueAction
 export (String, FILE, "*.json") var dialogue_file_path: String
 signal dialogue_loaded(data)
 
-
+var interacting = false
 func interact() -> void:
 	var dialogue: Dictionary
-	if not Util.isnull(dialogue_file_path):
-		dialogue = load_dialogue(dialogue_file_path)
-	else:
-		#print("Attempting to parse full-script.txt")
-		dialogue = load_from_text()
-	
-	yield(local_map.play_dialogue(dialogue, get_base_object()), "completed")
+	if not interacting: # For some reason, LocapMap doesn't need this but LocalMap2 does
+		interacting = true
+		if not Util.isnull(dialogue_file_path):
+			dialogue = load_dialogue(dialogue_file_path)
+		else:
+			#print("Attempting to parse full-script.txt")
+			dialogue = load_from_text()
+		
+		yield(local_map.play_dialogue(dialogue, get_base_object()), "completed")
+		interacting = false
 	emit_signal("finished")
 
 
