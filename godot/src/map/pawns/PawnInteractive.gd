@@ -110,8 +110,8 @@ func start_interaction() -> void:
 	assert(todo != [])
 	for action in todo:
 		action.interact()
-		# FIXME Whyyy am I not getting the finished signal from Disappeared scripts?
-		if not action.get_class() in ["DisappearAction", "MapTransition"]:
+		# FIXME Whyyy am I not getting the finished signal from these scripts?
+		if not action.get_class() in ["DisappearAction", "MapTransition", "HealAction"]:
 			yield(action, "finished")
 	emit_signal("interaction_finished", self)
 	if vanish_on_interaction:

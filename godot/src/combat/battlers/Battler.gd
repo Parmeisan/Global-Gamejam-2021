@@ -16,6 +16,7 @@ signal died(battler)
 
 export var TARGET_OFFSET_DISTANCE: float = 120.0
 
+#var stats: CharacterStats
 export var stats: Resource
 onready var drops := $Drops
 onready var skin = $Skin
@@ -46,6 +47,7 @@ func _ready() -> void:
 
 func initialize():
 	skin.initialize()
+	#stats = load("res://src/combat/battlers/stats/DefaultStats.tres")
 	update_actions()
 	stats = stats.copy()
 	stats.connect("health_depleted", self, "_on_health_depleted")
@@ -90,7 +92,7 @@ func has_point(point: Vector2):
 # ======= Stat and status interface/setget functions ===========================
 enum STAT { MAX_HEALTH, DEFENSE, STRENGTH, SPEED, MAX_MANA,
 	CRIT_CHANCE, CRIT_DMG, MISS_CHANCE, DODGE_CHANCE }
-const VARS = [ "health", "defense", "strength", "speed", "mana",
+const VARS = [ "max_health", "defense", "strength", "speed", "max_mana",
 	"crit_chance", "crit_dmg", "miss_chance", "dodge_chance" ]
 var stat_modifiers = {}
 var stat_multipliers = {}
@@ -163,9 +165,6 @@ func _is_alive() -> bool:
 		return false
 	return stats.health > 0
 
-func heal(amount: int):
-	stats.update_health(amount)
-
 func take_damage(skill, hit):
 	if Data.roll_100() <= get_dodge_chance():
 		if skill:
@@ -183,6 +182,12 @@ func take_damage(skill, hit):
 	if _is_alive():
 		skin.play_stagger()
 
+func heal(amount: int):
+	stats.update_health(amount)
+func heal_fraction(fraction: float):
+	var hp = get_max_health()
+	heal(hp * fraction)
+	
 func use_mana(amount: int):
 	stats.update_mana(-amount)
 

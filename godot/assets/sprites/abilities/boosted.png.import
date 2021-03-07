@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/godette_portrait_256.png-05321e088e0867fcb2ebe27adcb2d002.stex"
+path="res://.import/boosted.png-4d89625d052f221aeee5cec2d07a0903.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battlers/godette_portrait_256.png"
-dest_files=[ "res://.import/godette_portrait_256.png-05321e088e0867fcb2ebe27adcb2d002.stex" ]
+source_file="res://assets/sprites/abilities/boosted.png"
+dest_files=[ "res://.import/boosted.png-4d89625d052f221aeee5cec2d07a0903.stex" ]
 
 [params]
 

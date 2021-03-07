@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bilboshot.png-fc18d6a1c411d833ca0f6b6114780d4e.stex"
+path="res://.import/encourage.png-74b996210962b813583daef430c6128a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/icons/bilboshot.png"
-dest_files=[ "res://.import/bilboshot.png-fc18d6a1c411d833ca0f6b6114780d4e.stex" ]
+source_file="res://assets/sprites/abilities/encourage.png"
+dest_files=[ "res://.import/encourage.png-74b996210962b813583daef430c6128a.stex" ]
 
 [params]
 
